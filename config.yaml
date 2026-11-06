@@ -1,0 +1,49 @@
+# ---------------------------------------------------------------------------
+# Internship finder settings. Edit and commit; the next scheduled run uses them.
+# ---------------------------------------------------------------------------
+
+# Words that make a job title count as an internship (case-insensitive, whole words).
+include_title_patterns:
+  - intern
+  - interns
+  - internship
+  - internships
+  - co-op
+  - coop
+  - summer analyst
+  - summer associate
+  - summer scholar
+  - student researcher
+  - industrial placement
+  - placement year
+  - apprentice
+
+# Titles containing any of these are skipped (staff roles that mention interns, etc.).
+exclude_title_patterns:
+  - program manager
+  - coordinator
+  - recruiter
+  - recruiting
+  - talent acquisition
+  - director
+  - postdoc
+  - medical intern
+  - pharmacy intern
+  - dietetic
+  - clinical
+  - nurse
+
+# Only post US / remote roles. Jobs whose location clearly names another country are
+# skipped; anything ambiguous is kept so nothing real gets dropped.
+us_only: true
+
+# Only post these kinds of roles. Options: tech, business, other.
+# "other" = internships that aren't clearly tech or business (e.g. HR, design, legal).
+post_categories: [tech, business, other]
+
+# Safety valve: at most this many posts per run. Extras wait for the next run.
+max_posts_per_run: 120
+
+# Include the community-maintained Simplify internship feed (covers Google, Meta,
+# Apple, Amazon, Microsoft, Tesla and others whose careers sites can't be scanned directly).
+use_simplify_feed: true

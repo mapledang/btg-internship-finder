@@ -1,0 +1,7 @@
+# Add companies by hand here, one per line:
+#   Company Name | <link to ANY job posting on their careers site>
+#
+# Supported systems: Workday (myworkdayjobs.com), Greenhouse, Lever, Ashby,
+# SmartRecruiters, Oracle Cloud (oraclecloud.com). The scanner works out the rest
+# from the link. Example:
+#   NVIDIA | https://nvidia.wd5.myworkdayjobs.com/en-US/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Some-Job_JR123

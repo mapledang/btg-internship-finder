@@ -1,0 +1,266 @@
+# Business-oriented companies for tools/discover.py to look up.
+# One per line. Companies already in data/companies.json are skipped automatically.
+# Optional: "Name | https://link" where the link is the careers page or any job posting;
+# that's the most reliable way to help discovery find a company.
+
+# Investment banks, trading & asset management
+Evercore
+Lazard
+Moelis & Company
+PJT Partners
+Centerview Partners
+Houlihan Lokey
+Jefferies
+Raymond James
+Piper Sandler
+William Blair
+Stifel
+Guggenheim Partners
+Perella Weinberg Partners
+Rothschild & Co
+UBS
+Deutsche Bank
+HSBC
+BNP Paribas
+Societe Generale
+Nomura
+Mizuho
+MUFG
+SMBC
+Macquarie
+RBC Capital Markets
+Truist
+U.S. Bank
+Citizens Financial Group
+KeyBank
+Fifth Third Bank
+Regions Bank
+M&T Bank
+Huntington Bank
+Ally Financial
+Synchrony
+Discover Financial
+Charles Schwab
+T. Rowe Price
+Invesco
+Franklin Templeton
+Nuveen
+PIMCO
+Wellington Management
+AllianceBernstein
+Northern Trust
+Blackstone
+KKR
+Apollo Global Management
+Carlyle Group
+TPG
+Bain Capital
+Warburg Pincus
+Ares Management
+Brookfield
+Citadel
+Jane Street
+Two Sigma
+D. E. Shaw
+Bridgewater Associates
+Millennium Management
+Point72
+AQR Capital Management
+Hudson River Trading
+Optiver
+IMC Trading
+Jump Trading
+Akuna Capital
+DRW
+Virtu Financial
+Nasdaq
+Intercontinental Exchange
+CME Group
+S&P Global
+Moody's
+MSCI
+Morningstar
+FactSet
+Bloomberg
+PayPal
+Block
+Intuit
+Fiserv
+Global Payments
+FIS
+
+# Consulting & accounting
+McKinsey & Company
+Boston Consulting Group
+Bain & Company
+Deloitte
+KPMG
+EY
+Grant Thornton
+RSM
+BDO
+Crowe
+Baker Tilly
+CohnReznick
+Oliver Wyman
+Kearney
+Alvarez & Marsal
+FTI Consulting
+Huron Consulting Group
+Guidehouse
+ZS Associates
+L.E.K. Consulting
+Capgemini
+Slalom
+West Monroe
+Protiviti
+Gartner
+Marsh McLennan
+Aon
+Willis Towers Watson
+Mercer
+
+# Consumer goods, food & beverage
+PepsiCo
+Unilever
+General Mills
+Kellanova
+Colgate-Palmolive
+Kimberly-Clark
+Clorox
+Church & Dwight
+Estee Lauder
+L'Oreal
+Hershey
+Mars
+Nestle
+Kraft Heinz
+Conagra Brands
+Campbell's
+Tyson Foods
+Hormel Foods
+J.M. Smucker
+Keurig Dr Pepper
+Constellation Brands
+Anheuser-Busch
+Molson Coors
+Diageo
+Altria
+Philip Morris International
+Johnson & Johnson
+Kenvue
+Haleon
+Reckitt
+Newell Brands
+Mattel
+Hasbro
+Adidas
+Lululemon
+Under Armour
+VF Corporation
+Ralph Lauren
+Tapestry
+PVH
+Levi Strauss
+
+# Retail & e-commerce
+Costco
+Kroger
+Albertsons
+Walgreens
+Best Buy
+Macy's
+Nordstrom
+Kohl's
+TJX Companies
+Ross Stores
+Dollar General
+Dollar Tree
+Gap Inc.
+Williams-Sonoma
+Wayfair
+eBay
+Etsy
+Chewy
+Ulta Beauty
+Sephora
+Dick's Sporting Goods
+AutoZone
+O'Reilly Auto Parts
+Tractor Supply
+Sherwin-Williams
+
+# Insurance & healthcare business
+MetLife
+Progressive
+Liberty Mutual
+State Farm
+Nationwide
+Travelers
+Chubb
+AIG
+USAA
+Northwestern Mutual
+New York Life
+MassMutual
+Principal Financial Group
+Lincoln Financial
+Aflac
+UnitedHealth Group
+Elevance Health
+Humana
+Centene
+McKesson
+Cardinal Health
+Cencora
+
+# Media, entertainment, hospitality & travel
+Paramount
+Warner Bros. Discovery
+NBCUniversal
+Fox Corporation
+Netflix
+Spotify
+Live Nation
+Electronic Arts
+Hilton
+Hyatt
+Marriott International
+Starbucks
+McDonald's
+Chipotle
+Yum! Brands
+Darden Restaurants
+Delta Air Lines
+United Airlines
+American Airlines
+Southwest Airlines
+Alaska Airlines
+Expedia Group
+Booking Holdings
+Royal Caribbean
+Uber
+Airbnb
+DoorDash
+
+# Industrial, energy, autos & logistics
+ExxonMobil
+Shell
+ConocoPhillips
+Duke Energy
+NextEra Energy
+FedEx
+C.H. Robinson
+Union Pacific
+Lockheed Martin
+Deere & Company
+Tesla
+Toyota
+Honda
+Stellantis
+Dow
+DuPont
+Eaton
+Parker Hannifin
+Illinois Tool Works
+Whirlpool

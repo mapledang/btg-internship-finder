@@ -1,0 +1,2 @@
+# Companies to skip, one name per line (matched loosely, case-insensitive).
+# Handy for removing universities, labs or anyone you don't care about.
