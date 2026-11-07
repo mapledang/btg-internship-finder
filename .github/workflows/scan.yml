@@ -2,7 +2,8 @@ name: Scan for internships
 
 on:
   schedule:
-    - cron: "17 */2 * * *"
+    - cron: "17 */2 * * *"     # scan every 2 hours (UTC)
+    - cron: "3 16,17 * * *"    # ~9:03 AM Pacific (16:03 UTC in summer, 17:03 UTC in winter) for the daily digest
   workflow_dispatch:
     inputs:
       mode:
