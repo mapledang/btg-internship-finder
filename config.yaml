@@ -15,6 +15,18 @@ include_title_patterns:
   - summer program
   - student researcher
   - apprentice
+  # freshman / sophomore programs (often not called "internships")
+  - sophomore
+  - sophomores
+  - freshman
+  - freshmen
+  - early insight
+  - early insights
+  - insight program
+  - insight week
+  - discovery program
+  - explore program
+  - spring week
 
 # Titles containing any of these are skipped. Includes MBA / grad-school roles,
 # since this channel is for undergrads.
@@ -59,25 +71,41 @@ target_grad_years: [2027, 2028, 2029]
 # summer dates are skipped. Set to true to include them (each post is labeled).
 include_off_season: false
 
-# Kinds of roles to post. Remove any you don't want.
-post_categories:
-  - consulting      # consulting, strategy, corp dev
-  - product         # product management, product ops
-  - finance         # banking, investing, accounting, quant, risk
-  - marketing
-  - business        # operations, sales, supply chain, general business
-  - data_it         # data / business analyst, analytics, IT
-  - engineering     # software, ML, hardware (only from the companies below)
-  - other
+# ---------------------------------------------------------------------------
+# Daily digest: new roles are collected all day (scans run every 2 hours) and posted
+# once a day as a roundup with up to `per_section` roles per section. Biggest companies
+# (Fortune 100 / big tech) and newest roles are picked first. Roles that don't make the
+# cut stay queued for the next day, for up to `keep_days`.
+digest:
+  time: "09:00"                    # first scan at/after this time posts the digest
+  timezone: America/Los_Angeles
+  per_section: 5
+  keep_days: 7
+  sections:
+    - name: "🧭 Product Management"
+      categories: [product]
+    - name: "🧠 Strategy & Consulting"
+      categories: [consulting]
+    - name: "📈 Finance, VC & Real Estate"
+      categories: [finance]
+    - name: "📊 Data & Analytics"
+      categories: [data]
+    - name: "📣 Marketing & Growth"
+      categories: [marketing]
+    - name: "🌱 Freshman & Sophomore Programs"
+      underclass: true             # programs for freshmen/sophomores, from any category
+
+# Role categories to look at. Each section above draws from these.
+# Others available: business (ops, sales, supply chain), it, engineering.
+post_categories: [product, consulting, finance, data, marketing]
 
 # These kinds of roles are only posted from tech companies (see data/company_tiers.yaml),
 # so business / strategy / product / consulting roles come from tech companies.
 # Finance and data/IT roles still come from any company. Empty list = no restriction.
-tech_companies_only_for: [consulting, product, marketing, business]
+tech_companies_only_for: [consulting, product, marketing]
 
-# Engineering roles (software, ML, hardware...) are only posted from these companies,
-# so the channel stays mostly business-focused. Add or remove names freely; leave the
-# list empty to drop engineering roles entirely.
+# Engineering roles (software, ML, hardware...) are only used from these companies,
+# and only if you add "engineering" to post_categories and a digest section.
 engineering_companies:
   - Google
   - Meta
@@ -117,7 +145,7 @@ engineering_companies:
 # skipped; anything ambiguous is kept so nothing real gets dropped.
 us_only: true
 
-# Safety valve: at most this many posts per run. Extras wait for the next run.
+# At most this many new roles are checked (descriptions read) per run. Extras wait for the next run.
 max_posts_per_run: 120
 
 # Include the community-maintained Simplify internship feed (covers Google, Meta,

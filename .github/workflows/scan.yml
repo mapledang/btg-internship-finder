@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "normal = real scan · test = post 5 current internships to check Slack (saves nothing)"
+        description: "normal = scan + daily digest when due · digest-now = scan + post digest now · test = sample digest (saves nothing)"
         type: choice
         default: normal
-        options: [normal, test]
+        options: [normal, digest-now, test]
 
 permissions:
   contents: write
@@ -35,7 +35,9 @@ jobs:
       - name: Scan job boards and post to Slack
         run: |
           if [ "${{ inputs.mode }}" = "test" ]; then
-            python scan.py --test-post 5
+            python scan.py --test-post 2
+          elif [ "${{ inputs.mode }}" = "digest-now" ]; then
+            python scan.py --digest-now
           else
             python scan.py
           fi

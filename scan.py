@@ -1,15 +1,16 @@
-"""Scan every company's job board, find new internships, post them to Slack.
+"""Scan company job boards for new internships, queue them by section, and post a daily digest.
 
-    python scan.py              # normal run (needs SLACK_WEBHOOK_URL)
-    python scan.py --dry-run    # print what would be posted, don't save anything
-    python scan.py --limit 50   # only scan the first 50 boards (for testing)
+    python scan.py                  # normal run: scan, queue new roles, post the digest if it's due
+    python scan.py --digest-now     # also post the digest right away
+    python scan.py --test-post 2    # post a sample digest (2 current roles per section); saves nothing
+    python scan.py --dry-run        # print instead of posting; saves nothing
+    python scan.py --limit 50       # only scan the first 50 boards (for testing)
 """
 from __future__ import annotations
 
 import argparse
 import collections
 import concurrent.futures as cf
-import json
 import os
 import re
 import sys
@@ -17,41 +18,19 @@ import time
 
 import yaml
 
+from finder import digest, slack
 from finder.companies import load_companies, load_manual
+from finder.details import enrich
 from finder.filters import Filter, classify
 from finder.sources import FETCHERS, STOP, board_key, fetch_simplify
 from finder.state import State, fingerprint
-from finder.details import enrich, season_label, grad_label
 from finder.tiers import tier
-from finder import slack
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 def log(msg):
     print(msg, flush=True)
-
-
-def enrich_and_check(items, flt, want=None):
-    """Fetch descriptions in parallel; return (items that pass, Counter of skip reasons).
-
-    Each item gets item["info"] (grad years, season...) and item["reject"] (reason or None).
-    If `want` is set, stop once that many items have passed (used by test mode).
-    """
-    STOP.clear()
-    keep, reasons = [], collections.Counter()
-    with cf.ThreadPoolExecutor(max_workers=12) as ex:
-        infos = ex.map(lambda it: enrich(it["job"]), items)
-        for it, info in zip(items, infos):
-            it["info"] = info
-            it["reject"] = flt.reject_reason(info, it["job"], "; ".join(it["locations"]))
-            if it["reject"]:
-                reasons[re.sub(r"\s*[\(\[].*?[\)\]]", "", it["reject"])] += 1
-            else:
-                keep.append(it)
-                if want and len(keep) >= want:
-                    break
-    return keep, reasons
 
 
 def fetch_board(b):
@@ -64,32 +43,32 @@ def fetch_board(b):
         return b, [], f"{type(e).__name__}: {str(e)[:120]}"
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--limit", type=int, default=0)
-    ap.add_argument("--workers", type=int, default=24)
-    ap.add_argument("--test-post", type=int, default=0, metavar="N",
-                    help="post N real current internships as a test; doesn't change saved state")
-    args = ap.parse_args()
+def enrich_and_check(items, flt, secs, want_per_section=None):
+    """Read descriptions in parallel, apply the undergrad / summer / US checks, assign sections.
 
-    with open(os.path.join(ROOT, "config.yaml")) as f:
-        cfg = yaml.safe_load(f) or {}
-    flt = Filter(cfg)
-    state = State()
-    boards = sorted(load_companies(), key=lambda b: tier(b["name"]))   # Fortune 100 / big tech first
-    if args.limit:
-        boards = boards[: args.limit]
-    if args.test_post and not args.limit:
-        # Test mode only needs a quick sample: one board in every ~15, so it finishes in a few minutes.
-        boards = boards[::15]
-        cfg["max_scan_minutes"] = min(float(cfg.get("max_scan_minutes", 15)), 4)
-    _, bad_manual = load_manual()
+    Returns (items that pass, Counter of skip reasons). Every item gets it["info"],
+    it["reject"] (reason or None) and it["section"].
+    """
+    STOP.clear()
+    keep, reasons, per = [], collections.Counter(), collections.Counter()
+    with cf.ThreadPoolExecutor(max_workers=12) as ex:
+        for it, info in zip(items, ex.map(lambda it: enrich(it["job"]), items)):
+            it["info"] = info
+            it["reject"] = flt.reject_reason(info, it["job"], "; ".join(it["locations"]))
+            it["section"] = None if it["reject"] else digest.section_for(it, secs)
+            if not it["reject"] and not it["section"]:
+                it["reject"] = "not in a digest section"
+            if it["reject"]:
+                reasons[re.sub(r"\s*[\(\[].*?[\)\]]", "", it["reject"])] += 1
+                continue
+            if want_per_section and per[it["section"]] >= want_per_section:
+                continue
+            per[it["section"]] += 1
+            keep.append(it)
+    return keep, reasons
 
-    if not args.dry_run and not os.environ.get("SLACK_WEBHOOK_URL") and not (
-            os.environ.get("SLACK_WEBHOOK_TECH") and os.environ.get("SLACK_WEBHOOK_BUSINESS")):
-        sys.exit("SLACK_WEBHOOK_URL is not set (add it as a GitHub Actions secret).")
 
+def scan_boards(boards, cfg, args, state):
     t0 = time.time()
     STOP.clear()
     results, failed, skipped = [], [], 0
@@ -126,10 +105,67 @@ def main():
     finally:
         STOP.set()                      # tell any still-running fetches to give up
         ex.shutdown(wait=True, cancel_futures=True)
-    fetch_secs = time.time() - t0
+    return results, failed, skipped, time.time() - t0
+
+
+def post_digest(picked, secs, title, args, extra=""):
+    """Post intro + one message per section. Returns entries that were posted."""
+    names = [s["name"] for s in secs]
+    hook = slack.webhook()
+    sent = []
+    for payload, entries in slack.digest_messages(picked, names, title, extra):
+        if args.dry_run:
+            log("\n" + payload["text"][:200])
+            for b in payload["blocks"]:
+                if b["type"] == "section":
+                    log("   " + b["text"]["text"].replace("\n", "\n   "))
+            sent += entries
+            continue
+        if slack.post(hook, payload):
+            sent += entries
+        time.sleep(1.1)   # Slack allows ~1 message/second per webhook
+    return sent
+
+
+def write_report(lines):
+    report = "\n".join(lines)
+    print(report)
+    if os.environ.get("GITHUB_STEP_SUMMARY"):
+        with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+            f.write(report + "\n")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--workers", type=int, default=24)
+    ap.add_argument("--digest-now", action="store_true", help="post the digest now, even if not due")
+    ap.add_argument("--test-post", type=int, default=0, metavar="N",
+                    help="post a sample digest with N current roles per section; saves nothing")
+    args = ap.parse_args()
+
+    with open(os.path.join(ROOT, "config.yaml")) as f:
+        cfg = yaml.safe_load(f) or {}
+    flt = Filter(cfg)
+    secs = digest.sections(cfg)
+    state = State()
+    boards = sorted(load_companies(), key=lambda b: tier(b["name"]))   # Fortune 100 / big tech first
+    if args.limit:
+        boards = boards[: args.limit]
+    if args.test_post and not args.limit:
+        # Test mode only needs a quick sample: one board in every ~15, so it finishes in a few minutes.
+        boards = boards[::15]
+        cfg["max_scan_minutes"] = min(float(cfg.get("max_scan_minutes", 15)), 4)
+    _, bad_manual = load_manual()
+
+    if not args.dry_run and not slack.webhook():
+        sys.exit("SLACK_WEBHOOK_URL is not set (add it as a GitHub Actions secret).")
+
+    results, failed, skipped, fetch_secs = scan_boards(boards, cfg, args, state)
 
     if args.test_post:
-        return test_post(args, results, failed, flt, fetch_secs, skipped)
+        return test_post(args, cfg, results, failed, skipped, flt, secs, fetch_secs)
 
     # ---- find new internships
     new = {}            # fingerprint -> item
@@ -144,7 +180,7 @@ def main():
                 continue
             fp = fingerprint(j.company, j.title)
             if not ready or state.fp_recent(fp):
-                state.mark(j.uid, fp)       # first scan of this board, or already posted elsewhere
+                state.mark(j.uid, fp)       # first scan of this board, or already queued/posted
                 seeded += 1
                 continue
             if fp in new:                   # same role at several locations / in several sources
@@ -164,48 +200,49 @@ def main():
     cap = int(cfg.get("max_posts_per_run", 120))
     to_check, waiting = items[:cap], items[cap:]
 
-    # ---- read descriptions: grad year, season, MBA/grad-only
-    to_post, rejected = enrich_and_check(to_check, flt)
+    # ---- read descriptions, then queue what passes
+    keep, rejected = enrich_and_check(to_check, flt, secs)
     for it in to_check:
-        if it.get("reject"):
-            for uid in it["uids"]:
-                state.mark(uid, it["fp"])   # don't re-check it next run
+        for uid in it["uids"]:
+            state.mark(uid, it["fp"])       # checked: never re-check or re-queue it
+    for it in keep:
+        state.queue.append(digest.make_entry(it, it["section"]))
+    queued = collections.Counter(it["section"] for it in keep)
 
-    # ---- post
-    posted = 0
-    by_hook = {}
-    for it in to_post:
-        by_hook.setdefault(slack.webhook_for(it["category"]) or "", []).append(it)
-    for hook, its in by_hook.items():
-        for payload, chunk in slack.build_messages(its):
-            if args.dry_run:
-                for it in chunk:
-                    j = it["job"]
-                    print(f"[{it['category']:11}] {j.company} — {j.title} — {'; '.join(it['locations'])[:50]}\n"
-                          f"              {season_label(it['info'])} · {grad_label(it['info'])} · {j.url}")
-                posted += len(chunk)
-                continue
-            if slack.post(hook, payload):
-                for it in chunk:
-                    for uid in it["uids"]:
-                        state.mark(uid, it["fp"])
-                posted += len(chunk)
-            time.sleep(1.1)   # Slack allows ~1 message/second per webhook
+    # ---- daily digest
+    digest_line = "not due yet"
+    if args.digest_now or digest.due(state, cfg):
+        picked, rest = digest.pick(state.queue, cfg)
+        n = sum(len(v) for v in picked.values())
+        if n:
+            sent = post_digest(picked, secs, digest.date_title(cfg), args)
+            sent_ids = {id(e) for e in sent}
+            unsent = [e for v in picked.values() for e in v if id(e) not in sent_ids]
+            state.queue = unsent + rest
+            digest_line = f"posted {len(sent)} roles"
+        else:
+            state.queue = rest
+            digest_line = "nothing queued, skipped"
+        state.last_digest = digest.today(cfg)
 
     if not args.dry_run:
         state.save()
 
     # ---- report
     stale = sorted(((k, n) for k, n in state.failures.items() if n >= 12), key=lambda x: -x[1])
+    in_queue = collections.Counter(e["section"] for e in state.queue)
     lines = [
         "## Internship scan",
         f"- Boards scanned: **{len(results)}** ok, **{len(failed)}** failed"
         + (f", **{skipped}** skipped (time limit)" if skipped else "") + f" ({fetch_secs:.0f}s)",
         f"- Internship listings matched: {matched}",
-        f"- New posted to Slack: **{posted}**" + (f" ({len(waiting)} queued for next run)" if waiting else ""),
+        f"- New roles queued for the digest: **{sum(queued.values())}**"
+        + (f" ({len(waiting)} more to check next run)" if waiting else ""),
         "- Skipped after reading descriptions: "
         + (", ".join(f"{n} {r}" for r, n in rejected.most_common()) if rejected else "none"),
         f"- Recorded silently (first scan of a board, or duplicate): {seeded}",
+        f"- Daily digest: {digest_line}",
+        "- Waiting in queue: " + (", ".join(f"{s}: {n}" for s, n in in_queue.items()) or "empty"),
     ]
     if bad_manual:
         lines.append("\n### Lines in companies_manual.txt that couldn't be read")
@@ -217,54 +254,39 @@ def main():
         lines.append("\n<details><summary>Failed this run</summary>\n")
         lines += [f"- {b['name']} (`{b['ats']}`): {e}" for b, e in failed[:200]]
         lines.append("\n</details>")
-    report = "\n".join(lines)
-    print(report)
-    if os.environ.get("GITHUB_STEP_SUMMARY"):
-        with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-            f.write(report + "\n")
+    write_report(lines)
 
 
-def test_post(args, results, failed, flt, fetch_secs, skipped=0):
-    """Post the N most recently posted internships (one per company) so you can see it working."""
-    candidates, companies = [], set()
+def test_post(args, cfg, results, failed, skipped, flt, secs, fetch_secs):
+    """Post a sample digest from currently open roles so you can see the format. Saves nothing."""
+    candidates, seen_fp = [], set()
     pool = [j for _, jobs in results for j in jobs if j.url and flt.accept(j)]
-    # newest first, but put company-board jobs (any kind of role) ahead of the tech-heavy Simplify feed
     pool.sort(key=lambda j: (tier(j.company), j.source == "simplify", -(j.posted or time.time())))
+    per_cat = collections.Counter()
     for j in pool:
-        if j.company in companies:
+        fp = fingerprint(j.company, j.title)
+        cat = classify(j)
+        if fp in seen_fp or per_cat[cat] >= args.test_post * 6:
             continue
-        companies.add(j.company)
-        candidates.append({"job": j, "category": classify(j), "uids": [j.uid], "fp": "",
+        seen_fp.add(fp)
+        per_cat[cat] += 1
+        candidates.append({"job": j, "category": cat, "uids": [j.uid], "fp": fp,
                            "locations": [j.location] if j.location else []})
-        if len(candidates) >= args.test_post * 8:
-            break
-    picked, _ = enrich_and_check(candidates, flt, want=args.test_post)
-    header = (f"🧪 *Test post from the internship finder.* It scanned {len(results)} job boards "
-              f"({len(failed)} failed) and matched {len(pool)} open internships. "
-              f"Here are {len(picked)} recent ones. Real alerts will only include newly released roles.")
-    sent = 0
-    by_hook = {}
-    for it in picked:
-        by_hook.setdefault(slack.webhook_for(it["category"]) or "", []).append(it)
-    for hook, its in by_hook.items():
-        for i, (payload, chunk) in enumerate(slack.build_messages(its, header=header)):
-            if args.dry_run:
-                print(json.dumps(payload, indent=1)[:3000])
-                sent += len(chunk)
-            elif slack.post(hook, payload):
-                sent += len(chunk)
-            time.sleep(1.1)
-    report = (f"## Test post\n- Boards scanned (sample): **{len(results)}** ok, **{len(failed)}** failed, "
-              f"{skipped} skipped ({fetch_secs:.0f}s)\n- Open internships matched: {len(pool)}\n"
-              f"- Test jobs sent to Slack: **{sent}** of {len(picked)}\n- Saved state: unchanged")
-    if failed:
-        report += "\n\n<details><summary>Failed boards</summary>\n\n" + "\n".join(
-            f"- {b['name']} (`{b['ats']}`): {e}" for b, e in failed[:200]) + "\n\n</details>"
-    print(report)
-    if os.environ.get("GITHUB_STEP_SUMMARY"):
-        with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-            f.write(report + "\n")
-    if not args.dry_run and picked and sent == 0:
+    keep, _ = enrich_and_check(candidates, flt, secs, want_per_section=args.test_post)
+    picked = collections.defaultdict(list)
+    for it in keep:
+        picked[it["section"]].append(digest.make_entry(it, it["section"]))
+    extra = ("🧪 _Test post: a sample from roles open right now. Real digests only include newly "
+             "released roles, up to " + str((cfg.get('digest') or {}).get('per_section', 5)) + " per section._")
+    sent = post_digest(picked, secs, digest.date_title(cfg), args, extra)
+    write_report([
+        "## Test digest",
+        f"- Boards scanned (sample): **{len(results)}** ok, **{len(failed)}** failed, {skipped} skipped ({fetch_secs:.0f}s)",
+        f"- Open internships matched: {len(pool)}",
+        f"- Sample roles sent to Slack: **{len(sent)}**",
+        "- Saved state: unchanged",
+    ])
+    if not args.dry_run and keep and not sent:
         sys.exit("Couldn't post to Slack. Check that the SLACK_WEBHOOK_URL secret is the full webhook URL.")
 
 

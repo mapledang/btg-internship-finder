@@ -14,7 +14,7 @@ sys.path.insert(0, ROOT)
 os.chdir(ROOT)
 
 import scan  # noqa: E402
-from finder import sources  # noqa: E402
+from finder import sources, digest  # noqa: E402
 from finder.state import State  # noqa: E402
 
 # ------------------------------------------------------------- fake Slack
@@ -24,7 +24,7 @@ received = []
 class Hook(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
         body = self.rfile.read(int(self.headers["Content-Length"]))
-        received.append((self.path, json.loads(body)))
+        received.append(json.loads(body))
         self.send_response(200)
         self.end_headers()
         self.wfile.write(b"ok")
@@ -35,54 +35,47 @@ class Hook(http.server.BaseHTTPRequestHandler):
 
 srv = http.server.HTTPServer(("127.0.0.1", 0), Hook)
 threading.Thread(target=srv.serve_forever, daemon=True).start()
-base = f"http://127.0.0.1:{srv.server_port}"
-os.environ["SLACK_WEBHOOK_URL"] = base + "/all"
-os.environ["SLACK_WEBHOOK_BUSINESS"] = base + "/business"
-scan.time.sleep = lambda s: None          # don't wait between Slack messages in tests
+os.environ["SLACK_WEBHOOK_URL"] = f"http://127.0.0.1:{srv.server_port}/all"
+scan.time.sleep = lambda s: None
 sources.time.sleep = lambda s: None
 
 # ------------------------------------------------------------- fake boards
 BOARDS = [
-    {"ats": "greenhouse", "slug": "acme", "name": "Acme"},
+    {"ats": "greenhouse", "slug": "acme", "name": "Acme"},             # startup board -> tech company
     {"ats": "lever", "slug": "leverco", "name": "LeverCo"},
-    {"ats": "ashby", "slug": "AshCo", "name": "AshCo"},
     {"ats": "smartrecruiters", "slug": "SRCorp", "name": "SR Corp"},
     {"ats": "workday", "host": "bigbank.wd5.myworkdayjobs.com", "tenant": "bigbank", "site": "External", "name": "BigBank"},
-    {"ats": "oracle", "host": "abcd.fa.us2.oraclecloud.com", "site": "CX_1", "name": "OraCorp"},
     {"ats": "greenhouse", "slug": "broken", "name": "Broken Inc"},
 ]
 WORLD = {"round": 1}
 
-
 GH_DESC = {
-    "3": "Undergraduate students graduating between December 2027 and June 2028. This 10-week Summer 2027 internship...",
     "5": "Candidates must be currently pursuing an MBA. Summer 2027.",
     "6": "Our Fall 2027 internship for students graduating in 2028.",
     "10": "This Summer 2027 role is based in our Toronto office.",
 }
 
 
+def gh(i, title, loc="New York, NY"):
+    return {"id": i, "title": title, "absolute_url": f"https://boards.greenhouse.io/acme/jobs/{i}",
+            "location": {"name": loc}, "first_published": f"2026-11-0{1 + i % 6}T09:00:00-05:00"}
+
+
 def gh_jobs():
-    jobs = [{"id": 1, "title": "Software Engineering Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/1",
-             "location": {"name": "New York, NY"}, "first_published": "2026-11-01T09:00:00-05:00"},
-            {"id": 2, "title": "Senior Software Engineer", "absolute_url": "https://x/2", "location": {"name": "NYC"}}]
+    jobs = [gh(1, "Product Manager Intern"), {"id": 2, "title": "Senior Software Engineer",
+                                              "absolute_url": "https://x/2", "location": {"name": "NYC"}}]
     if WORLD["round"] >= 2:
-        jobs.append({"id": 3, "title": "Marketing Intern - Summer 2027", "absolute_url": "https://boards.greenhouse.io/acme/jobs/3",
-                     "location": {"name": "Austin, TX"}, "first_published": "2026-11-06T09:00:00-05:00"})
-        jobs.append({"id": 4, "title": "Marketing Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/4",
-                     "location": {"name": "London, United Kingdom"}})   # non-US: should be dropped
-        jobs.append({"id": 5, "title": "Strategy Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/5",
-                     "location": {"name": "New York, NY"}})             # MBA-only per description
-        jobs.append({"id": 6, "title": "Finance Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/6",
-                     "location": {"name": "New York, NY"}})             # fall internship per description
-        jobs.append({"id": 7, "title": "MBA Summer Intern - Brand", "absolute_url": "https://boards.greenhouse.io/acme/jobs/7",
-                     "location": {"name": "New York, NY"}})             # MBA in title
-        jobs.append({"id": 9, "title": "Product Manager Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/9",
-                     "location": {"name": "Baku, Azerbaijan"}})          # outside the US
-        jobs.append({"id": 10, "title": "Product Analyst Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/10",
-                     "location": {"name": "Remote"}})                    # vague; description says Toronto -> skip
-        jobs.append({"id": 8, "title": "Software Engineering Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/8",
-                     "location": {"name": "New York, NY"}})             # engineering, Acme not on the list
+        jobs += [gh(20 + i, f"Product Manager Intern - Team {i}") for i in range(7)]   # 7 PM roles: cap is 5
+        jobs += [gh(3, "Growth Marketing Intern - Summer 2027", "Austin, TX"),
+                 gh(4, "Marketing Intern", "London, United Kingdom"),           # non-US
+                 gh(5, "Strategy Intern"),                                      # MBA-only description
+                 gh(6, "Finance Intern"),                                       # fall internship
+                 gh(7, "MBA Summer Intern - Brand"),                            # MBA in title
+                 gh(8, "Software Engineering Intern"),                          # engineering: not a section
+                 gh(9, "Product Manager Intern", "Baku, Azerbaijan"),           # non-US
+                 gh(10, "Product Analyst Intern", "Remote"),                    # description says Toronto
+                 gh(11, "Sophomore Explore Program - Business", "Seattle, WA"),  # underclass program
+                 gh(12, "Strategy & Operations Intern", "San Francisco, CA")]
     return {"jobs": jobs}
 
 
@@ -90,11 +83,12 @@ def wd_jobs(term, offset):
     posts = [{"title": "2027 Summer Analyst - Investment Banking", "externalPath": "/job/NY/Summer-Analyst_R1",
               "locationsText": "New York, NY"}]
     if WORLD["round"] >= 2:
-        posts += [{"title": "Technology Summer Intern", "externalPath": f"/job/{c}/Tech-Intern_R{n}", "locationsText": c}
-                  for n, c in [(2, "Charlotte, NC"), (3, "Dallas, TX")]]            # same role, 2 cities -> 1 post
+        posts += [{"title": "Data Analytics Summer Intern", "externalPath": f"/job/{c}/Data-Intern_R{n}", "locationsText": c}
+                  for n, c in [(2, "Charlotte, NC"), (3, "Dallas, TX")]]            # same role, 2 cities -> 1 entry
         posts += [{"title": f"Operations Intern {i}", "externalPath": f"/job/x/Ops_{i}", "locationsText": "Remote"}
-                  for i in range(25)]                                                # forces pagination
-    if term != "intern" and term != "summer":
+                  for i in range(25)]                                                # not a section category
+        posts += [{"title": "Real Estate Investment Intern", "externalPath": "/job/NY/RE_R9", "locationsText": "New York, NY"}]
+    if term not in ("intern", "summer"):
         return {"jobPostings": []}
     return {"jobPostings": posts[offset:offset + 20], "total": len(posts)}
 
@@ -105,21 +99,19 @@ def fake_get(url, **kw):
         if "/broken/" in url:
             raise sources.requests.HTTPError("404 Not Found")
         if "/jobs/" in url:
-            return {"content": "&lt;p&gt;" + GH_DESC.get(url.rsplit("/", 1)[1], "") + "&lt;/p&gt;"}
+            jid = url.rsplit("/", 1)[1]
+            return {"content": "&lt;p&gt;" + GH_DESC.get(jid, "Undergraduates graduating between December 2027 "
+                                                          "and June 2028. Summer 2027 internship.") + "&lt;/p&gt;"}
         return gh_jobs()
     if "lever.co" in url and url.rstrip("/").split("/")[-1] in ("a1", "a2"):
         return {"descriptionPlain": "Open to rising juniors and seniors pursuing a bachelor's degree.", "lists": []}
     if "lever.co" in url:
-        out = [{"id": "a1", "text": "Finance Intern", "hostedUrl": "https://jobs.lever.co/leverco/a1",
+        out = [{"id": "a1", "text": "Corporate Strategy Intern", "hostedUrl": "https://jobs.lever.co/leverco/a1",
                 "categories": {"location": "Chicago, IL"}, "createdAt": 1793900000000}]
         if WORLD["round"] >= 2:
-            out.append({"id": "a2", "text": "Business Operations Co-op (Summer 2027)", "hostedUrl": "https://jobs.lever.co/leverco/a2",
+            out.append({"id": "a2", "text": "Venture Capital Intern (Summer 2027)", "hostedUrl": "https://jobs.lever.co/leverco/a2",
                         "categories": {"location": "Boston, MA"}, "createdAt": 1793990000000})
         return out
-    if "ashbyhq" in url:
-        jobs = [{"id": "z1", "title": "Product Design Intern", "location": "San Francisco", "jobUrl": "https://jobs.ashbyhq.com/AshCo/z1", "isListed": True},
-                {"id": "z2", "title": "Hidden Intern", "location": "SF", "jobUrl": "https://x", "isListed": False}]
-        return {"jobs": jobs}
     if "smartrecruiters" in url and "/postings/" in url:
         return {"jobAd": {"sections": {"qualifications": {"text": "<p>Class of 2029 students.</p>"}}}}
     if "smartrecruiters" in url:
@@ -129,13 +121,8 @@ def fake_get(url, **kw):
             c.append({"id": "s2", "name": "Treasury Analyst Intern", "location": {"city": "Atlanta", "region": "GA", "country": "us"}})
         return {"content": c if p.get("offset", 0) == 0 else []}
     if "myworkdayjobs" in url and "/job/" in url:
-        return {"jobPostingInfo": {"jobDescription": "<p>Summer 2027 program for undergraduates.</p>"}}
-    if "oraclecloud" in url:
-        reqs = [{"Id": "900", "Title": "Treasury Intern", "PrimaryLocation": "Columbus, OH, United States",
-                 "PostedDate": "2026-11-02"}]
-        if WORLD["round"] >= 2:
-            reqs.append({"Id": "901", "Title": "IT Intern", "PrimaryLocation": "Toronto, ON, Canada"})  # dropped
-        return {"items": [{"requisitionList": reqs}]}
+        return {"jobPostingInfo": {"jobDescription": "<p>Summer 2027 program for undergraduates.</p>",
+                                   "location": "New York, NY"}}
     raise AssertionError("unexpected GET " + url)
 
 
@@ -145,7 +132,6 @@ def fake_post(url, payload, **kw):
 
 
 sources._get, sources._post = fake_get, fake_post
-
 simplify_file = sys.argv[1] if len(sys.argv) > 1 else None
 _simplify_rows = json.load(open(simplify_file)) if simplify_file else []
 
@@ -154,82 +140,99 @@ def fake_simplify():
     rows = [r for r in _simplify_rows if r.get("active")][:300]
     if WORLD["round"] >= 2:
         rows = rows + [
-            # same role Acme already has on Greenhouse -> must not be posted twice
-            {"company_name": "Acme", "title": "Marketing Intern - Summer 2027", "url": "https://simplify/acme",
-             "id": "dup1", "active": True, "locations": ["Austin, TX"], "category": "Software"},
+            {"company_name": "Acme", "title": "Growth Marketing Intern - Summer 2027", "url": "https://simplify/acme",
+             "id": "dup1", "active": True, "locations": ["Austin, TX"], "category": "Product"},       # duplicate
             {"company_name": "Google", "title": "Product Strategy Intern", "url": "https://careers.google.com/y",
              "id": "g2", "active": True, "locations": ["New York, NY"], "category": "Product",
-             "terms": ["Summer 2027"], "degrees": ["Master's", "PhD"]},
-            {"company_name": "Google", "title": "Student Researcher, 2027", "url": "https://careers.google.com/x",
-             "id": "g1", "active": True, "locations": ["Mountain View, CA"], "category": "AI/ML/Data",
+             "terms": ["Summer 2027"], "degrees": ["Master's", "PhD"]},                               # grad-only
+            {"company_name": "Google", "title": "Associate Product Manager Intern", "url": "https://careers.google.com/x",
+             "id": "g1", "active": True, "locations": ["Mountain View, CA"], "category": "Product",
              "terms": ["Summer 2027"], "date_posted": 1793990000},
         ]
-    out = []
-    for j in rows:
-        out.append(sources.Job("simplify", "simplify", j["company_name"], j["title"], j["url"], str(j["id"]),
-                               "; ".join(j.get("locations") or []), j.get("date_posted"), j.get("category", ""),
-                               j.get("terms") or [], j.get("degrees") or []))
-    return out
+    return [sources.Job("simplify", "simplify", j["company_name"], j["title"], j["url"], str(j["id"]),
+                        "; ".join(j.get("locations") or []), j.get("date_posted"), j.get("category", ""),
+                        j.get("terms") or [], j.get("degrees") or []) for j in rows]
 
 
 tmp = tempfile.mkdtemp()
-scan.State = lambda: State(os.path.join(tmp, "seen.json"))
+STATE = os.path.join(tmp, "seen.json")
+scan.State = lambda: State(STATE)
 scan.load_companies = lambda: BOARDS
 scan.fetch_simplify = fake_simplify
+DUE = {"v": False}
+digest.due = lambda state, cfg: DUE["v"]
 
 
-def run(r, extra=()):
+def run(r, *extra):
     WORLD["round"] = r
     received.clear()
     sys.argv = ["scan.py", *extra]
     scan.main()
-    titles = [b["text"]["text"] for _, p in received for b in p["blocks"] if b["type"] == "section"]
-    return titles, [path for path, _ in received]
+    sections = {}
+    for p in received:
+        blocks = p["blocks"]
+        if blocks[0]["type"] == "header":
+            sections[blocks[0]["text"]["text"]] = [b["text"]["text"] for b in blocks if b["type"] == "section"]
+    return received[:], sections
 
 
-print("\n========== RUN 1: first scan, should post nothing ==========")
-t, _ = run(1)
-assert t == [], t
+def queue():
+    return json.load(open(STATE))["queue"]
 
-print("\n========== RUN 2: new jobs appear ==========")
-t, paths = run(2)
-print("\nPOSTED:")
-for x in t:
-    print(" •", x.split("\n")[0])
-joined = "\n".join(t)
-# 1 GH marketing (startup board = tech) + 1 Lever biz ops (tech) + 1 SR treasury (finance: any company)
-# + 1 WD technology intern (data/IT: any company) + 1 Google. BigBank's 25 ops roles: not a tech company.
-assert len(t) == 5, len(t)
-assert "Operations Intern 1" not in joined, "business roles only from tech companies"
-assert "Product Manager Intern" not in joined and "Product Analyst Intern" not in joined, "US only"
-assert "Student Researcher" in t[0] and "⭐" in t[0], "Fortune 100 / big tech posted first, starred"
-assert "Marketing Intern" in joined and joined.count("Marketing Intern") == 1, "cross-source dedupe"
-assert "boards.greenhouse.io/acme/jobs/3" in joined, "company link preferred over Simplify link"
-assert joined.count("Technology Summer Intern") == 1 and "Charlotte, NC; Dallas, TX" in joined, "multi-location merge"
-assert "London" not in joined and "IT Intern" not in joined, "non-US filtered"
-assert "Senior Software Engineer" not in joined and "Hidden Intern" not in joined
-assert "Strategy Intern" not in joined, "MBA-only description"
-assert "|Finance Intern>" not in joined, "fall internship skipped"
-assert "MBA Summer" not in joined and "Software Engineering Intern" not in joined
-assert "Product Strategy Intern" not in joined, "Simplify Master's/PhD-only"
-assert "Grad 2027–2028" in joined and "Summer 2027" in joined, "grad year + season shown"
-assert "Rising juniors & seniors" in joined and "Grad 2029" in joined
-assert "Student Researcher, 2027" in joined, "Simplify feed"
-assert "/business" in paths and "/all" in paths, "routing by category"
-os.environ.pop("SLACK_WEBHOOK_BUSINESS")
 
-print("\n========== RUN 3: nothing new ==========")
-t, _ = run(3)
-assert t == [], t
+print("\n========== RUN 1: first scan: record what's open, post nothing ==========")
+msgs, _ = run(1)
+assert msgs == [] and queue() == []
 
-before = open(os.path.join(tmp, "seen.json")).read()
-print("\n========== TEST MODE: post 3 current jobs, save nothing ==========")
-t, _ = run(3, ["--test-post", "3"])
-heads = [b["text"]["text"] for _, p in received for b in p["blocks"] if b["type"] == "section"]
-assert any("Test post" in h for h in heads), "test header"
-assert len(t) - sum("Test post" in x for x in t) == 3, t
-assert open(os.path.join(tmp, "seen.json")).read() == before, "test mode must not change state"
+print("\n========== RUN 2: new roles appear: queued, digest not due yet ==========")
+msgs, _ = run(2)
+assert msgs == [], "nothing posted before digest time"
+q = queue()
+by = {}
+for e in q:
+    by.setdefault(e["section"], []).append(e["title"])
+print(json.dumps(by, indent=1, ensure_ascii=False))
+pm, strat, fin, data, mkt, under = (s["name"] for s in digest.DEFAULT_SECTIONS)
+assert len(by[pm]) == 8, by[pm]                            # 7 Acme "Team" PM roles + Google APM
+assert "Associate Product Manager Intern" in by[pm]
+assert "Strategy & Operations Intern" in by[strat]
+assert "Venture Capital Intern (Summer 2027)" in by[fin] and "Real Estate Investment Intern" in by[fin]
+assert by[data] == ["Data Analytics Summer Intern"], "two cities merged into one entry"
+assert by[mkt] == ["Growth Marketing Intern - Summer 2027"], "duplicate across sources merged"
+assert set(by[under]) == {"Sophomore Explore Program - Business", "Treasury Analyst Intern"}, by[under]
+flat = " ".join(e["title"] + " " + e["url"] for e in q)
+for bad in ["Strategy Intern ", "Finance Intern", "MBA Summer", "Software Engineering", "Operations Intern 1",
+            "Product Analyst Intern", "Product Strategy Intern", "London"]:
+    assert bad not in flat + " ", bad
+assert all("Baku" not in "; ".join(e["locations"]) for e in q), "non-US"
+assert "boards.greenhouse.io/acme/jobs/3" in flat, "company link preferred over Simplify"
 
-state = json.load(open(os.path.join(tmp, "seen.json")))
-assert state["board_failures"].get("greenhouse:broken") == 3
+print("\n========== RUN 3: digest time: 5 per section, biggest companies first ==========")
+DUE["v"] = True
+msgs, sections = run(3)
+print("SECTIONS:", {k: len(v) for k, v in sections.items()})
+assert msgs[0]["blocks"][0]["text"]["text"].startswith("📬 *Internship roundup")
+assert len(sections[pm]) == 5, "capped at 5 per section"
+assert "Associate Product Manager Intern" in sections[pm][0] and "⭐" in sections[pm][0], "Google (tier 1) first"
+assert "Grad 2027–2028" in " ".join(sections[pm]) and "Summer 2027" in " ".join(sections[pm])
+assert len(queue()) == 3, "3 leftover PM roles carried over to tomorrow"
+
+print("\n========== RUN 4: same day again: no second digest ==========")
+DUE["v"] = False
+msgs, _ = run(4)
+assert msgs == []
+
+print("\n========== RUN 5: next day: leftovers posted ==========")
+DUE["v"] = True
+msgs, sections = run(5)
+assert len(sections[pm]) == 3 and queue() == []
+before = open(STATE).read()
+
+print("\n========== TEST MODE: sample digest, save nothing ==========")
+DUE["v"] = False
+msgs, sections = run(5, "--test-post", "2")
+assert sections and all(len(v) <= 2 for v in sections.values()), sections
+assert "Test post" in msgs[0]["blocks"][0]["text"]["text"]
+assert open(STATE).read() == before, "test mode must not change state"
+assert json.load(open(STATE))["board_failures"].get("greenhouse:broken") == 5
 print("\nALL CHECKS PASSED ✅")

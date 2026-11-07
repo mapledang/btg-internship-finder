@@ -59,7 +59,7 @@ class Filter:
         if job.degrees and not any(d.lower().startswith(("bachelor", "associate")) for d in job.degrees):
             return False                      # Simplify says Master's / PhD / MBA only
         cat = classify(job)
-        if cat not in self.categories:
+        if cat not in self.categories and not (UNDERCLASS_TITLE.search(job.title) or _STEP.search(job.title)):
             return False
         if cat == "engineering" and not self.engineering_ok(job.company):
             return False
@@ -86,7 +86,8 @@ class Filter:
             if not season and info.get("coop"):
                 return "co-op without summer dates"
         ys = info.get("grad_years") or []
-        if self.grad_years and ys and not (set(ys) & self.grad_years):
+        underclass = job is not None and is_underclass(job, info)
+        if self.grad_years and ys and not (set(ys) & self.grad_years) and not underclass:
             return f"grad year {ys} outside target"
         return None
 
@@ -95,12 +96,13 @@ class Filter:
 # Checked in this order; the first match wins.
 
 LABELS = {
-    "consulting": "🧠 Consulting & Strategy",
     "product": "🧭 Product",
-    "finance": "📈 Finance",
-    "marketing": "📣 Marketing",
+    "consulting": "🧠 Strategy & Consulting",
+    "finance": "📈 Finance, VC & Real Estate",
+    "data": "📊 Data & Analytics",
+    "marketing": "📣 Marketing & Growth",
     "business": "💼 Business & Ops",
-    "data_it": "📊 Data, Analytics & IT",
+    "it": "🖥 IT & Security",
     "engineering": "💻 Engineering",
     "other": "🧩 Other",
 }
@@ -113,20 +115,22 @@ RULES = [
                        r"frontend|front-end|backend|back-end|full[\s-]?stack|ios|android|devops|sre|"
                        r"site reliability|computer vision|compiler|kernel|gpu|engineer|engineers|engineering|"
                        r"technical artist|game design\w*)\b"), True),
+    ("finance", _R(r"\b(venture capital|venture|ventures|vc|real estate|reit|property|properties|"
+                   r"acquisitions|private equity|investment banking)\b"), False),
     ("consulting", _R(r"\b(consult\w*|strateg\w*|corporate development|transformation|advisory|"
-                      r"management associate|chief of staff|ventures?)\b"), False),
+                      r"management associate|chief of staff|bizops|business operations)\b"), False),
     ("marketing", _R(r"\b(marketing|brand|communications|public relations|\bpr\b|advertis\w*|social media|"
                      r"content|growth|creative|media|partnerships)\b"), False),
     ("product", _R(r"\b(product manag\w*|product owner|apm|product analyst|product strategy|"
                    r"product operations|product intern|product development|product)\b"), False),
     ("finance", _R(r"\b(financ\w*|accounting|accountant|audit\w*|tax|banking|banker|investment\w*|"
                    r"capital markets|equity|equities|trading|trader|quant\w*|wealth|asset management|"
-                   r"private equity|venture capital|treasury|risk|credit|actuar\w*|underwrit\w*|fp&a|"
-                   r"summer analyst|economic\w*|markets|fixed income|m&a|mergers|restructuring|"
-                   r"real estate|insurance|valuation)\b"), False),
-    ("data_it", _R(r"\b(data analy\w*|business analy\w*|analytics|business intelligence|\bbi\b|"
-                   r"\bit\b|information technology|technology analyst|cyber\w*|solutions|sales engineer|"
-                   r"technical|technology|systems analyst|data)\b"), False),
+                   r"treasury|risk|credit|actuar\w*|underwrit\w*|fp&a|summer analyst|economic\w*|"
+                   r"markets|fixed income|m&a|mergers|restructuring|insurance|valuation)\b"), False),
+    ("data", _R(r"\b(data analy\w*|business analy\w*|analytics|business intelligence|\bbi\b|insights|"
+                r"reporting|data)\b"), False),
+    ("it", _R(r"\b(\bit\b|information technology|technology analyst|cyber\w*|security|solutions|"
+              r"sales engineer|technical|technology|systems analyst)\b"), False),
     ("business", _R(r"\b(business|operations|supply chain|procurement|sourcing|logistics|sales|"
                     r"merchandis\w*|buyer|category|commercial|account management|customer success|"
                     r"planning|program|project|analyst|people|human resources|\bhr\b|talent|"
@@ -157,4 +161,23 @@ def classify(job: Job) -> str:
 
 def is_tech(cat: str) -> bool:
     """For Slack routing: which categories go to the tech channel if you have one."""
-    return cat in ("engineering", "data_it")
+    return cat in ("engineering", "it", "data")
+
+
+UNDERCLASS_TITLE = _R(r"\b(freshm[ae]n|sophomores?|first[\s-]year|second[\s-]year|underclass\w*|"
+                      r"early insights?|insight (?:program|week|day|series)|discovery (?:program|day)|"
+                      r"spring week|pre-?internship|explore (?:intern\w*|program)|explorer)\b")
+_STEP = re.compile(r"\bSTEP\b")   # Google's program; case-sensitive so "Step-up" doesn't match
+
+
+def is_underclass(job: Job, info: dict | None = None) -> bool:
+    """Programs for freshmen & sophomores (grad 2029-2030)."""
+    if UNDERCLASS_TITLE.search(job.title) or _STEP.search(job.title):
+        return True
+    info = info or {}
+    st = info.get("standing") or []
+    if st and not any("senior" in x for x in st) and any(
+            x in ("freshman", "sophomore", "rising sophomore", "rising junior") for x in st):
+        return True
+    ys = info.get("grad_years") or []
+    return bool(ys) and min(ys) >= 2029

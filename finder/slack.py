@@ -1,15 +1,10 @@
-"""Post jobs to Slack through incoming webhooks."""
+"""Post the daily internship digest to Slack through an incoming webhook."""
 from __future__ import annotations
 
 import os
 import time
 
 import requests
-
-from .filters import LABELS, is_tech
-from .details import season_label, grad_label
-from .tiers import tier
-PER_MESSAGE = 8   # jobs per Slack message
 
 
 def _esc(s: str) -> str:
@@ -31,45 +26,55 @@ def _ago(ts):
     return ""
 
 
-def job_block(item):
-    j, cat, locations = item["job"], item["category"], item["locations"]
-    info = item.get("info") or {}
-    loc = "; ".join(locations) if locations else "Location not listed"
+def entry_block(e: dict) -> dict:
+    """One role, from a queued digest entry (see finder/digest.make_entry)."""
+    loc = "; ".join(e.get("locations") or []) or "Location not listed"
     if len(loc) > 90:
         loc = loc[:87] + "…"
-    star = " ⭐" if tier(j.company) == 1 else ""
-    line2 = [f"🏢 *{_esc(j.company)}*{star}", f"📍 {_esc(loc)}"]
-    line3 = [LABELS.get(cat, cat), season_label(info), grad_label(info)]
-    ago = _ago(j.posted)
+    star = " ⭐" if e.get("tier") == 1 else ""
+    line2 = [f"🏢 *{_esc(e['company'])}*{star}", f"📍 {_esc(loc)}"]
+    line3 = [e.get("season", ""), e.get("grad", "")]
+    ago = _ago(e.get("posted"))
     if ago:
         line3.append(ago)
-    text = f"*<{j.url}|{_esc(j.title)}>*\n" + "  ·  ".join(line2) + "\n" + "  ·  ".join(line3)
-    return {"type": "section", "text": {"type": "mrkdwn", "text": text}}
+    text = (f"*<{e['url']}|{_esc(e['title'])}>*\n" + "  ·  ".join(line2) + "\n"
+            + "  ·  ".join(x for x in line3 if x))
+    return {"type": "section", "text": {"type": "mrkdwn", "text": text[:2990]}}
 
 
-def build_messages(items, header=None):
-    msgs = []
-    for i in range(0, len(items), PER_MESSAGE):
-        chunk = items[i:i + PER_MESSAGE]
-        blocks = []
-        if header and i == 0:
-            blocks += [{"type": "section", "text": {"type": "mrkdwn", "text": header}}, {"type": "divider"}]
-        for it in chunk:
-            blocks.append(job_block(it))
-            blocks.append({"type": "divider"})
-        fallback = "New internships: " + "; ".join(f"{it['job'].company} – {it['job'].title}" for it in chunk)
+def digest_messages(picked: dict, section_names: list, title: str, intro_extra: str = "") -> list:
+    """Return a list of (payload, entries) pairs: an intro message, then one message per section."""
+    have = [s for s in section_names if picked.get(s)]
+    empty = [s for s in section_names if not picked.get(s)]
+    total = sum(len(picked[s]) for s in have)
+    intro = f"📬 *Internship roundup · {title}*\n{total} new undergrad summer internships"
+    if have:
+        intro += " across " + ", ".join(s.split(" ", 1)[-1] for s in have)
+    intro += "."
+    if empty:
+        intro += "\n_Nothing new today in: " + ", ".join(s.split(" ", 1)[-1] for s in empty) + "_"
+    if intro_extra:
+        intro += "\n" + intro_extra
+    msgs = [({"text": f"Internship roundup · {title}", "unfurl_links": False,
+              "blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": intro}}]}, [])]
+    for s in have:
+        entries = picked[s]
+        blocks = [{"type": "header", "text": {"type": "plain_text", "text": s[:150], "emoji": True}}]
+        for e in entries:
+            blocks += [entry_block(e), {"type": "divider"}]
+        fallback = s + ": " + "; ".join(f"{e['company']} – {e['title']}" for e in entries)
         msgs.append(({"text": fallback[:2900], "blocks": blocks[:-1],
-                      "unfurl_links": False, "unfurl_media": False}, chunk))
+                      "unfurl_links": False, "unfurl_media": False}, entries))
     return msgs
 
 
-def webhook_for(category: str) -> str | None:
-    specific = os.environ.get("SLACK_WEBHOOK_TECH" if is_tech(category) else "SLACK_WEBHOOK_BUSINESS")
-    return specific or os.environ.get("SLACK_WEBHOOK_URL")
+def webhook() -> str | None:
+    return (os.environ.get("SLACK_WEBHOOK_URL") or os.environ.get("SLACK_WEBHOOK_BUSINESS")
+            or os.environ.get("SLACK_WEBHOOK_TECH"))
 
 
 def post(url, payload) -> bool:
-    for attempt in range(4):
+    for _ in range(4):
         try:
             r = requests.post(url, json=payload, timeout=20)
         except requests.RequestException as e:

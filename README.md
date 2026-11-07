@@ -1,21 +1,27 @@
 # Internship Finder → Slack
 
-Every 2 hours this checks the job boards of ~1,000 large tech and business companies
-(plus the community-maintained Simplify internship list) and posts **new** internships
-to a Slack channel. It runs free on GitHub Actions.
+Scans ~1,000 company job boards (plus the community-maintained Simplify internship list)
+every 2 hours, and posts a **daily roundup at 9 AM Pacific** with up to 5 new roles in each section:
+
+- 🧭 Product Management
+- 🧠 Strategy & Consulting
+- 📈 Finance, VC & Real Estate
+- 📊 Data & Analytics
+- 📣 Marketing & Growth
+- 🌱 Freshman & Sophomore Programs
 
 ```
-2027 Summer Analyst – Investment Banking
-🏢 Evercore · 📍 New York, NY
-📈 Finance · ☀️ Summer 2027 · 🎓 Grad 2027–2028 · posted 2h ago
+🧭 Product Management
+Associate Product Manager Intern
+🏢 Google ⭐ · 📍 Mountain View, CA
+☀️ Summer 2027 · 🎓 Grad 2028
 ```
 
-It's tuned for **undergrad summer internships** in business, product, consulting,
-strategy and finance, plus a smaller set of engineering roles from top companies.
-Business / strategy / product / consulting roles come from **tech companies**, and the
-biggest companies (Fortune 100, big tech: marked ⭐) are scanned and posted first.
-MBA / Master's / PhD roles are skipped. For each new job it reads the full description
-to show the graduation year and season it asks for.
+It's tuned for **undergrad summer internships in the US**. MBA / Master's / PhD roles are
+skipped. Business, strategy, product and consulting roles come from **tech companies**,
+and the biggest companies (Fortune 100 / big tech, marked ⭐) are picked first. For each
+role it reads the full description to show the graduation year and season it asks for.
+Roles that don't make the day's top 5 carry over to the next digest (for up to 7 days).
 
 ## How it works
 
@@ -87,11 +93,11 @@ Anything else goes to `SLACK_WEBHOOK_URL`.
    the business firms in `data/business_seed.txt` (banks, consulting, consumer goods…)
    and takes ~10–20 minutes. Its summary page lists any company it couldn't find.
 3. **Test it:** click **Scan for internships** → **Run workflow** → set *mode* to **test** →
-   **Run workflow**. In ~5 minutes, 5 real current internships appear in your Slack
-   channel under a "🧪 Test post" header. Test mode saves nothing, so run it as often as you like.
+   **Run workflow**. In ~5 minutes a sample digest (2 roles per section, from roles open
+   right now) appears in Slack. Test mode saves nothing, so run it as often as you like.
 4. **Go live:** run it again with *mode* **normal**. This first real run posts nothing on
-   purpose, because it's recording what's already open. From then on it runs every 2 hours
-   by itself and posts new roles as they appear.
+   purpose, because it's recording what's already open. From then on it scans every 2 hours
+   and posts the digest each morning. Mode **digest-now** posts whatever is queued immediately.
 
 If the save step fails with a permissions error: **Settings → Actions → General →
 Workflow permissions → Read and write permissions → Save**.
@@ -100,7 +106,8 @@ Workflow permissions → Read and write permissions → Save**.
 
 | Want to… | Do this |
 |---|---|
-| Change how often it runs | Edit the `cron` line in `.github/workflows/scan.yml` (`17 */3 * * *` = every 3 hours) |
+| Change digest time, roles per section, or sections | `digest:` in `config.yaml` |
+| Change how often it scans | Edit the `cron` line in `.github/workflows/scan.yml` (`17 */3 * * *` = every 3 hours) |
 | Change which titles count | `include_title_patterns` / `exclude_title_patterns` in `config.yaml` |
 | Change target grad years | `target_grad_years` in `config.yaml` |
 | Include fall / winter / spring / co-ops | `include_off_season: true` in `config.yaml` |

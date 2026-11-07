@@ -28,6 +28,8 @@ class State:
         self.fingerprints = data.get("fingerprints", {})
         self.boards = data.get("boards_initialized", {})
         self.failures = data.get("board_failures", {})
+        self.queue = data.get("queue", [])                 # roles waiting for the daily digest
+        self.last_digest = data.get("last_digest", "")     # date of the last digest (local)
         self.now = int(time.time())
 
     def seen(self, uid):
@@ -61,6 +63,8 @@ class State:
             "fingerprints": {k: v for k, v in self.fingerprints.items() if v >= cut_f},
             "boards_initialized": self.boards,
             "board_failures": self.failures,
+            "queue": self.queue,
+            "last_digest": self.last_digest,
         }
         tmp = self.path + ".tmp"
         with open(tmp, "w") as f:
