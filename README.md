@@ -47,8 +47,6 @@ Roles that don't make the day's top 5 carry over to the next digest (for up to 7
 4. Copy the webhook URL (starts with `https://hooks.slack.com/services/...`). Keep it
    private, since anyone with it can post to your channel.
 
-*Want tech and business in separate channels?* Add a second webhook for the other
-channel (step 3 again). See step 3 below for how to wire them up.
 
 ### 2. Put this code on GitHub
 
@@ -80,11 +78,7 @@ Repo → **Settings → Secrets and variables → Actions → New repository sec
 | Name | Value |
 |---|---|
 | `SLACK_WEBHOOK_URL` | your webhook URL |
-| `SLACK_WEBHOOK_TECH` *(optional)* | webhook for a tech channel |
-| `SLACK_WEBHOOK_BUSINESS` *(optional)* | webhook for a business channel |
 
-If you set the optional ones, tech and business roles go to their own channels.
-Anything else goes to `SLACK_WEBHOOK_URL`.
 
 ### 4. Turn it on
 
