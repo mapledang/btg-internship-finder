@@ -17,11 +17,15 @@ import yaml
 
 from finder.companies import load_companies, load_manual
 from finder.filters import Filter, classify
-from finder.sources import FETCHERS, board_key, fetch_simplify
+from finder.sources import FETCHERS, STOP, board_key, fetch_simplify
 from finder.state import State, fingerprint
 from finder import slack
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+
+
+def log(msg):
+    print(msg, flush=True)
 
 
 def fetch_board(b):
@@ -35,7 +39,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--limit", type=int, default=0)
-    ap.add_argument("--workers", type=int, default=12)
+    ap.add_argument("--workers", type=int, default=24)
     ap.add_argument("--test-post", type=int, default=0, metavar="N",
                     help="post N real current internships as a test; doesn't change saved state")
     args = ap.parse_args()
@@ -47,6 +51,10 @@ def main():
     boards = load_companies()
     if args.limit:
         boards = boards[: args.limit]
+    if args.test_post and not args.limit:
+        # Test mode only needs a quick sample: one board in every ~15, so it finishes in a few minutes.
+        boards = boards[::15]
+        cfg["max_scan_minutes"] = min(float(cfg.get("max_scan_minutes", 15)), 4)
     _, bad_manual = load_manual()
 
     if not args.dry_run and not os.environ.get("SLACK_WEBHOOK_URL") and not (
@@ -54,24 +62,45 @@ def main():
         sys.exit("SLACK_WEBHOOK_URL is not set (add it as a GitHub Actions secret).")
 
     t0 = time.time()
-    results, failed = [], []
-    with cf.ThreadPoolExecutor(max_workers=args.workers) as ex:
-        for b, jobs, err in ex.map(fetch_board, boards):
+    STOP.clear()
+    results, failed, skipped = [], [], 0
+    if cfg.get("use_simplify_feed", True):
+        try:
+            results.append(("simplify", fetch_simplify()))
+            log(f"Simplify feed: {len(results[0][1])} open listings")
+        except Exception as e:  # noqa: BLE001
+            failed.append(({"name": "Simplify feed", "ats": "simplify"}, str(e)[:120]))
+
+    # Scan company boards in parallel, with progress updates and an overall time limit
+    # so one slow site can never hold up the run.
+    limit_secs = float(cfg.get("max_scan_minutes", 15)) * 60
+    log(f"Scanning {len(boards)} company job boards ({args.workers} at a time, "
+        f"time limit {limit_secs / 60:.0f} min)...")
+    ex = cf.ThreadPoolExecutor(max_workers=args.workers)
+    futures = [ex.submit(fetch_board, b) for b in boards]
+    done = 0
+    try:
+        for fut in cf.as_completed(futures, timeout=limit_secs):
+            b, jobs, err = fut.result()
             k = board_key(b)
             if err:
                 failed.append((b, err))
                 state.board_failed(k)
             else:
                 results.append((k, jobs))
-    if cfg.get("use_simplify_feed", True):
-        try:
-            results.append(("simplify", fetch_simplify()))
-        except Exception as e:  # noqa: BLE001
-            failed.append(({"name": "Simplify feed", "ats": "simplify"}, str(e)[:120]))
+            done += 1
+            if done % 100 == 0 or done == len(boards):
+                log(f"  {done}/{len(boards)} boards done ({len(failed)} failed, {time.time() - t0:.0f}s)")
+    except cf.TimeoutError:
+        skipped = len(boards) - done
+        log(f"  Time limit reached: skipping {skipped} slow boards this run.")
+    finally:
+        STOP.set()                      # tell any still-running fetches to give up
+        ex.shutdown(wait=True, cancel_futures=True)
     fetch_secs = time.time() - t0
 
     if args.test_post:
-        return test_post(args, results, failed, flt, fetch_secs)
+        return test_post(args, results, failed, flt, fetch_secs, skipped)
 
     # ---- find new internships
     new = {}            # fingerprint -> item
@@ -130,7 +159,8 @@ def main():
     stale = sorted(((k, n) for k, n in state.failures.items() if n >= 12), key=lambda x: -x[1])
     lines = [
         "## Internship scan",
-        f"- Boards scanned: **{len(results)}** ok, **{len(failed)}** failed ({fetch_secs:.0f}s)",
+        f"- Boards scanned: **{len(results)}** ok, **{len(failed)}** failed"
+        + (f", **{skipped}** skipped (time limit)" if skipped else "") + f" ({fetch_secs:.0f}s)",
         f"- Internship listings matched: {matched}",
         f"- New posted to Slack: **{posted}**" + (f" ({len(waiting)} queued for next run)" if waiting else ""),
         f"- Recorded silently (first scan of a board, or duplicate): {seeded}",
@@ -152,7 +182,7 @@ def main():
             f.write(report + "\n")
 
 
-def test_post(args, results, failed, flt, fetch_secs):
+def test_post(args, results, failed, flt, fetch_secs, skipped=0):
     """Post the N most recently posted internships (one per company) so you can see it working."""
     picked, companies = [], set()
     pool = [j for _, jobs in results for j in jobs if j.url and flt.accept(j)]
@@ -180,8 +210,8 @@ def test_post(args, results, failed, flt, fetch_secs):
             elif slack.post(hook, payload):
                 sent += len(chunk)
             time.sleep(1.1)
-    report = (f"## Test post\n- Boards scanned: **{len(results)}** ok, **{len(failed)}** failed "
-              f"({fetch_secs:.0f}s)\n- Open internships matched: {len(pool)}\n"
+    report = (f"## Test post\n- Boards scanned (sample): **{len(results)}** ok, **{len(failed)}** failed, "
+              f"{skipped} skipped ({fetch_secs:.0f}s)\n- Open internships matched: {len(pool)}\n"
               f"- Test jobs sent to Slack: **{sent}** of {len(picked)}\n- Saved state: unchanged")
     if failed:
         report += "\n\n<details><summary>Failed boards</summary>\n\n" + "\n".join(

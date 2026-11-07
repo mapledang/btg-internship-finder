@@ -47,3 +47,7 @@ max_posts_per_run: 120
 # Include the community-maintained Simplify internship feed (covers Google, Meta,
 # Apple, Amazon, Microsoft, Tesla and others whose careers sites can't be scanned directly).
 use_simplify_feed: true
+
+# Stop scanning company boards after this many minutes and post what was found.
+# Boards that didn't finish are simply tried again next run.
+max_scan_minutes: 15

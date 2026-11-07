@@ -8,14 +8,16 @@ locally (they are fast, single-request APIs).
 from __future__ import annotations
 
 import re
+import threading
 import time
 from dataclasses import dataclass, field
 from urllib.parse import urlparse, parse_qs
 
 import requests
 
-TIMEOUT = 25
+TIMEOUT = (6, 15)   # seconds to connect, seconds to wait for data
 USER_AGENT = "internship-finder/1.0 (+https://github.com)"
+STOP = threading.Event()   # set when the run's time limit is reached
 
 # Server-side search terms for boards that support keyword search.
 SEARCH_TERMS = ["intern", "summer", "co-op"]
@@ -49,8 +51,9 @@ def session() -> requests.Session:
         s.headers.update({"User-Agent": USER_AGENT, "Accept": "application/json"})
         adapter = requests.adapters.HTTPAdapter(pool_connections=64, pool_maxsize=64,
                                                 max_retries=requests.adapters.Retry(
-                                                    total=2, backoff_factor=1.5,
-                                                    status_forcelist=[429, 500, 502, 503, 504],
+                                                    total=1, connect=1, read=0, backoff_factor=1,
+                                                    status_forcelist=[429, 502, 503, 504],
+                                                    respect_retry_after_header=False,
                                                     allowed_methods=["GET", "POST"]))
         s.mount("https://", adapter)
         s.mount("http://", adapter)
@@ -59,12 +62,16 @@ def session() -> requests.Session:
 
 
 def _get(url, **kw):
+    if STOP.is_set():
+        raise TimeoutError("run time limit reached")
     r = session().get(url, timeout=TIMEOUT, **kw)
     r.raise_for_status()
     return r.json()
 
 
 def _post(url, payload, **kw):
+    if STOP.is_set():
+        raise TimeoutError("run time limit reached")
     r = session().post(url, json=payload, timeout=TIMEOUT, **kw)
     r.raise_for_status()
     return r.json()
