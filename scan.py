@@ -22,6 +22,7 @@ from finder.filters import Filter, classify
 from finder.sources import FETCHERS, STOP, board_key, fetch_simplify
 from finder.state import State, fingerprint
 from finder.details import enrich, season_label, grad_label
+from finder.tiers import tier
 from finder import slack
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -76,7 +77,7 @@ def main():
         cfg = yaml.safe_load(f) or {}
     flt = Filter(cfg)
     state = State()
-    boards = load_companies()
+    boards = sorted(load_companies(), key=lambda b: tier(b["name"]))   # Fortune 100 / big tech first
     if args.limit:
         boards = boards[: args.limit]
     if args.test_post and not args.limit:
@@ -158,7 +159,8 @@ def main():
                        "locations": [j.location] if j.location else []}
         state.board_ok(k)
 
-    items = sorted(new.values(), key=lambda it: -(it["job"].posted or time.time()))
+    # biggest companies first, then newest
+    items = sorted(new.values(), key=lambda it: (tier(it["job"].company), -(it["job"].posted or time.time())))
     cap = int(cfg.get("max_posts_per_run", 120))
     to_check, waiting = items[:cap], items[cap:]
 
@@ -227,7 +229,7 @@ def test_post(args, results, failed, flt, fetch_secs, skipped=0):
     candidates, companies = [], set()
     pool = [j for _, jobs in results for j in jobs if j.url and flt.accept(j)]
     # newest first, but put company-board jobs (any kind of role) ahead of the tech-heavy Simplify feed
-    pool.sort(key=lambda j: (j.source == "simplify", -(j.posted or time.time())))
+    pool.sort(key=lambda j: (tier(j.company), j.source == "simplify", -(j.posted or time.time())))
     for j in pool:
         if j.company in companies:
             continue

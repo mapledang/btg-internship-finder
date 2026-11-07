@@ -8,6 +8,7 @@ import requests
 
 from .filters import LABELS, is_tech
 from .details import season_label, grad_label
+from .tiers import tier
 PER_MESSAGE = 8   # jobs per Slack message
 
 
@@ -36,7 +37,8 @@ def job_block(item):
     loc = "; ".join(locations) if locations else "Location not listed"
     if len(loc) > 90:
         loc = loc[:87] + "…"
-    line2 = [f"🏢 *{_esc(j.company)}*", f"📍 {_esc(loc)}"]
+    star = " ⭐" if tier(j.company) == 1 else ""
+    line2 = [f"🏢 *{_esc(j.company)}*{star}", f"📍 {_esc(loc)}"]
     line3 = [LABELS.get(cat, cat), season_label(info), grad_label(info)]
     ago = _ago(j.posted)
     if ago:

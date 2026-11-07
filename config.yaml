@@ -70,6 +70,11 @@ post_categories:
   - engineering     # software, ML, hardware (only from the companies below)
   - other
 
+# These kinds of roles are only posted from tech companies (see data/company_tiers.yaml),
+# so business / strategy / product / consulting roles come from tech companies.
+# Finance and data/IT roles still come from any company. Empty list = no restriction.
+tech_companies_only_for: [consulting, product, marketing, business]
+
 # Engineering roles (software, ML, hardware...) are only posted from these companies,
 # so the channel stays mostly business-focused. Add or remove names freely; leave the
 # list empty to drop engineering roles entirely.

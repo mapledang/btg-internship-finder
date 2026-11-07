@@ -5,6 +5,7 @@ import re
 import time
 
 from .sources import Job
+from .tiers import is_tech_company
 
 
 def _words(patterns):
@@ -29,6 +30,7 @@ class Filter:
         self.eng_companies = [_norm(c) for c in cfg.get("engineering_companies", []) if c.strip()]
         self.off_season = bool(cfg.get("include_off_season", False))
         self.grad_years = set(int(y) for y in cfg.get("target_grad_years", []) or [])
+        self.tech_only_for = set(cfg.get("tech_companies_only_for", []) or [])
         # Summer internships for a summer that's already over are stale.
         t = time.gmtime()
         self.min_summer_year = t.tm_year + (1 if t.tm_mon >= 9 else 0)
@@ -58,6 +60,8 @@ class Filter:
         if cat not in self.categories:
             return False
         if cat == "engineering" and not self.engineering_ok(job.company):
+            return False
+        if cat in self.tech_only_for and not is_tech_company(job):
             return False
         return True
 
@@ -157,8 +161,7 @@ RULES = [
 # Role words that pull a title out of "engineering" even if it mentions an engineering word,
 # e.g. "Product Manager Intern - AI Platform" or "Technology Consulting Intern".
 _BUSINESS_OVERRIDE = _R(r"\b(product manag\w*|consult\w*|strateg\w*|business analy\w*|"
-                        r"financial engineer\w*|sales|marketing|operations|supply chain|"
-                        r"industrial engineer\w*|finance|accounting|business)\b")
+                        r"financial engineer\w*|sales|marketing|supply chain|industrial engineer\w*)\b")
 
 
 def classify(job: Job) -> str:

@@ -12,6 +12,8 @@ to a Slack channel. It runs free on GitHub Actions.
 
 It's tuned for **undergrad summer internships** in business, product, consulting,
 strategy and finance, plus a smaller set of engineering roles from top companies.
+Business / strategy / product / consulting roles come from **tech companies**, and the
+biggest companies (Fortune 100, big tech: marked ⭐) are scanned and posted first.
 MBA / Master's / PhD roles are skipped. For each new job it reads the full description
 to show the graduation year and season it asks for.
 
@@ -103,6 +105,8 @@ Workflow permissions → Read and write permissions → Save**.
 | Change target grad years | `target_grad_years` in `config.yaml` |
 | Include fall / winter / spring / co-ops | `include_off_season: true` in `config.yaml` |
 | Change the role mix | `post_categories` and `engineering_companies` in `config.yaml` |
+| Allow business roles from non-tech companies | `tech_companies_only_for: []` in `config.yaml` |
+| Mark a company as tech, Tier 1 or Tier 2 | `data/company_tiers.yaml` |
 | Include non-US roles | `us_only: false` in `config.yaml` |
 | Add a specific company | Add `Company Name \| <link to any job on their careers site>` to `data/companies_manual.txt` |
 | Add business firms to look up | Add names to `data/business_seed.txt`, then run **Update company list** |

@@ -121,7 +121,7 @@ def fake_get(url, **kw):
         c = [{"id": "s1", "name": "Accounting Intern", "location": {"city": "Denver", "region": "CO", "country": "us"},
               "releasedDate": "2026-11-05T12:00:00.000Z"}]
         if WORLD["round"] >= 2 and p.get("q") == "intern":
-            c.append({"id": "s2", "name": "Supply Chain Intern", "location": {"city": "Atlanta", "region": "GA", "country": "us"}})
+            c.append({"id": "s2", "name": "Treasury Analyst Intern", "location": {"city": "Atlanta", "region": "GA", "country": "us"}})
         return {"content": c if p.get("offset", 0) == 0 else []}
     if "myworkdayjobs" in url and "/job/" in url:
         return {"jobPostingInfo": {"jobDescription": "<p>Summer 2027 program for undergraduates.</p>"}}
@@ -192,7 +192,11 @@ print("\nPOSTED:")
 for x in t:
     print(" •", x.split("\n")[0])
 joined = "\n".join(t)
-assert len(t) == 30, len(t)    # 1 GH marketing + 1 Lever + 1 SR + 1 WD tech + 25 WD ops + 1 Google
+# 1 GH marketing (startup board = tech) + 1 Lever biz ops (tech) + 1 SR treasury (finance: any company)
+# + 1 WD technology intern (data/IT: any company) + 1 Google. BigBank's 25 ops roles: not a tech company.
+assert len(t) == 5, len(t)
+assert "Operations Intern 1" not in joined, "business roles only from tech companies"
+assert "Student Researcher" in t[0] and "⭐" in t[0], "Fortune 100 / big tech posted first, starred"
 assert "Marketing Intern" in joined and joined.count("Marketing Intern") == 1, "cross-source dedupe"
 assert "boards.greenhouse.io/acme/jobs/3" in joined, "company link preferred over Simplify link"
 assert joined.count("Technology Summer Intern") == 1 and "Charlotte, NC; Dallas, TX" in joined, "multi-location merge"

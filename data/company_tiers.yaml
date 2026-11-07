@@ -1,0 +1,685 @@
+# Company tiers and tech labels. Edit freely; names are matched loosely
+# (case, punctuation, "Inc"/"The"/"Company" don't matter, but spelling does).
+#
+# tier1: Fortune 100, big tech, MBB, Big 4. Scanned first, posted first, marked ⭐ in Slack.
+# tier2: other large / well-known companies. Scanned and posted next.
+# Everyone else is tier 3.
+#
+# tech: tech companies. Business / strategy / product / consulting / marketing roles are
+# only posted from these (see config.yaml: tech_companies_only_for). Companies NOT listed
+# here still count as tech if they hire through Greenhouse, Lever or Ashby (almost always
+# startups) or have "AI", "Software", "Labs", "Robotics"... in their name. To mark one of
+# those as NOT tech, add it under not_tech.
+
+tier1:
+  # Big tech
+  - Google
+  - Alphabet
+  - Apple
+  - Amazon
+  - Amazon Web Services (AWS)
+  - Microsoft
+  - Meta
+  - NVIDIA
+  - Tesla
+  - Netflix
+  - Salesforce
+  - Adobe
+  - Oracle
+  - IBM
+  - Intel
+  - Cisco
+  - Qualcomm
+  - AMD
+  - Broadcom
+  - Dell Technologies
+  - Hewlett Packard (HP)
+  - HP
+  - Uber
+  - TikTok
+  - ByteDance
+  - Samsung
+  - Sony
+  - Visa
+  - Mastercard
+  - OpenAI
+  - Anthropic
+  # Consulting & accounting
+  - McKinsey & Company
+  - Boston Consulting Group
+  - BCG
+  - Bain & Company
+  - Deloitte
+  - PricewaterhouseCoopers (PwC)
+  - PwC
+  - EY
+  - KPMG
+  - Accenture
+  # Fortune 100
+  - Walmart
+  - UnitedHealth Group
+  - Berkshire Hathaway
+  - CVS Health
+  - ExxonMobil
+  - McKesson
+  - Cencora
+  - Costco
+  - JP Morgan Chase
+  - JPMorgan Chase
+  - Cardinal Health
+  - Chevron Corporation
+  - Chevron
+  - Cigna Group
+  - Ford Motor Company
+  - Bank of America
+  - General Motors
+  - Elevance Health
+  - Citi
+  - Citigroup
+  - Centene
+  - The Home Depot
+  - Marathon Petroleum
+  - Kroger
+  - Fannie Mae
+  - Walgreens
+  - Verizon Communications
+  - Verizon
+  - AT&T
+  - Comcast
+  - Wells Fargo
+  - Goldman Sachs
+  - Freddie Mac
+  - Target
+  - Humana
+  - State Farm
+  - Morgan Stanley
+  - Johnson & Johnson
+  - PepsiCo
+  - United Parcel Service (UPS)
+  - UPS
+  - FedEx
+  - The Walt Disney Company
+  - Lowe's
+  - Procter & Gamble
+  - Procter & Gamble (P&G)
+  - The Boeing Company
+  - Boeing
+  - Albertsons
+  - RTX
+  - GE Aerospace
+  - Lockheed Martin
+  - American Express
+  - Caterpillar Inc.
+  - Caterpillar
+  - MetLife
+  - Progressive
+  - John Deere
+  - Deere & Company
+  - Merck
+  - Pfizer
+  - Delta Air Lines
+  - TD Synnex
+  - Allstate Insurance Company
+  - Allstate
+  - Nationwide
+  - AbbVie
+  - New York Life
+  - TJX
+  - TJX Companies
+  - Prudential Financial
+  - United Airlines
+  - Tyson Foods
+  - American Airlines
+  - Liberty Mutual
+  - Nike
+  - Capital One
+  - AIG
+  - The Coca-Cola Company
+  - TIAA
+  - Bristol Myers Squibb
+  - Dow Chemical Company
+  - Dow
+  - Best Buy
+  - Thermo Fisher Scientific
+  - Northwestern Mutual
+  - Abbott
+  - Honeywell
+
+tier2:
+  # Tech
+  - Micron Technology
+  - Applied Materials
+  - KLA
+  - Marvell
+  - Hewlett Packard Enterprise
+  - Cadence Design Systems
+  - SpaceX
+  - Texas Instruments
+  - Motorola
+  - Microchip Technology
+  - Analog Devices
+  - Autodesk
+  - Western Digital
+  - Palantir
+  - Anduril
+  - Palo Alto Networks
+  - ServiceNow
+  - Workday
+  - Snowflake
+  - Databricks
+  - Stripe
+  - Airbnb
+  - LinkedIn
+  - Bloomberg
+  - Coinbase
+  - Robinhood
+  - Pinterest
+  - Snap
+  - Intuit
+  - PayPal
+  - Block
+  - Square
+  - Waymo
+  - DoorDash
+  - Lyft
+  - Instacart
+  - Shopify
+  - Spotify
+  - Zillow
+  - eBay
+  - Expedia Group
+  - Booking Holdings
+  - Figma
+  - Duolingo
+  - Scale AI
+  - xAI
+  - Cloudflare
+  - Crowdstrike
+  - Zscaler
+  - Fortinet
+  - Datadog
+  - MongoDB
+  - Atlassian
+  - Twilio
+  - Okta
+  - HubSpot
+  - Dropbox
+  - Reddit
+  - Roblox
+  - Electronic Arts
+  - Unity
+  - The Trade Desk
+  - Red Hat
+  - Equinix
+  - GoDaddy
+  - ASML
+  - Garmin
+  - Keysight Technologies
+  - Fiserv
+  - Fidelity National Information Services
+  - FIS
+  - Affirm
+  - T-Mobile
+  - Rivian
+  - Lucid Motors
+  - Veeva Systems
+  - Ingram Micro
+  - Kyndryl
+  - DXC Technology
+  - Thomson Reuters
+  # Finance
+  - BlackRock
+  - Blackstone
+  - Vanguard
+  - Fidelity Investments
+  - Charles Schwab
+  - State Street
+  - BNY
+  - Northern Trust
+  - PNC Financial Services
+  - U.S. Bank
+  - Truist Bank
+  - Truist
+  - Citizens Financial Group
+  - KeyBank
+  - M&T Bank
+  - Fifth Third Bank
+  - Regions Bank
+  - Synchrony Financial
+  - Discover Financial
+  - Ally Financial
+  - USAA
+  - Barclays
+  - Deutsche Bank
+  - UBS
+  - HSBC
+  - Jefferies
+  - Evercore
+  - Lazard
+  - Moelis & Company
+  - PJT Partners
+  - Centerview Partners
+  - Houlihan Lokey
+  - Raymond James Financial
+  - Raymond James
+  - T. Rowe Price
+  - Invesco
+  - Franklin Templeton
+  - PIMCO
+  - Capital Group
+  - Wellington Management
+  - Apollo Global
+  - Apollo Global Management
+  - KKR
+  - Carlyle Group
+  - Brookfield
+  - Citadel
+  - Citadel Securities
+  - Jane Street
+  - Two Sigma
+  - D. E. Shaw
+  - Hudson River Trading
+  - Point72
+  - Optiver
+  - IMC Trading
+  - Susquehanna International Group (SIG)
+  - Nasdaq
+  - CME Group
+  - S&P Global
+  - Moody's
+  - MSCI
+  - Morningstar
+  - TransUnion
+  - Equifax
+  - Ameriprise Financial
+  - Travelers
+  - Chubb
+  - Geico
+  - Marsh
+  - Marsh McLennan
+  # Consulting
+  - Oliver Wyman
+  - Kearney
+  - Booz Allen
+  - Guidehouse
+  - Gartner
+  - Grant Thornton
+  - RSM
+  - FTI Consulting
+  - Alvarez & Marsal
+  - L.E.K. Consulting
+  - ZS Associates
+  - Protiviti
+  # Large companies
+  - Northrop Grumman
+  - General Dynamics
+  - L3Harris Technologies
+  - Leidos
+  - GE Vernova
+  - GE Healthcare
+  - Emerson Electric
+  - Rockwell Automation
+  - Cummins
+  - 3M
+  - Carrier Global
+  - Johnson Controls
+  - Medtronic
+  - Stryker
+  - Becton Dickinson
+  - Amgen
+  - Gilead Sciences
+  - Regeneron Pharmaceuticals
+  - Vertex Pharmaceuticals
+  - Moderna
+  - Danaher Corporation
+  - Genentech
+  - AstraZeneca
+  - Baxter International
+  - LabCorp
+  - Duke Energy
+  - Xcel Energy
+  - Southern Company
+  - Mondelez International
+  - Kraft Heinz
+  - General Mills
+  - Unilever
+  - Colgate-Palmolive
+  - Kimberly-Clark
+  - Estee Lauder
+  - Starbucks
+  - McDonald's
+  - Marriott International
+  - Hilton
+  - NBCUniversal
+  - Warner Bros.
+  - Paramount
+  - Live Nation Entertainment
+  - Southwest Airlines
+  - Genuine Parts Company
+  - Sherwin-Williams
+  - Nordstrom
+  - Macy's
+  - Dick's Sporting Goods
+  - Meijer
+  - Toyota
+  - Hitachi
+  - Siemens
+  - Philips
+  - Airbus
+  - Rolls-Royce
+  - Mercedes-Benz
+
+tech:
+  - Google
+  - Alphabet
+  - Apple
+  - Amazon
+  - Amazon Web Services (AWS)
+  - Microsoft
+  - Meta
+  - NVIDIA
+  - Tesla
+  - Netflix
+  - Salesforce
+  - Adobe
+  - Oracle
+  - IBM
+  - Intel
+  - Cisco
+  - Qualcomm
+  - AMD
+  - Broadcom
+  - Dell Technologies
+  - Hewlett Packard (HP)
+  - HP
+  - HP IQ
+  - Hewlett Packard Enterprise
+  - Uber
+  - TikTok
+  - ByteDance
+  - Samsung
+  - Samsung Research America
+  - Sony
+  - PlayStation
+  - Visa
+  - Mastercard
+  - OpenAI
+  - Anthropic
+  - Micron Technology
+  - Applied Materials
+  - KLA
+  - Marvell
+  - Cadence Design Systems
+  - SpaceX
+  - Texas Instruments
+  - Motorola
+  - Microchip Technology
+  - Analog Devices
+  - Autodesk
+  - Western Digital
+  - Sandisk
+  - Palantir
+  - Anduril
+  - Palo Alto Networks
+  - ServiceNow
+  - Workday
+  - Snowflake
+  - Databricks
+  - Stripe
+  - Airbnb
+  - LinkedIn
+  - Bloomberg
+  - Coinbase
+  - Robinhood
+  - Pinterest
+  - Snap
+  - Intuit
+  - PayPal
+  - Block
+  - Square
+  - Waymo
+  - DoorDash
+  - Lyft
+  - Instacart
+  - Shopify
+  - Spotify
+  - Zillow
+  - eBay
+  - Expedia Group
+  - Booking Holdings
+  - Figma
+  - Duolingo
+  - Scale AI
+  - xAI
+  - Cloudflare
+  - Crowdstrike
+  - Zscaler
+  - Fortinet
+  - Datadog
+  - MongoDB
+  - Atlassian
+  - Twilio
+  - Okta
+  - HubSpot
+  - Dropbox
+  - Reddit
+  - Roblox
+  - Electronic Arts
+  - Unity
+  - The Trade Desk
+  - Red Hat
+  - Equinix
+  - GoDaddy
+  - ASML
+  - Garmin
+  - Keysight Technologies
+  - Fiserv
+  - Fidelity National Information Services
+  - FIS
+  - Affirm
+  - T-Mobile
+  - AT&T
+  - Verizon Communications
+  - Rivian
+  - Lucid Motors
+  - Veeva Systems
+  - Ingram Micro
+  - TD Synnex
+  - Kyndryl
+  - DXC Technology
+  - Nokia
+  - Ciena
+  - GlobalFoundries
+  - Tencent
+  - Astera Labs
+  - NXP Semiconductors
+  - Renesas Electronics
+  - onsemi
+  - Cirrus Logic
+  - Coherent
+  - Lumentum
+  - Semtech
+  - Zebra Technologies
+  - Tokyo Electron
+  - Onto Innovation
+  - Entegris
+  - Ambarella
+  - Altera
+  - Silicon Laboratories
+  - SK hynix
+  - Solidigm
+  - Cerebras
+  - Etched
+  - Graphcore
+  - Tenstorrent
+  - Lightmatter
+  - SiFive
+  - Quadric
+  - Viavi Solutions
+  - Avnet
+  - Flextronics International
+  - Jabil
+  - Trimble
+  - Itron
+  - Interdigital
+  - Ribbon
+  - Zayo
+  - F5
+  - Blackberry
+  - Trend Micro
+  - Proofpoint
+  - 1Password
+  - Snyk
+  - Cohesity
+  - Veeam Software
+  - KnowBe4
+  - Entrust
+  - ID.me
+  - SentiLink
+  - Twitch
+  - DraftKings
+  - Fanatics
+  - StubHub
+  - Ancestry
+  - Handshake
+  - Notion
+  - Glean
+  - Canva
+  - Klaviyo
+  - Celonis
+  - LiveRamp
+  - Magnite
+  - Quantcast
+  - MiQ
+  - Later
+  - incident.io
+  - Sigma Computing
+  - SingleStore
+  - Actian
+  - Appian
+  - PTC
+  - AVEVA
+  - AspenTech
+  - Guidewire
+  - InterSystems
+  - Q2
+  - nCino
+  - Clearwater Analytics
+  - SS&C
+  - Tradeweb
+  - Broadridge
+  - Worldpay
+  - ACI Worldwide
+  - Apex Fintech Solutions
+  - DriveWealth
+  - iCapital Network
+  - Wise
+  - Gemini
+  - Kikoff
+  - Perpay
+  - Zip
+  - Swift
+  - CoStar Group
+  - Geotab
+  - Samsara
+  - Verkada
+  - Alarm.com
+  - Arlo Technologies
+  - Sonos
+  - Bose
+  - Whoop
+  - Axon
+  - Symbotic
+  - Boston Dynamics
+  - Zoox
+  - Aurora Innovation
+  - Torc Robotics
+  - Kodiak Robotics
+  - Applied Intuition
+  - Shield AI
+  - Skydio
+  - Astranis
+  - Planet
+  - Rocket Lab USA
+  - Toyota Research Institute
+  - Rivian and Volkswagen Group Technologies
+  - Nio
+  - XPENG Motors
+  - DiDi Global
+  - JINGDONG
+  - Rakuten International
+  - Unisys
+  - Thoughtworks
+  - Kainos
+  - Canonical
+  - Gen
+  - GoTo
+  - Workiva
+  - Tempus
+  - Athena Health
+  - WellSky
+  - Netsmart
+  - Veradigm
+  - Perplexity AI
+  - Mistral AI
+  - Together AI
+  - Fireworks AI
+  - Lambda
+  - Crusoe
+  - Retell AI
+  - Harvey
+  - Cresta
+  - Mercor
+  - Truveta
+  - Neuralink
+  - Quantinuum
+  - QuEra Computing
+  - The Allen Institute for AI
+  - C3.ai
+  - Zillow Group
+  - CCC Intelligent Solutions
+  - NCR Voyix
+  - Toshiba Global Commerce
+  - LG Electronics
+  - Lightcast
+  - Momentive
+  - OpenGov
+  - Skyward
+  - Meshy
+  - Atoms
+  - Super
+  - Sierra
+  - Jerry
+  - Clera
+  - Prolific
+  - Eulerity
+  - Revel
+  - Composio
+  - InstaLILY
+  - Astronomer
+  - Relay
+  - Zello
+  - Solink
+  - Impiricus
+  - EverCommerce
+  - Nextech Systems
+  - ABC Fitness
+  - Jonas Software
+  - Harris Computer
+  - Welocalize
+  - Xsolla
+  - Penn Interactive
+  - Light & Wonder
+  - Niantic Spatial
+  - 2K
+  - Hyve Solutions
+  - ZT Systems
+  - Equinix
+
+not_tech:
+  - Goldman Sachs
+  - Morgan Stanley
+  - JP Morgan Chase
+  - Bank of America
+  - Wells Fargo
+  - Citi
