@@ -6,7 +6,8 @@ import time
 
 import requests
 
-TAG = {"tech": "💻 Tech", "business": "📈 Business", "other": "🧩 Other"}
+from .filters import LABELS, is_tech
+from .details import season_label, grad_label
 PER_MESSAGE = 8   # jobs per Slack message
 
 
@@ -31,17 +32,17 @@ def _ago(ts):
 
 def job_block(item):
     j, cat, locations = item["job"], item["category"], item["locations"]
+    info = item.get("info") or {}
     loc = "; ".join(locations) if locations else "Location not listed"
     if len(loc) > 90:
         loc = loc[:87] + "…"
-    meta = [f"🏢 *{_esc(j.company)}*", f"📍 {_esc(loc)}", TAG.get(cat, cat)]
-    if j.terms:
-        meta.append("🗓 " + _esc(", ".join(j.terms[:2])))
+    line2 = [f"🏢 *{_esc(j.company)}*", f"📍 {_esc(loc)}"]
+    line3 = [LABELS.get(cat, cat), season_label(info), grad_label(info)]
     ago = _ago(j.posted)
     if ago:
-        meta.append(ago)
-    return {"type": "section",
-            "text": {"type": "mrkdwn", "text": f"*<{j.url}|{_esc(j.title)}>*\n" + "  ·  ".join(meta)}}
+        line3.append(ago)
+    text = f"*<{j.url}|{_esc(j.title)}>*\n" + "  ·  ".join(line2) + "\n" + "  ·  ".join(line3)
+    return {"type": "section", "text": {"type": "mrkdwn", "text": text}}
 
 
 def build_messages(items, header=None):
@@ -61,7 +62,7 @@ def build_messages(items, header=None):
 
 
 def webhook_for(category: str) -> str | None:
-    specific = os.environ.get(f"SLACK_WEBHOOK_{category.upper()}")
+    specific = os.environ.get("SLACK_WEBHOOK_TECH" if is_tech(category) else "SLACK_WEBHOOK_BUSINESS")
     return specific or os.environ.get("SLACK_WEBHOOK_URL")
 
 

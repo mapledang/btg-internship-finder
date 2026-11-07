@@ -54,6 +54,13 @@ BOARDS = [
 WORLD = {"round": 1}
 
 
+GH_DESC = {
+    "3": "Undergraduate students graduating between December 2027 and June 2028. This 10-week Summer 2027 internship...",
+    "5": "Candidates must be currently pursuing an MBA. Summer 2027.",
+    "6": "Our Fall 2027 internship for students graduating in 2028.",
+}
+
+
 def gh_jobs():
     jobs = [{"id": 1, "title": "Software Engineering Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/1",
              "location": {"name": "New York, NY"}, "first_published": "2026-11-01T09:00:00-05:00"},
@@ -61,8 +68,16 @@ def gh_jobs():
     if WORLD["round"] >= 2:
         jobs.append({"id": 3, "title": "Marketing Intern - Summer 2027", "absolute_url": "https://boards.greenhouse.io/acme/jobs/3",
                      "location": {"name": "Austin, TX"}, "first_published": "2026-11-06T09:00:00-05:00"})
-        jobs.append({"id": 4, "title": "Software Engineering Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/4",
+        jobs.append({"id": 4, "title": "Marketing Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/4",
                      "location": {"name": "London, United Kingdom"}})   # non-US: should be dropped
+        jobs.append({"id": 5, "title": "Strategy Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/5",
+                     "location": {"name": "New York, NY"}})             # MBA-only per description
+        jobs.append({"id": 6, "title": "Finance Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/6",
+                     "location": {"name": "New York, NY"}})             # fall internship per description
+        jobs.append({"id": 7, "title": "MBA Summer Intern - Brand", "absolute_url": "https://boards.greenhouse.io/acme/jobs/7",
+                     "location": {"name": "New York, NY"}})             # MBA in title
+        jobs.append({"id": 8, "title": "Software Engineering Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/8",
+                     "location": {"name": "New York, NY"}})             # engineering, Acme not on the list
     return {"jobs": jobs}
 
 
@@ -84,24 +99,32 @@ def fake_get(url, **kw):
     if "greenhouse" in url:
         if "/broken/" in url:
             raise sources.requests.HTTPError("404 Not Found")
+        if "/jobs/" in url:
+            return {"content": "&lt;p&gt;" + GH_DESC.get(url.rsplit("/", 1)[1], "") + "&lt;/p&gt;"}
         return gh_jobs()
+    if "lever.co" in url and url.rstrip("/").split("/")[-1] in ("a1", "a2"):
+        return {"descriptionPlain": "Open to rising juniors and seniors pursuing a bachelor's degree.", "lists": []}
     if "lever.co" in url:
         out = [{"id": "a1", "text": "Finance Intern", "hostedUrl": "https://jobs.lever.co/leverco/a1",
                 "categories": {"location": "Chicago, IL"}, "createdAt": 1793900000000}]
         if WORLD["round"] >= 2:
-            out.append({"id": "a2", "text": "Data Science Co-op (Fall 2027)", "hostedUrl": "https://jobs.lever.co/leverco/a2",
+            out.append({"id": "a2", "text": "Business Operations Co-op (Summer 2027)", "hostedUrl": "https://jobs.lever.co/leverco/a2",
                         "categories": {"location": "Boston, MA"}, "createdAt": 1793990000000})
         return out
     if "ashbyhq" in url:
         jobs = [{"id": "z1", "title": "Product Design Intern", "location": "San Francisco", "jobUrl": "https://jobs.ashbyhq.com/AshCo/z1", "isListed": True},
                 {"id": "z2", "title": "Hidden Intern", "location": "SF", "jobUrl": "https://x", "isListed": False}]
         return {"jobs": jobs}
+    if "smartrecruiters" in url and "/postings/" in url:
+        return {"jobAd": {"sections": {"qualifications": {"text": "<p>Class of 2029 students.</p>"}}}}
     if "smartrecruiters" in url:
         c = [{"id": "s1", "name": "Accounting Intern", "location": {"city": "Denver", "region": "CO", "country": "us"},
               "releasedDate": "2026-11-05T12:00:00.000Z"}]
         if WORLD["round"] >= 2 and p.get("q") == "intern":
             c.append({"id": "s2", "name": "Supply Chain Intern", "location": {"city": "Atlanta", "region": "GA", "country": "us"}})
         return {"content": c if p.get("offset", 0) == 0 else []}
+    if "myworkdayjobs" in url and "/job/" in url:
+        return {"jobPostingInfo": {"jobDescription": "<p>Summer 2027 program for undergraduates.</p>"}}
     if "oraclecloud" in url:
         reqs = [{"Id": "900", "Title": "Treasury Intern", "PrimaryLocation": "Columbus, OH, United States",
                  "PostedDate": "2026-11-02"}]
@@ -129,6 +152,9 @@ def fake_simplify():
             # same role Acme already has on Greenhouse -> must not be posted twice
             {"company_name": "Acme", "title": "Marketing Intern - Summer 2027", "url": "https://simplify/acme",
              "id": "dup1", "active": True, "locations": ["Austin, TX"], "category": "Software"},
+            {"company_name": "Google", "title": "Product Strategy Intern", "url": "https://careers.google.com/y",
+             "id": "g2", "active": True, "locations": ["New York, NY"], "category": "Product",
+             "terms": ["Summer 2027"], "degrees": ["Master's", "PhD"]},
             {"company_name": "Google", "title": "Student Researcher, 2027", "url": "https://careers.google.com/x",
              "id": "g1", "active": True, "locations": ["Mountain View, CA"], "category": "AI/ML/Data",
              "terms": ["Summer 2027"], "date_posted": 1793990000},
@@ -137,7 +163,7 @@ def fake_simplify():
     for j in rows:
         out.append(sources.Job("simplify", "simplify", j["company_name"], j["title"], j["url"], str(j["id"]),
                                "; ".join(j.get("locations") or []), j.get("date_posted"), j.get("category", ""),
-                               j.get("terms") or []))
+                               j.get("terms") or [], j.get("degrees") or []))
     return out
 
 
@@ -166,13 +192,21 @@ print("\nPOSTED:")
 for x in t:
     print(" •", x.split("\n")[0])
 joined = "\n".join(t)
-assert len(t) == 30, len(t)    # 1 GH + 1 Lever + 1 SR + 1 WD tech + 25 WD ops + 1 Google (Acme dup collapses)
+assert len(t) == 30, len(t)    # 1 GH marketing + 1 Lever + 1 SR + 1 WD tech + 25 WD ops + 1 Google
 assert "Marketing Intern" in joined and joined.count("Marketing Intern") == 1, "cross-source dedupe"
+assert "boards.greenhouse.io/acme/jobs/3" in joined, "company link preferred over Simplify link"
 assert joined.count("Technology Summer Intern") == 1 and "Charlotte, NC; Dallas, TX" in joined, "multi-location merge"
 assert "London" not in joined and "IT Intern" not in joined, "non-US filtered"
 assert "Senior Software Engineer" not in joined and "Hidden Intern" not in joined
+assert "Strategy Intern" not in joined, "MBA-only description"
+assert "|Finance Intern>" not in joined, "fall internship skipped"
+assert "MBA Summer" not in joined and "Software Engineering Intern" not in joined
+assert "Product Strategy Intern" not in joined, "Simplify Master's/PhD-only"
+assert "Grad 2027–2028" in joined and "Summer 2027" in joined, "grad year + season shown"
+assert "Rising juniors & seniors" in joined and "Grad 2029" in joined
 assert "Student Researcher, 2027" in joined, "Simplify feed"
 assert "/business" in paths and "/all" in paths, "routing by category"
+os.environ.pop("SLACK_WEBHOOK_BUSINESS")
 
 print("\n========== RUN 3: nothing new ==========")
 t, _ = run(3)

@@ -7,9 +7,11 @@
 from __future__ import annotations
 
 import argparse
+import collections
 import concurrent.futures as cf
 import json
 import os
+import re
 import sys
 import time
 
@@ -19,6 +21,7 @@ from finder.companies import load_companies, load_manual
 from finder.filters import Filter, classify
 from finder.sources import FETCHERS, STOP, board_key, fetch_simplify
 from finder.state import State, fingerprint
+from finder.details import enrich, season_label, grad_label
 from finder import slack
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -28,9 +31,34 @@ def log(msg):
     print(msg, flush=True)
 
 
+def enrich_and_check(items, flt, want=None):
+    """Fetch descriptions in parallel; return (items that pass, Counter of skip reasons).
+
+    Each item gets item["info"] (grad years, season...) and item["reject"] (reason or None).
+    If `want` is set, stop once that many items have passed (used by test mode).
+    """
+    STOP.clear()
+    keep, reasons = [], collections.Counter()
+    with cf.ThreadPoolExecutor(max_workers=12) as ex:
+        infos = ex.map(lambda it: enrich(it["job"]), items)
+        for it, info in zip(items, infos):
+            it["info"] = info
+            it["reject"] = flt.reject_reason(info)
+            if it["reject"]:
+                reasons[re.sub(r"\s*[\(\[].*?[\)\]]", "", it["reject"])] += 1
+            else:
+                keep.append(it)
+                if want and len(keep) >= want:
+                    break
+    return keep, reasons
+
+
 def fetch_board(b):
     try:
-        return b, FETCHERS[b["ats"]](b), None
+        jobs = FETCHERS[b["ats"]](b)
+        for j in jobs:
+            j.cfg = b
+        return b, jobs, None
     except Exception as e:  # noqa: BLE001 - one bad board must not stop the run
         return b, [], f"{type(e).__name__}: {str(e)[:120]}"
 
@@ -121,6 +149,8 @@ def main():
             if fp in new:                   # same role at several locations / in several sources
                 it = new[fp]
                 it["uids"].append(j.uid)
+                if it["job"].source == "simplify" and j.source != "simplify":
+                    it["job"] = j           # prefer the company's own job link
                 if j.location and j.location not in it["locations"]:
                     it["locations"].append(j.location)
                 continue
@@ -130,7 +160,14 @@ def main():
 
     items = sorted(new.values(), key=lambda it: -(it["job"].posted or time.time()))
     cap = int(cfg.get("max_posts_per_run", 120))
-    to_post, waiting = items[:cap], items[cap:]
+    to_check, waiting = items[:cap], items[cap:]
+
+    # ---- read descriptions: grad year, season, MBA/grad-only
+    to_post, rejected = enrich_and_check(to_check, flt)
+    for it in to_check:
+        if it.get("reject"):
+            for uid in it["uids"]:
+                state.mark(uid, it["fp"])   # don't re-check it next run
 
     # ---- post
     posted = 0
@@ -142,7 +179,8 @@ def main():
             if args.dry_run:
                 for it in chunk:
                     j = it["job"]
-                    print(f"[{it['category']:8}] {j.company} — {j.title} — {'; '.join(it['locations'])[:60]}\n           {j.url}")
+                    print(f"[{it['category']:11}] {j.company} — {j.title} — {'; '.join(it['locations'])[:50]}\n"
+                          f"              {season_label(it['info'])} · {grad_label(it['info'])} · {j.url}")
                 posted += len(chunk)
                 continue
             if slack.post(hook, payload):
@@ -163,6 +201,8 @@ def main():
         + (f", **{skipped}** skipped (time limit)" if skipped else "") + f" ({fetch_secs:.0f}s)",
         f"- Internship listings matched: {matched}",
         f"- New posted to Slack: **{posted}**" + (f" ({len(waiting)} queued for next run)" if waiting else ""),
+        "- Skipped after reading descriptions: "
+        + (", ".join(f"{n} {r}" for r, n in rejected.most_common()) if rejected else "none"),
         f"- Recorded silently (first scan of a board, or duplicate): {seeded}",
     ]
     if bad_manual:
@@ -184,17 +224,19 @@ def main():
 
 def test_post(args, results, failed, flt, fetch_secs, skipped=0):
     """Post the N most recently posted internships (one per company) so you can see it working."""
-    picked, companies = [], set()
+    candidates, companies = [], set()
     pool = [j for _, jobs in results for j in jobs if j.url and flt.accept(j)]
-    pool.sort(key=lambda j: -(j.posted or 0))
+    # newest first, but put company-board jobs (any kind of role) ahead of the tech-heavy Simplify feed
+    pool.sort(key=lambda j: (j.source == "simplify", -(j.posted or time.time())))
     for j in pool:
         if j.company in companies:
             continue
         companies.add(j.company)
-        picked.append({"job": j, "category": classify(j), "uids": [j.uid], "fp": "",
-                       "locations": [j.location] if j.location else []})
-        if len(picked) >= args.test_post:
+        candidates.append({"job": j, "category": classify(j), "uids": [j.uid], "fp": "",
+                           "locations": [j.location] if j.location else []})
+        if len(candidates) >= args.test_post * 8:
             break
+    picked, _ = enrich_and_check(candidates, flt, want=args.test_post)
     header = (f"🧪 *Test post from the internship finder.* It scanned {len(results)} job boards "
               f"({len(failed)} failed) and matched {len(pool)} open internships. "
               f"Here are {len(picked)} recent ones. Real alerts will only include newly released roles.")

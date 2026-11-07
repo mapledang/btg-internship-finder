@@ -1,7 +1,8 @@
-"""Decide which jobs are internships, where they are, and whether they're tech or business."""
+"""Decide which jobs are undergrad internships, where they are, and what kind of role they are."""
 from __future__ import annotations
 
 import re
+import time
 
 from .sources import Job
 
@@ -13,13 +14,26 @@ def _words(patterns):
     return re.compile(r"(?<![a-z])(" + "|".join(alts) + r")(?![a-z])", re.I) if alts else None
 
 
+def _norm(s):
+    s = re.sub(r"\(.*?\)", " ", s.lower())
+    s = re.sub(r"\b(the|inc|corp|corporation|company|co|llc|plc|ltd|group|holdings)\b", " ", s)
+    return re.sub(r"[^a-z0-9]", "", s)
+
+
 class Filter:
     def __init__(self, cfg: dict):
         self.include = _words(cfg.get("include_title_patterns", ["intern", "internship"]))
         self.exclude = _words(cfg.get("exclude_title_patterns", []))
         self.us_only = cfg.get("us_only", True)
-        self.categories = set(cfg.get("post_categories", ["tech", "business", "other"]))
+        self.categories = set(cfg.get("post_categories", list(LABELS)))
+        self.eng_companies = [_norm(c) for c in cfg.get("engineering_companies", []) if c.strip()]
+        self.off_season = bool(cfg.get("include_off_season", False))
+        self.grad_years = set(int(y) for y in cfg.get("target_grad_years", []) or [])
+        # Summer internships for a summer that's already over are stale.
+        t = time.gmtime()
+        self.min_summer_year = t.tm_year + (1 if t.tm_mon >= 9 else 0)
 
+    # ---- cheap checks on the listing itself (title, location, company, Simplify degree list)
     def is_internship(self, title: str, curated: bool = False) -> bool:
         if not title or not (curated or self.include.search(title)):
             return False
@@ -28,10 +42,41 @@ class Filter:
     def location_ok(self, location: str) -> bool:
         return (not self.us_only) or not is_clearly_non_us(location)
 
+    def engineering_ok(self, company: str) -> bool:
+        c = _norm(company)
+        return any(c == e or (len(e) >= 5 and c.startswith(e)) for e in self.eng_companies)
+
     def accept(self, job: Job) -> bool:
         # The Simplify feed is already a curated internship list, so don't re-check titles.
-        return (self.is_internship(job.title, curated=job.source == "simplify")
-                and self.location_ok(job.location) and classify(job) in self.categories)
+        if not self.is_internship(job.title, curated=job.source == "simplify"):
+            return False
+        if not self.location_ok(job.location):
+            return False
+        if job.degrees and not any(d.lower().startswith(("bachelor", "associate")) for d in job.degrees):
+            return False                      # Simplify says Master's / PhD / MBA only
+        cat = classify(job)
+        if cat not in self.categories:
+            return False
+        if cat == "engineering" and not self.engineering_ok(job.company):
+            return False
+        return True
+
+    # ---- checks that need the full description (run only on jobs about to be posted)
+    def reject_reason(self, info: dict) -> str | None:
+        if info.get("grad_only"):
+            return "grad-level (MBA/Master's/PhD)"
+        season, year = info.get("season"), info.get("season_year")
+        if season == "summer" and year and year < self.min_summer_year:
+            return f"past summer ({year})"
+        if not self.off_season:
+            if season and season != "summer":
+                return f"off-season ({season})"
+            if not season and info.get("coop"):
+                return "co-op without summer dates"
+        ys = info.get("grad_years") or []
+        if self.grad_years and ys and not (set(ys) & self.grad_years):
+            return f"grad year {ys} outside target"
+        return None
 
 
 # ------------------------------------------------------------------ location
@@ -69,39 +114,70 @@ def is_clearly_non_us(location: str) -> bool:
 
 
 # ------------------------------------------------------------------ category
+# Checked in this order; the first match wins.
 
-TECH = re.compile(
-    r"\b(software|engineer\w*|developer|data|machine learning|ml|ai|artificial intelligence|"
-    r"computer|cyber\w*|security|cloud|devops|sre|hardware|firmware|embedded|electrical|"
-    r"mechanical|robotics|research scientist|quantitative developer|it|information technology|"
-    r"technology|technical|systems|network\w*|web|mobile|ios|android|frontend|backend|full[\s-]?stack|"
-    r"product manag\w*|product design|ux|ui|analytics engineer|database|platform|infrastructure|"
-    r"semiconductor|asic|fpga|silicon|chip|automation|programmer|r&d)\b", re.I)
-BUSINESS = re.compile(
-    r"\b(business|finance|financial|accounting|accountant|audit|tax|banking|investment|"
-    r"analyst|consult\w*|strategy|marketing|brand|sales|trading|trader|quant\w*|equity|"
-    r"capital markets|wealth|asset management|private equity|venture|treasury|risk|"
-    r"operations|supply chain|procurement|merchandising|economics|actuar\w*|underwrit\w*|"
-    r"commercial|corporate development|m&a|summer analyst|summer associate|mba|"
-    r"communications|public relations|advertising|real estate|insurance|credit|fp&a|"
-    r"category manag\w*|buyer|planning|revenue|pricing|growth)\b", re.I)
+LABELS = {
+    "consulting": "🧠 Consulting & Strategy",
+    "product": "🧭 Product",
+    "finance": "📈 Finance",
+    "marketing": "📣 Marketing",
+    "business": "💼 Business & Ops",
+    "data_it": "📊 Data, Analytics & IT",
+    "engineering": "💻 Engineering",
+    "other": "🧩 Other",
+}
+
+_R = lambda p: re.compile(p, re.I)  # noqa: E731
+RULES = [
+    ("engineering", _R(r"\b(software|swe|developer|machine learning|deep learning|\bml\b|\bai\b|"
+                       r"artificial intelligence|data scien\w*|data engineer\w*|research (?:scientist|engineer)|"
+                       r"hardware|firmware|embedded|electrical|mechanical|robotics|silicon|asic|fpga|"
+                       r"frontend|front-end|backend|back-end|full[\s-]?stack|ios|android|devops|sre|"
+                       r"site reliability|computer vision|compiler|kernel|gpu|engineer|engineers|engineering|"
+                       r"technical artist|game design\w*)\b"), True),
+    ("consulting", _R(r"\b(consult\w*|strateg\w*|corporate development|transformation|advisory|"
+                      r"management associate|chief of staff|ventures?)\b"), False),
+    ("marketing", _R(r"\b(marketing|brand|communications|public relations|\bpr\b|advertis\w*|social media|"
+                     r"content|growth|creative|media|partnerships)\b"), False),
+    ("product", _R(r"\b(product manag\w*|product owner|apm|product analyst|product strategy|"
+                   r"product operations|product intern|product development|product)\b"), False),
+    ("finance", _R(r"\b(financ\w*|accounting|accountant|audit\w*|tax|banking|banker|investment\w*|"
+                   r"capital markets|equity|equities|trading|trader|quant\w*|wealth|asset management|"
+                   r"private equity|venture capital|treasury|risk|credit|actuar\w*|underwrit\w*|fp&a|"
+                   r"summer analyst|economic\w*|markets|fixed income|m&a|mergers|restructuring|"
+                   r"real estate|insurance|valuation)\b"), False),
+    ("data_it", _R(r"\b(data analy\w*|business analy\w*|analytics|business intelligence|\bbi\b|"
+                   r"\bit\b|information technology|technology analyst|cyber\w*|solutions|sales engineer|"
+                   r"technical|technology|systems analyst|data)\b"), False),
+    ("business", _R(r"\b(business|operations|supply chain|procurement|sourcing|logistics|sales|"
+                    r"merchandis\w*|buyer|category|commercial|account management|customer success|"
+                    r"planning|program|project|analyst|people|human resources|\bhr\b|talent|"
+                    r"legal|compliance|policy|government|sustainability|esg|retail|hospitality)\b"), False),
+]
+# Role words that pull a title out of "engineering" even if it mentions an engineering word,
+# e.g. "Product Manager Intern - AI Platform" or "Technology Consulting Intern".
+_BUSINESS_OVERRIDE = _R(r"\b(product manag\w*|consult\w*|strateg\w*|business analy\w*|"
+                        r"financial engineer\w*|sales|marketing|operations|supply chain|"
+                        r"industrial engineer\w*|finance|accounting|business)\b")
 
 
 def classify(job: Job) -> str:
-    hint = (job.category_hint or "").lower()
-    if hint:
-        if "quant" in hint:
-            return "business"
-        return "tech"           # Simplify's other categories are all tech/product
     t = job.title
-    tech, biz = bool(TECH.search(t)), bool(BUSINESS.search(t))
-    if tech and biz:
-        # "Data Analyst", "Technology Risk", "Software Sales"... lean on strongest words
-        if re.search(r"\b(software|engineer\w*|developer|machine learning|hardware|firmware|cyber\w*)\b", t, re.I):
-            return "tech"
-        return "business"
-    if tech:
-        return "tech"
-    if biz:
-        return "business"
+    for cat, rx, needs_check in RULES:
+        if rx.search(t):
+            if needs_check and _BUSINESS_OVERRIDE.search(t):
+                continue
+            return cat
+    hint = (job.category_hint or "").lower()
+    if "product" in hint:
+        return "product"
+    if "quant" in hint:
+        return "finance"
+    if hint:                       # Simplify's Software / AI/ML/Data / Hardware
+        return "engineering"
     return "other"
+
+
+def is_tech(cat: str) -> bool:
+    """For Slack routing: which categories go to the tech channel if you have one."""
+    return cat in ("engineering", "data_it")

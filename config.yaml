@@ -11,41 +11,112 @@ include_title_patterns:
   - co-op
   - coop
   - summer analyst
-  - summer associate
   - summer scholar
+  - summer program
   - student researcher
-  - industrial placement
-  - placement year
   - apprentice
 
-# Titles containing any of these are skipped (staff roles that mention interns, etc.).
+# Titles containing any of these are skipped. Includes MBA / grad-school roles,
+# since this channel is for undergrads.
 exclude_title_patterns:
+  # grad school & MBA
+  - mba
+  - summer associate      # at banks & consulting firms this means MBA students
+  - master
+  - masters
+  - phd
+  - ph.d
+  - doctoral
+  - doctorate
+  - postdoc
+  - graduate intern
+  - graduate student
+  - grad intern
+  - law clerk
+  - law school
+  - jd
+  - 1l
+  - 2l
+  # staff roles that mention interns
   - program manager
   - coordinator
   - recruiter
   - recruiting
   - talent acquisition
   - director
-  - postdoc
+  # medical / clinical
   - medical intern
   - pharmacy intern
   - dietetic
   - clinical
   - nurse
 
+# Graduation years you care about. Jobs whose description names only other grad years
+# are skipped; jobs that don't say are kept. Each post shows the grad year it asks for.
+target_grad_years: [2027, 2028, 2029]
+
+# Summer internships only. Fall / winter / spring internships and co-ops without
+# summer dates are skipped. Set to true to include them (each post is labeled).
+include_off_season: false
+
+# Kinds of roles to post. Remove any you don't want.
+post_categories:
+  - consulting      # consulting, strategy, corp dev
+  - product         # product management, product ops
+  - finance         # banking, investing, accounting, quant, risk
+  - marketing
+  - business        # operations, sales, supply chain, general business
+  - data_it         # data / business analyst, analytics, IT
+  - engineering     # software, ML, hardware (only from the companies below)
+  - other
+
+# Engineering roles (software, ML, hardware...) are only posted from these companies,
+# so the channel stays mostly business-focused. Add or remove names freely; leave the
+# list empty to drop engineering roles entirely.
+engineering_companies:
+  - Google
+  - Meta
+  - Apple
+  - Amazon
+  - Microsoft
+  - Netflix
+  - NVIDIA
+  - Salesforce
+  - Adobe
+  - Stripe
+  - Airbnb
+  - Uber
+  - LinkedIn
+  - Palantir
+  - Databricks
+  - Bloomberg
+  - Goldman Sachs
+  - JPMorgan Chase
+  - Morgan Stanley
+  - Capital One
+  - Citadel
+  - Jane Street
+  - Two Sigma
+  - Hudson River Trading
+  - Tesla
+  - SpaceX
+  - Intuit
+  - Visa
+  - Mastercard
+  - American Express
+  - PayPal
+  - Spotify
+  - The Walt Disney Company
+
 # Only post US / remote roles. Jobs whose location clearly names another country are
 # skipped; anything ambiguous is kept so nothing real gets dropped.
 us_only: true
-
-# Only post these kinds of roles. Options: tech, business, other.
-# "other" = internships that aren't clearly tech or business (e.g. HR, design, legal).
-post_categories: [tech, business, other]
 
 # Safety valve: at most this many posts per run. Extras wait for the next run.
 max_posts_per_run: 120
 
 # Include the community-maintained Simplify internship feed (covers Google, Meta,
-# Apple, Amazon, Microsoft, Tesla and others whose careers sites can't be scanned directly).
+# Apple, Amazon, Microsoft and others whose careers sites can't be scanned directly).
 use_simplify_feed: true
 
 # Stop scanning company boards after this many minutes and post what was found.

@@ -5,9 +5,15 @@ Every 2 hours this checks the job boards of ~1,000 large tech and business compa
 to a Slack channel. It runs free on GitHub Actions.
 
 ```
-🏢 Goldman Sachs · 📍 New York, NY · 📈 Business · posted 2h ago
-   2027 Summer Analyst – Global Banking & Markets
+2027 Summer Analyst – Investment Banking
+🏢 Evercore · 📍 New York, NY
+📈 Finance · ☀️ Summer 2027 · 🎓 Grad 2027–2028 · posted 2h ago
 ```
+
+It's tuned for **undergrad summer internships** in business, product, consulting,
+strategy and finance, plus a smaller set of engineering roles from top companies.
+MBA / Master's / PhD roles are skipped. For each new job it reads the full description
+to show the graduation year and season it asks for.
 
 ## How it works
 
@@ -94,8 +100,10 @@ Workflow permissions → Read and write permissions → Save**.
 |---|---|
 | Change how often it runs | Edit the `cron` line in `.github/workflows/scan.yml` (`17 */3 * * *` = every 3 hours) |
 | Change which titles count | `include_title_patterns` / `exclude_title_patterns` in `config.yaml` |
+| Change target grad years | `target_grad_years` in `config.yaml` |
+| Include fall / winter / spring / co-ops | `include_off_season: true` in `config.yaml` |
+| Change the role mix | `post_categories` and `engineering_companies` in `config.yaml` |
 | Include non-US roles | `us_only: false` in `config.yaml` |
-| Only tech or only business | `post_categories` in `config.yaml` |
 | Add a specific company | Add `Company Name \| <link to any job on their careers site>` to `data/companies_manual.txt` |
 | Add business firms to look up | Add names to `data/business_seed.txt`, then run **Update company list** |
 | Remove a company | Add its name to `data/companies_exclude.txt` |

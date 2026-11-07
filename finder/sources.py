@@ -35,6 +35,9 @@ class Job:
     posted: float | None = None   # unix seconds, when known
     category_hint: str = ""       # e.g. Simplify's category
     terms: list = field(default_factory=list)
+    degrees: list = field(default_factory=list)   # Simplify: e.g. ["Bachelor's", "Master's"]
+    description: str = ""         # plain text, filled in for new jobs only
+    cfg: dict = field(default=None, repr=False)   # the board config this job came from
 
     @property
     def uid(self) -> str:
@@ -135,9 +138,11 @@ def fetch_ashby(b):
         extra = [x.get("location", "") for x in (j.get("secondaryLocations") or []) if isinstance(x, dict)]
         if extra:
             loc = "; ".join([loc] + extra)
-        out.append(Job("ashby", board_key(b), b["name"], j.get("title", ""),
-                       j.get("jobUrl") or j.get("applyUrl", ""), str(j.get("id")), loc,
-                       _iso_to_ts(j.get("publishedAt"))))
+        job = Job("ashby", board_key(b), b["name"], j.get("title", ""),
+                  j.get("jobUrl") or j.get("applyUrl", ""), str(j.get("id")), loc,
+                  _iso_to_ts(j.get("publishedAt")))
+        job.description = j.get("descriptionPlain") or ""
+        out.append(job)
     return out
 
 
@@ -254,7 +259,8 @@ def fetch_simplify(url=SIMPLIFY_FEEDS["internships"]):
             continue
         out.append(Job("simplify", "simplify", j.get("company_name", ""), j.get("title", ""),
                        j.get("url", ""), str(j.get("id")), "; ".join(j.get("locations") or []),
-                       j.get("date_posted"), j.get("category", ""), j.get("terms") or []))
+                       j.get("date_posted"), j.get("category", ""), j.get("terms") or [],
+                       j.get("degrees") or []))
     return out
 
 
