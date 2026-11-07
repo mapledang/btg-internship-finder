@@ -108,23 +108,16 @@ def scan_boards(boards, cfg, args, state):
     return results, failed, skipped, time.time() - t0
 
 
-def post_digest(picked, secs, title, args, extra=""):
-    """Post intro + one message per section. Returns entries that were posted."""
-    names = [s["name"] for s in secs]
-    hook = slack.webhook()
-    sent = []
-    for payload, entries in slack.digest_messages(picked, names, title, extra):
-        if args.dry_run:
-            log("\n" + payload["text"][:200])
-            for b in payload["blocks"]:
-                if b["type"] == "section":
-                    log("   " + b["text"]["text"].replace("\n", "\n   "))
-            sent += entries
-            continue
-        if slack.post(hook, payload):
-            sent += entries
-        time.sleep(1.1)   # Slack allows ~1 message/second per webhook
-    return sent
+def post_digest(picked, secs, title, args, note=""):
+    """Post the whole digest as one Slack message. Returns the entries that were posted."""
+    entries = [e for v in picked.values() for e in v]
+    payload = slack.digest_message(picked, [s["name"] for s in secs], title, note)
+    if args.dry_run:
+        for b in payload["blocks"]:
+            t = b.get("text", {}).get("text") or " ".join(x["text"] for x in b.get("elements", []))
+            log(("\n" + t) if t else "-" * 40)
+        return entries
+    return entries if slack.post(slack.webhook(), payload) else []
 
 
 def write_report(lines):
@@ -154,8 +147,8 @@ def main():
     if args.limit:
         boards = boards[: args.limit]
     if args.test_post and not args.limit:
-        # Test mode only needs a quick sample: one board in every ~15, so it finishes in a few minutes.
-        boards = boards[::15]
+        # Test mode only needs a quick sample: the ~80 biggest companies, so it finishes in a few minutes.
+        boards = boards[:80]
         cfg["max_scan_minutes"] = min(float(cfg.get("max_scan_minutes", 15)), 4)
     _, bad_manual = load_manual()
 
@@ -169,7 +162,7 @@ def main():
 
     # ---- find new internships
     new = {}            # fingerprint -> item
-    seeded = matched = 0
+    seeded = matched = small = 0
     for k, jobs in results:
         ready = state.board_ready(k)
         for j in jobs:
@@ -182,6 +175,10 @@ def main():
             if not ready or state.fp_recent(fp):
                 state.mark(j.uid, fp)       # first scan of this board, or already queued/posted
                 seeded += 1
+                continue
+            if not digest.big_enough(j.company, cfg):
+                state.mark(j.uid, fp)       # smaller company (see digest.max_company_tier)
+                small += 1
                 continue
             if fp in new:                   # same role at several locations / in several sources
                 it = new[fp]
@@ -216,14 +213,17 @@ def main():
         n = sum(len(v) for v in picked.values())
         if n:
             sent = post_digest(picked, secs, digest.date_title(cfg), args)
-            sent_ids = {id(e) for e in sent}
-            unsent = [e for v in picked.values() for e in v if id(e) not in sent_ids]
-            state.queue = unsent + rest
-            digest_line = f"posted {len(sent)} roles"
+            if sent:
+                state.queue = rest
+                digest_line = f"posted {len(sent)} roles"
+            else:
+                state.queue = [e for v in picked.values() for e in v] + rest
+                digest_line = "FAILED to post (will retry next run)"
         else:
             state.queue = rest
             digest_line = "nothing queued, skipped"
-        state.last_digest = digest.today(cfg)
+        if not digest_line.startswith("FAILED"):
+            state.last_digest = digest.today(cfg)
 
     if not args.dry_run:
         state.save()
@@ -241,6 +241,7 @@ def main():
         "- Skipped after reading descriptions: "
         + (", ".join(f"{n} {r}" for r, n in rejected.most_common()) if rejected else "none"),
         f"- Recorded silently (first scan of a board, or duplicate): {seeded}",
+        f"- Skipped as smaller companies (not Tier 1-2): {small}",
         f"- Daily digest: {digest_line}",
         "- Waiting in queue: " + (", ".join(f"{s}: {n}" for s, n in in_queue.items()) or "empty"),
     ]
@@ -260,7 +261,8 @@ def main():
 def test_post(args, cfg, results, failed, skipped, flt, secs, fetch_secs):
     """Post a sample digest from currently open roles so you can see the format. Saves nothing."""
     candidates, seen_fp = [], set()
-    pool = [j for _, jobs in results for j in jobs if j.url and flt.accept(j)]
+    pool = [j for _, jobs in results for j in jobs
+            if j.url and flt.accept(j) and digest.big_enough(j.company, cfg)]
     pool.sort(key=lambda j: (tier(j.company), j.source == "simplify", -(j.posted or time.time())))
     per_cat = collections.Counter()
     for j in pool:
@@ -276,8 +278,8 @@ def test_post(args, cfg, results, failed, skipped, flt, secs, fetch_secs):
     picked = collections.defaultdict(list)
     for it in keep:
         picked[it["section"]].append(digest.make_entry(it, it["section"]))
-    extra = ("🧪 _Test post: a sample from roles open right now. Real digests only include newly "
-             "released roles, up to " + str((cfg.get('digest') or {}).get('per_section', 5)) + " per section._")
+    extra = ("_Test post: a sample of roles open right now. Daily digests include only newly released "
+             "roles, up to " + str((cfg.get('digest') or {}).get('per_section', 5)) + " per section._")
     sent = post_digest(picked, secs, digest.date_title(cfg), args, extra)
     write_report([
         "## Test digest",

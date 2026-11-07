@@ -16,6 +16,11 @@ os.chdir(ROOT)
 import scan  # noqa: E402
 from finder import sources, digest  # noqa: E402
 from finder.state import State  # noqa: E402
+from finder.slack import _EMOJI as slack_emoji_re  # noqa: E402
+
+
+def slack_emoji(text):
+    return slack_emoji_re.search(text)
 
 # ------------------------------------------------------------- fake Slack
 received = []
@@ -41,10 +46,12 @@ sources.time.sleep = lambda s: None
 
 # ------------------------------------------------------------- fake boards
 BOARDS = [
-    {"ats": "greenhouse", "slug": "acme", "name": "Acme"},             # startup board -> tech company
-    {"ats": "lever", "slug": "leverco", "name": "LeverCo"},
-    {"ats": "smartrecruiters", "slug": "SRCorp", "name": "SR Corp"},
-    {"ats": "workday", "host": "bigbank.wd5.myworkdayjobs.com", "tenant": "bigbank", "site": "External", "name": "BigBank"},
+    {"ats": "greenhouse", "slug": "acme", "name": "Databricks"},        # Tier 2, tech
+    {"ats": "lever", "slug": "leverco", "name": "Palantir"},            # Tier 2, tech
+    {"ats": "smartrecruiters", "slug": "SRCorp", "name": "Visa"},       # Tier 1, tech
+    {"ats": "workday", "host": "bigbank.wd5.myworkdayjobs.com", "tenant": "bigbank", "site": "External",
+     "name": "Goldman Sachs"},                                          # Tier 1, not tech
+    {"ats": "ashby", "slug": "tinyco", "name": "TinyCo"},               # small company: skipped
     {"ats": "greenhouse", "slug": "broken", "name": "Broken Inc"},
 ]
 WORLD = {"round": 1}
@@ -95,6 +102,13 @@ def wd_jobs(term, offset):
 
 def fake_get(url, **kw):
     p = kw.get("params") or {}
+    if "ashbyhq" in url:
+        jobs = [{"id": "t1", "title": "Product Manager Intern", "location": "Austin, TX", "isListed": True,
+                 "jobUrl": "https://jobs.ashbyhq.com/tinyco/t1", "descriptionPlain": "Undergraduates. Summer 2027."}]
+        if WORLD["round"] >= 2:
+            jobs.append({"id": "t2", "title": "Product Manager Intern II", "location": "Austin, TX", "isListed": True,
+                         "jobUrl": "https://jobs.ashbyhq.com/tinyco/t2", "descriptionPlain": "Undergraduates. Summer 2027."})
+        return {"jobs": jobs}
     if "greenhouse" in url:
         if "/broken/" in url:
             raise sources.requests.HTTPError("404 Not Found")
@@ -140,7 +154,7 @@ def fake_simplify():
     rows = [r for r in _simplify_rows if r.get("active")][:300]
     if WORLD["round"] >= 2:
         rows = rows + [
-            {"company_name": "Acme", "title": "Growth Marketing Intern - Summer 2027", "url": "https://simplify/acme",
+            {"company_name": "Databricks", "title": "Growth Marketing Intern - Summer 2027", "url": "https://simplify/acme",
              "id": "dup1", "active": True, "locations": ["Austin, TX"], "category": "Product"},       # duplicate
             {"company_name": "Google", "title": "Product Strategy Intern", "url": "https://careers.google.com/y",
              "id": "g2", "active": True, "locations": ["New York, NY"], "category": "Product",
@@ -170,9 +184,10 @@ def run(r, *extra):
     scan.main()
     sections = {}
     for p in received:
-        blocks = p["blocks"]
-        if blocks[0]["type"] == "header":
-            sections[blocks[0]["text"]["text"]] = [b["text"]["text"] for b in blocks if b["type"] == "section"]
+        for b in p["blocks"]:
+            if b["type"] == "section":
+                parts = b["text"]["text"].split("\n\n")
+                sections[parts[0].strip("*")] = parts[1:]
     return received[:], sections
 
 
@@ -193,7 +208,8 @@ for e in q:
     by.setdefault(e["section"], []).append(e["title"])
 print(json.dumps(by, indent=1, ensure_ascii=False))
 pm, strat, fin, data, mkt, under = (s["name"] for s in digest.DEFAULT_SECTIONS)
-assert len(by[pm]) == 8, by[pm]                            # 7 Acme "Team" PM roles + Google APM
+assert len(by[pm]) == 8, by[pm]                            # 7 Databricks "Team" PM roles + Google APM
+assert "Product Manager Intern II" not in by[pm], "smaller company skipped"
 assert "Associate Product Manager Intern" in by[pm]
 assert "Strategy & Operations Intern" in by[strat]
 assert "Venture Capital Intern (Summer 2027)" in by[fin] and "Real Estate Investment Intern" in by[fin]
@@ -211,10 +227,13 @@ print("\n========== RUN 3: digest time: 5 per section, biggest companies first =
 DUE["v"] = True
 msgs, sections = run(3)
 print("SECTIONS:", {k: len(v) for k, v in sections.items()})
-assert msgs[0]["blocks"][0]["text"]["text"].startswith("📬 *Internship roundup")
+assert len(msgs) == 1, "whole digest is one Slack message"
+assert msgs[0]["blocks"][0]["type"] == "header" and msgs[0]["blocks"][0]["text"]["text"].startswith("Internship Roundup")
 assert len(sections[pm]) == 5, "capped at 5 per section"
-assert "Associate Product Manager Intern" in sections[pm][0] and "⭐" in sections[pm][0], "Google (tier 1) first"
-assert "Grad 2027–2028" in " ".join(sections[pm]) and "Summer 2027" in " ".join(sections[pm])
+assert "Associate Product Manager Intern" in sections[pm][0] and "Google" in sections[pm][0], "Tier 1 first"
+allroles = " ".join(" ".join(v) for v in sections.values())
+assert "Class of 2027–2028" in allroles and "Summer 2027" in allroles
+assert not slack_emoji(json.dumps(msgs[0], ensure_ascii=False)), "no emojis"
 assert len(queue()) == 3, "3 leftover PM roles carried over to tomorrow"
 
 print("\n========== RUN 4: same day again: no second digest ==========")
@@ -232,7 +251,11 @@ print("\n========== TEST MODE: sample digest, save nothing ==========")
 DUE["v"] = False
 msgs, sections = run(5, "--test-post", "2")
 assert sections and all(len(v) <= 2 for v in sections.values()), sections
-assert "Test post" in msgs[0]["blocks"][0]["text"]["text"]
+assert len(msgs) == 1 and "Test post" in json.dumps(msgs[0])
 assert open(STATE).read() == before, "test mode must not change state"
 assert json.load(open(STATE))["board_failures"].get("greenhouse:broken") == 5
+print("\nSAMPLE DIGEST (as plain text):")
+for b in msgs[0]["blocks"]:
+    t = b.get("text", {}).get("text") or " ".join(x["text"] for x in b.get("elements", []))
+    print(t if t else "-" * 50)
 print("\nALL CHECKS PASSED ✅")

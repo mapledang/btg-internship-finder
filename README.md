@@ -1,25 +1,25 @@
 # Internship Finder → Slack
 
 Scans ~1,000 company job boards (plus the community-maintained Simplify internship list)
-every 2 hours, and posts a **daily roundup at 9 AM Pacific** with up to 5 new roles in each section:
-
-- 🧭 Product Management
-- 🧠 Strategy & Consulting
-- 📈 Finance, VC & Real Estate
-- 📊 Data & Analytics
-- 📣 Marketing & Growth
-- 🌱 Freshman & Sophomore Programs
+every 2 hours, and posts a **daily roundup at 9 AM Pacific** as a single Slack message,
+with up to 5 new roles in each section: Product Management; Strategy & Consulting;
+Finance, Venture Capital & Real Estate; Data & Analytics; Marketing & Growth; and
+Freshman & Sophomore Programs.
 
 ```
-🧭 Product Management
-Associate Product Manager Intern
-🏢 Google ⭐ · 📍 Mountain View, CA
-☀️ Summer 2027 · 🎓 Grad 2028
+Internship Roundup  |  Saturday, November 7
+12 new undergraduate summer internships in the US, listed by company size and posting date.
+──────────────
+Product Management
+
+Associate Product Manager Intern  —  Google
+Mountain View, CA  |  Summer 2027  |  Class of 2028  |  Posted Nov 6
 ```
 
 It's tuned for **undergrad summer internships in the US**. MBA / Master's / PhD roles are
-skipped. Business, strategy, product and consulting roles come from **tech companies**,
-and the biggest companies (Fortune 100 / big tech, marked ⭐) are picked first. For each
+skipped. Business, strategy, product and consulting roles come from **tech companies**.
+Only large, well-known companies are included by default (Tier 1: Fortune 100, big tech,
+MBB, Big 4; Tier 2: ~300 other major companies), biggest first. For each
 role it reads the full description to show the graduation year and season it asks for.
 Roles that don't make the day's top 5 carry over to the next digest (for up to 7 days).
 
@@ -108,6 +108,7 @@ Workflow permissions → Read and write permissions → Save**.
 | Change the role mix | `post_categories` and `engineering_companies` in `config.yaml` |
 | Allow business roles from non-tech companies | `tech_companies_only_for: []` in `config.yaml` |
 | Mark a company as tech, Tier 1 or Tier 2 | `data/company_tiers.yaml` |
+| Include smaller companies | `digest: fill_with_smaller_companies: true` in `config.yaml` |
 | Include non-US roles | `us_only: false` in `config.yaml` |
 | Add a specific company | Add `Company Name \| <link to any job on their careers site>` to `data/companies_manual.txt` |
 | Add business firms to look up | Add names to `data/business_seed.txt`, then run **Update company list** |

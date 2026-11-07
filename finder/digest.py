@@ -14,12 +14,12 @@ from .details import season_label, grad_label
 from .tiers import tier
 
 DEFAULT_SECTIONS = [
-    {"name": "🧭 Product Management", "categories": ["product"]},
-    {"name": "🧠 Strategy & Consulting", "categories": ["consulting"]},
-    {"name": "📈 Finance, VC & Real Estate", "categories": ["finance"]},
-    {"name": "📊 Data & Analytics", "categories": ["data"]},
-    {"name": "📣 Marketing & Growth", "categories": ["marketing"]},
-    {"name": "🌱 Freshman & Sophomore Programs", "underclass": True},
+    {"name": "Product Management", "categories": ["product"]},
+    {"name": "Strategy & Consulting", "categories": ["consulting"]},
+    {"name": "Finance, Venture Capital & Real Estate", "categories": ["finance"]},
+    {"name": "Data & Analytics", "categories": ["data"]},
+    {"name": "Marketing & Growth", "categories": ["marketing"]},
+    {"name": "Freshman & Sophomore Programs", "underclass": True},
 ]
 
 
@@ -65,20 +65,30 @@ def today(cfg) -> str:
     return _now_local(cfg).date().isoformat()
 
 
+def big_enough(company: str, cfg) -> bool:
+    """Tier 1-2 companies always; smaller ones only if fill_with_smaller_companies is on."""
+    d = cfg.get("digest") or {}
+    return tier(company) <= int(d.get("max_company_tier", 2)) or bool(d.get("fill_with_smaller_companies", False))
+
+
 def pick(queue, cfg, per_section=None):
-    """Return ({section: [entries]}, entries left in the queue)."""
+    """Return ({section: [entries]}, entries left in the queue). Biggest companies first, then newest."""
+    from .slack import plain
     d = cfg.get("digest") or {}
     n = per_section or int(d.get("per_section", 5))
     keep_after = time.time() - float(d.get("keep_days", 7)) * 86400
     fresh = [e for e in queue if e.get("queued", 0) >= keep_after]
-    fresh.sort(key=lambda e: (e.get("tier", 3), -(e.get("posted") or e.get("queued") or 0)))
+    for e in fresh:
+        e["tier"] = tier(e["company"])          # tiers file may have been edited since queuing
+        e["section"] = plain(e["section"])
+    fresh.sort(key=lambda e: (e["tier"], -(e.get("posted") or e.get("queued") or 0)))
     picked, rest = {}, []
     for e in fresh:
         lst = picked.setdefault(e["section"], [])
         (lst if len(lst) < n else rest).append(e)
-    return picked, rest
+    return {k: v for k, v in picked.items() if v}, rest
 
 
 def date_title(cfg) -> str:
     now = _now_local(cfg)
-    return now.strftime("%A, %b ") + str(now.day)
+    return now.strftime("%A, %B ") + str(now.day)

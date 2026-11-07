@@ -144,6 +144,8 @@ tier1:
   - Northwestern Mutual
   - Abbott
   - Honeywell
+  - Ernst & Young
+
 
 tier2:
   # Tech
@@ -368,6 +370,107 @@ tier2:
   - Airbus
   - Rolls-Royce
   - Mercedes-Benz
+  - Intercontinental Exchange
+  - Jump Trading
+  - DRW
+  - Tower Research Capital
+  - AQR Capital Management
+  - G-Research
+  - Qube Research & Technologies
+  - Five Rings Capital
+  - Virtu Financial
+  - Brevan Howard
+  - Millennium Management
+  - Bridgewater Associates
+  - Royal Bank of Canada
+  - RBC Capital Markets
+  - CIBC
+  - LSEG
+  - Cboe
+  - FactSet
+  - Plaid
+  - Brex
+  - Chime
+  - Ramp
+  - Rippling
+  - Gusto
+  - Deel
+  - Asana
+  - Airtable
+  - Zoom
+  - DocuSign
+  - Docusign
+  - Box
+  - Splunk
+  - VMware
+  - Etsy
+  - Wayfair
+  - Chewy
+  - Peloton
+  - Squarespace
+  - Toast
+  - Grammarly
+  - Discord
+  - Riot Games
+  - Epic Games
+  - Activision Blizzard
+  - Take-Two Interactive
+  - Nintendo
+  - Cruise
+  - Nuro
+  - Zipline
+  - Confluent
+  - Elastic
+  - GitHub
+  - GitLab
+  - ZoomInfo
+  - Tyler Technologies
+  - Blue Origin
+  - FanDuel
+  - Intuitive Surgical
+  - Textron
+  - Paccar
+  - Illinois Tool Works
+  - Constellation Energy
+  - The New York Times
+  - Dow Jones
+  - Publicis Groupe
+  - Omnicom Group
+  - WPP
+  - Fox Corporation
+  - FOX
+  - ESPN
+  - Warner Music Group
+  - Universal Music Group
+  - Hearst
+  - Condé Nast
+  - iHeartMedia
+  - Hyatt
+  - Lululemon
+  - Adidas
+  - Under Armour
+  - L'Oreal
+  - Sephora
+  - Ulta Beauty
+  - Chipotle
+  - Mars
+  - Nestle
+  - The Campbell's Company
+  - Kellanova
+  - Hershey
+  - Clorox
+  - Church & Dwight
+  - Kenvue
+  - Haleon
+  - Stellantis
+  - Honda
+  - Hyundai
+  - BMW
+  - Volkswagen
+  - Siemens Energy
+  - Schneider Electric
+  - Bosch
+
 
 tech:
   - Google
@@ -676,6 +779,63 @@ tech:
   - ZT Systems
   - Equinix
 
+
+  - Intercontinental Exchange
+  - Cboe
+  - FactSet
+  - LSEG
+  - Plaid
+  - Brex
+  - Chime
+  - Ramp
+  - Rippling
+  - Gusto
+  - Deel
+  - Asana
+  - Airtable
+  - Zoom
+  - DocuSign
+  - Docusign
+  - Box
+  - Splunk
+  - VMware
+  - Etsy
+  - Wayfair
+  - Chewy
+  - Peloton
+  - Squarespace
+  - Toast
+  - Grammarly
+  - Discord
+  - Riot Games
+  - Epic Games
+  - Activision Blizzard
+  - Take-Two Interactive
+  - Nintendo
+  - Cruise
+  - Nuro
+  - Zipline
+  - Confluent
+  - Elastic
+  - GitHub
+  - GitLab
+  - ZoomInfo
+  - Tyler Technologies
+  - FanDuel
+  - Jump Trading
+  - DRW
+  - Tower Research Capital
+  - Hudson River Trading
+  - Jane Street
+  - Two Sigma
+  - Citadel Securities
+  - Optiver
+  - IMC Trading
+  - Five Rings Capital
+  - Qube Research & Technologies
+  - G-Research
+  - Virtu Financial
+  - Blue Origin
 not_tech:
   - Goldman Sachs
   - Morgan Stanley

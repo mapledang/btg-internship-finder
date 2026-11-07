@@ -41,9 +41,16 @@ exclude_title_patterns:
   - doctoral
   - doctorate
   - postdoc
-  - graduate intern
-  - graduate student
-  - grad intern
+  - graduate
+  - grad
+  - postgraduate
+  - post-graduate
+  - msc
+  - m.s.
+  - ms student
+  - mba candidate
+  - pharmd
+  - residency
   - law clerk
   - law school
   - jd
@@ -73,26 +80,31 @@ include_off_season: false
 
 # ---------------------------------------------------------------------------
 # Daily digest: new roles are collected all day (scans run every 2 hours) and posted
-# once a day as a roundup with up to `per_section` roles per section. Biggest companies
-# (Fortune 100 / big tech) and newest roles are picked first. Roles that don't make the
+# once a day as a single Slack message with up to `per_section` roles per section.
+# Biggest companies (Fortune 100 / big tech) and newest roles are picked first. Roles that don't make the
 # cut stay queued for the next day, for up to `keep_days`.
 digest:
   time: "09:00"                    # first scan at/after this time posts the digest
   timezone: America/Los_Angeles
   per_section: 5
   keep_days: 7
+  # Company size: only Tier 1 (Fortune 100, big tech, MBB, Big 4) and Tier 2 (other large,
+  # well-known companies) by default; see data/company_tiers.yaml. Set max_company_tier: 3
+  # or fill_with_smaller_companies: true to also include smaller companies (listed after big ones).
+  max_company_tier: 2
+  fill_with_smaller_companies: false
   sections:
-    - name: "🧭 Product Management"
+    - name: "Product Management"
       categories: [product]
-    - name: "🧠 Strategy & Consulting"
+    - name: "Strategy & Consulting"
       categories: [consulting]
-    - name: "📈 Finance, VC & Real Estate"
+    - name: "Finance, Venture Capital & Real Estate"
       categories: [finance]
-    - name: "📊 Data & Analytics"
+    - name: "Data & Analytics"
       categories: [data]
-    - name: "📣 Marketing & Growth"
+    - name: "Marketing & Growth"
       categories: [marketing]
-    - name: "🌱 Freshman & Sophomore Programs"
+    - name: "Freshman & Sophomore Programs"
       underclass: true             # programs for freshmen/sophomores, from any category
 
 # Role categories to look at. Each section above draws from these.

@@ -214,19 +214,26 @@ def class_standing(text: str):
     return found[:3]
 
 
-_GRAD_LEVEL = re.compile(r"\b(mba|m\.b\.a|master'?s|masters|ph\.?\s?d|doctoral|doctorate|j\.?d\.?|law school|"
-                         r"graduate (?:student|program|degree|school)|post-?doc)\b", re.I)
-_UNDERGRAD = re.compile(r"\b(bachelor'?s?|undergrad\w*|b\.?s\.?|b\.?a\.?|college|sophomore|junior|senior|"
-                        r"rising|freshm[ae]n|associate'?s degree)\b", re.I)
+_GRAD_DEGREE = (r"(?:an?\s+|the\s+|your\s+)?(?:mba|m\.b\.a\.?|master'?s|masters|ms|m\.s\.|msc|ph\.?\s?d\.?|doctoral|"
+                r"doctorate|graduate|post-?graduate|jd|j\.d\.|law)\b(?:\s+(?:degree|program|programme|school|studies))?")
+_STRONG_GRAD = re.compile(
+    r"\b(?:pursuing|enrolled in|enrolled as|candidates? for|currently in|working towards?|completing|attending)\s+"
+    + _GRAD_DEGREE
+    + r"|\b(?:mba|ph\.?\s?d|master'?s|masters|graduate|doctoral|law|jd|post-?doctoral)\s+(?:students?|candidates?|interns?|level)\b"
+    r"|\b(?:first|second)[\s-]year\s+(?:mba|master'?s|ph\.?d|law|jd)\b"
+    r"|\b(?:mba|master'?s|ph\.?\s?d)\b[^.\n]{0,40}\brequired\b", re.I)
+_UNDERGRAD = re.compile(r"\b(?:bachelor'?s?|baccalaureate|undergrad\w*|b\.?s\.?\s+(?:degree|in)|b\.?a\.?\s+(?:degree|in)|"
+                        r"rising\s+(?:sophomore|junior|senior)s?|(?:sophomore|junior|senior)\s+year|freshm[ae]n|"
+                        r"sophomores?|class standing|associate'?s degree|4-year degree|four-year degree)\b", re.I)
 
 
 def is_grad_level_only(job: Job, text: str) -> bool:
-    """True if the role is for MBA / Master's / PhD / law students and not undergrads."""
+    """True if the role is for MBA / Master's / PhD / law students and not open to undergrads."""
     if job.degrees:
         return not any(d.lower().startswith(("bachelor", "associate")) for d in job.degrees)
     if not text:
         return False
-    return bool(_GRAD_LEVEL.search(text)) and not _UNDERGRAD.search(text)
+    return bool(_STRONG_GRAD.search(text)) and not _UNDERGRAD.search(text)
 
 
 def enrich(job: Job) -> dict:
@@ -240,25 +247,24 @@ def enrich(job: Job) -> dict:
 
 # ------------------------------------------------------------------ labels
 
-SEASON_ICON = {"summer": "☀️", "fall": "🍂", "winter": "❄️", "spring": "🌱"}
-
-
 def season_label(info: dict) -> str:
     s, y, coop = info.get("season"), info.get("season_year"), info.get("coop")
     if s:
-        out = f"{SEASON_ICON[s]} {s.capitalize()}{' ' + str(y) if y else ''}"
-        return out + (" co-op" if coop else "")
-    return "🔁 Co-op (dates not listed)" if coop else "🗓 Season not listed"
+        return f"{s.capitalize()}{' ' + str(y) if y else ''}" + (" co-op" if coop else "")
+    return "Co-op" if coop else ""
 
 
 def grad_label(info: dict) -> str:
     ys = info.get("grad_years") or []
     if ys:
         if len(ys) > 1 and ys == list(range(ys[0], ys[-1] + 1)):
-            txt = f"{ys[0]}–{ys[-1]}"
+            txt = f"{ys[0]}–{ys[-1]}" if ys[-1] < 2030 or len(ys) < 3 else f"{ys[0]} or later"
         else:
             txt = ", ".join(map(str, ys))
-        return f"🎓 Grad {txt}"
-    if info.get("standing"):
-        return "🎓 " + " & ".join(x + "s" for x in info["standing"]).capitalize()
-    return "🎓 Grad year not listed"
+        return f"Class of {txt}"
+    st = info.get("standing") or []
+    if st:
+        words = [x.replace("rising ", "") + "s" for x in st]
+        prefix = "rising " if any(x.startswith("rising") for x in st) else ""
+        return "Open to " + prefix + " and ".join(words)
+    return ""
