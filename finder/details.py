@@ -96,7 +96,10 @@ def fetch_description(job: Job) -> str:
         if a == "workday":
             d = _get(f"https://{b['host']}/wday/cxs/{b['tenant']}/{b['site']}{jid}")
             info = d.get("jobPostingInfo") or {}
-            return _strip_html(info.get("jobDescription", "")) + " " + (info.get("startDate") or "")
+            locs = [info.get("location") or ""] + list(info.get("additionalLocations") or [])
+            country = (info.get("country") or {}).get("descriptor", "") if isinstance(info.get("country"), dict) else ""
+            return ("Location: " + "; ".join(locs) + f" {country}\n" + _strip_html(info.get("jobDescription", ""))
+                    + " " + (info.get("startDate") or ""))
         if a == "oracle":
             d = _get(f"https://{b['host']}/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails",
                      params={"expand": "all", "onlyData": "true",
@@ -230,7 +233,7 @@ def enrich(job: Job) -> dict:
     t0 = time.time()
     text = fetch_description(job)
     season, year, coop = detect_season(job, text)
-    return {"text_found": bool(text), "season": season, "season_year": year, "coop": coop,
+    return {"text_found": bool(text), "location_text": text[:6000], "season": season, "season_year": year, "coop": coop,
             "grad_years": grad_years(text, job.title), "standing": class_standing(text),
             "grad_only": is_grad_level_only(job, text), "secs": time.time() - t0}
 

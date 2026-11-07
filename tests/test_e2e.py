@@ -58,6 +58,7 @@ GH_DESC = {
     "3": "Undergraduate students graduating between December 2027 and June 2028. This 10-week Summer 2027 internship...",
     "5": "Candidates must be currently pursuing an MBA. Summer 2027.",
     "6": "Our Fall 2027 internship for students graduating in 2028.",
+    "10": "This Summer 2027 role is based in our Toronto office.",
 }
 
 
@@ -76,6 +77,10 @@ def gh_jobs():
                      "location": {"name": "New York, NY"}})             # fall internship per description
         jobs.append({"id": 7, "title": "MBA Summer Intern - Brand", "absolute_url": "https://boards.greenhouse.io/acme/jobs/7",
                      "location": {"name": "New York, NY"}})             # MBA in title
+        jobs.append({"id": 9, "title": "Product Manager Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/9",
+                     "location": {"name": "Baku, Azerbaijan"}})          # outside the US
+        jobs.append({"id": 10, "title": "Product Analyst Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/10",
+                     "location": {"name": "Remote"}})                    # vague; description says Toronto -> skip
         jobs.append({"id": 8, "title": "Software Engineering Intern", "absolute_url": "https://boards.greenhouse.io/acme/jobs/8",
                      "location": {"name": "New York, NY"}})             # engineering, Acme not on the list
     return {"jobs": jobs}
@@ -196,6 +201,7 @@ joined = "\n".join(t)
 # + 1 WD technology intern (data/IT: any company) + 1 Google. BigBank's 25 ops roles: not a tech company.
 assert len(t) == 5, len(t)
 assert "Operations Intern 1" not in joined, "business roles only from tech companies"
+assert "Product Manager Intern" not in joined and "Product Analyst Intern" not in joined, "US only"
 assert "Student Researcher" in t[0] and "⭐" in t[0], "Fortune 100 / big tech posted first, starred"
 assert "Marketing Intern" in joined and joined.count("Marketing Intern") == 1, "cross-source dedupe"
 assert "boards.greenhouse.io/acme/jobs/3" in joined, "company link preferred over Simplify link"

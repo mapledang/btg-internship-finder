@@ -6,6 +6,7 @@ import time
 
 from .sources import Job
 from .tiers import is_tech_company
+from .location import us_status, mentions_us_location
 
 
 def _words(patterns):
@@ -42,7 +43,8 @@ class Filter:
         return not (self.exclude and self.exclude.search(title))
 
     def location_ok(self, location: str) -> bool:
-        return (not self.us_only) or not is_clearly_non_us(location)
+        # "unknown" passes for now; it's re-checked against the description before posting
+        return (not self.us_only) or us_status(location) != "non_us"
 
     def engineering_ok(self, company: str) -> bool:
         c = _norm(company)
@@ -66,7 +68,13 @@ class Filter:
         return True
 
     # ---- checks that need the full description (run only on jobs about to be posted)
-    def reject_reason(self, info: dict) -> str | None:
+    def reject_reason(self, info: dict, job: Job | None = None, location: str | None = None) -> str | None:
+        if self.us_only and job is not None:
+            st = us_status(location if location is not None else job.location)
+            if st == "non_us":
+                return "outside the US"
+            if st == "unknown" and not mentions_us_location(info.get("location_text", "")):
+                return "location not confirmed in US"
         if info.get("grad_only"):
             return "grad-level (MBA/Master's/PhD)"
         season, year = info.get("season"), info.get("season_year")
@@ -81,40 +89,6 @@ class Filter:
         if self.grad_years and ys and not (set(ys) & self.grad_years):
             return f"grad year {ys} outside target"
         return None
-
-
-# ------------------------------------------------------------------ location
-
-STRONG_US = re.compile(
-    r"\b(united states|usa|u\.s\.a?\.?|new york|san francisco|seattle|chicago|boston|austin|"
-    r"atlanta|dallas|houston|denver|los angeles|charlotte|philadelphia|pittsburgh|miami|phoenix|"
-    r"san jose|san diego|minneapolis|detroit|columbus|raleigh|nashville|salt lake|st\.? louis|tampa)\b",
-    re.I)
-NON_US = re.compile(
-    r"\b(canada|ontario|toronto|vancouver|montreal|quebec|alberta|calgary|ottawa|british columbia|"
-    r"mexico|brazil|argentina|chile|colombia|peru|"
-    r"united kingdom|uk|england|london|scotland|ireland|dublin|france|paris|germany|berlin|munich|"
-    r"netherlands|amsterdam|belgium|spain|madrid|barcelona|portugal|lisbon|italy|milan|switzerland|"
-    r"zurich|geneva|austria|vienna|poland|warsaw|krakow|czech|prague|romania|bucharest|hungary|"
-    r"sweden|stockholm|denmark|copenhagen|norway|finland|greece|turkey|istanbul|israel|tel aviv|"
-    r"uae|dubai|saudi|qatar|egypt|south africa|nigeria|kenya|"
-    r"india|bangalore|bengaluru|hyderabad|mumbai|pune|chennai|delhi|gurgaon|gurugram|noida|"
-    r"china|beijing|shanghai|shenzhen|hong kong|taiwan|taipei|japan|tokyo|korea|seoul|"
-    r"singapore|malaysia|kuala lumpur|philippines|manila|vietnam|thailand|bangkok|indonesia|jakarta|"
-    r"australia|sydney|melbourne|new zealand|auckland)\b", re.I)
-
-
-def is_clearly_non_us(location: str) -> bool:
-    if not location:
-        return False
-    # Check each listed location; keep the job if any of them could be in the US.
-    parts = [p for p in re.split(r";|\n|\|", location) if p.strip()]
-    for p in parts:
-        if STRONG_US.search(p):
-            return False          # definitely US
-        if not NON_US.search(p):
-            return False          # US state code, "Remote", or ambiguous: keep it
-    return True                   # every location names another country
 
 
 # ------------------------------------------------------------------ category

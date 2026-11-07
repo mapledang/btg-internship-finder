@@ -44,7 +44,7 @@ def enrich_and_check(items, flt, want=None):
         infos = ex.map(lambda it: enrich(it["job"]), items)
         for it, info in zip(items, infos):
             it["info"] = info
-            it["reject"] = flt.reject_reason(info)
+            it["reject"] = flt.reject_reason(info, it["job"], "; ".join(it["locations"]))
             if it["reject"]:
                 reasons[re.sub(r"\s*[\(\[].*?[\)\]]", "", it["reject"])] += 1
             else:
