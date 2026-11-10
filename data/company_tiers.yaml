@@ -173,61 +173,28 @@ tier2:
   - Airbnb
   - LinkedIn
   - Bloomberg
-  - Coinbase
-  - Robinhood
-  - Pinterest
-  - Snap
   - Intuit
   - PayPal
   - Block
   - Square
   - Waymo
   - DoorDash
-  - Lyft
-  - Instacart
   - Shopify
   - Spotify
-  - Zillow
   - eBay
   - Expedia Group
   - Booking Holdings
-  - Figma
-  - Duolingo
-  - Scale AI
-  - xAI
-  - Cloudflare
   - Crowdstrike
   - Zscaler
   - Fortinet
-  - Datadog
-  - MongoDB
   - Atlassian
-  - Twilio
-  - Okta
-  - HubSpot
-  - Dropbox
-  - Reddit
-  - Roblox
   - Electronic Arts
-  - Unity
-  - The Trade Desk
   - Red Hat
-  - Equinix
-  - GoDaddy
   - ASML
-  - Garmin
-  - Keysight Technologies
   - Fiserv
   - Fidelity National Information Services
   - FIS
-  - Affirm
   - T-Mobile
-  - Rivian
-  - Lucid Motors
-  - Veeva Systems
-  - Ingram Micro
-  - Kyndryl
-  - DXC Technology
   - Thomson Reuters
   # Finance
   - BlackRock
@@ -371,15 +338,6 @@ tier2:
   - Rolls-Royce
   - Mercedes-Benz
   - Intercontinental Exchange
-  - Jump Trading
-  - DRW
-  - Tower Research Capital
-  - AQR Capital Management
-  - G-Research
-  - Qube Research & Technologies
-  - Five Rings Capital
-  - Virtu Financial
-  - Brevan Howard
   - Millennium Management
   - Bridgewater Associates
   - Royal Bank of Canada
@@ -388,45 +346,17 @@ tier2:
   - LSEG
   - Cboe
   - FactSet
-  - Plaid
-  - Brex
-  - Chime
-  - Ramp
-  - Rippling
-  - Gusto
-  - Deel
-  - Asana
-  - Airtable
   - Zoom
   - DocuSign
   - Docusign
-  - Box
   - Splunk
   - VMware
-  - Etsy
-  - Wayfair
-  - Chewy
-  - Peloton
-  - Squarespace
-  - Toast
-  - Grammarly
-  - Discord
-  - Riot Games
   - Epic Games
   - Activision Blizzard
   - Take-Two Interactive
   - Nintendo
-  - Cruise
-  - Nuro
-  - Zipline
-  - Confluent
-  - Elastic
   - GitHub
-  - GitLab
-  - ZoomInfo
-  - Tyler Technologies
   - Blue Origin
-  - FanDuel
   - Intuitive Surgical
   - Textron
   - Paccar
@@ -472,6 +402,41 @@ tier2:
   - Bosch
 
 
+  # Large public tech companies
+  - Pinterest
+  - Snap
+  - Reddit
+  - Coinbase
+  - Robinhood
+  - Lyft
+  - Zillow
+  - Instacart
+  - Roblox
+  - Etsy
+  - Wayfair
+  - Chewy
+  - Cloudflare
+  - Datadog
+  - MongoDB
+  - HubSpot
+  - Okta
+  - Twilio
+  - Dropbox
+  - GoDaddy
+  - Garmin
+  - Keysight Technologies
+  - Equinix
+  - Kyndryl
+  - DXC Technology
+  - Ingram Micro
+  - Veeva Systems
+  - The Trade Desk
+  - Unity
+  - Rivian
+  - Lucid Motors
+  - Toast
+  - Samsara
+  - DraftKings
 tech:
   - Google
   - Alphabet
@@ -843,3 +808,39 @@ not_tech:
   - Bank of America
   - Wells Fargo
   - Citi
+
+# Consulting firms: analyst / consultant roles here count as Strategy & Consulting.
+consulting_firms:
+  - McKinsey & Company
+  - Boston Consulting Group
+  - BCG
+  - Bain & Company
+  - Deloitte
+  - PricewaterhouseCoopers (PwC)
+  - PwC
+  - EY
+  - Ernst & Young
+  - KPMG
+  - Accenture
+  - Oliver Wyman
+  - Kearney
+  - L.E.K. Consulting
+  - Booz Allen
+  - Guidehouse
+  - Alvarez & Marsal
+  - FTI Consulting
+  - ZS Associates
+  - Huron Consulting Group
+  - Protiviti
+  - Grant Thornton
+  - RSM
+  - Capgemini
+  - Slalom
+  - West Monroe
+  - Gartner
+  - Strategy&
+  - Roland Berger
+  - Simon-Kucher
+  - Cornerstone Research
+  - Analysis Group
+  - Charles River Associates

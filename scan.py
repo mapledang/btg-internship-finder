@@ -93,7 +93,7 @@ def scan_boards(boards, cfg, args, state):
             k = board_key(b)
             if err:
                 failed.append((b, err))
-                state.board_failed(k)
+                state.board_failed(k, err)
             else:
                 results.append((k, jobs))
             done += 1
@@ -111,13 +111,30 @@ def scan_boards(boards, cfg, args, state):
 def post_digest(picked, secs, title, args, note=""):
     """Post the whole digest as one Slack message. Returns the entries that were posted."""
     entries = [e for v in picked.values() for e in v]
-    payload = slack.digest_message(picked, [s["name"] for s in secs], title, note)
+    payload = slack.digest_message(picked, [s["name"] for s in secs], title, note,
+                                   show_category={s["name"] for s in secs if s.get("show_category")})
     if args.dry_run:
         for b in payload["blocks"]:
             t = b.get("text", {}).get("text") or " ".join(x["text"] for x in b.get("elements", []))
             log(("\n" + t) if t else "-" * 40)
         return entries
     return entries if slack.post(slack.webhook(), payload) else []
+
+
+def run_digest(state, cfg, secs, args) -> str:
+    """Post the queued digest and update the queue. Returns a one-line status."""
+    picked, rest = digest.pick(state.queue, cfg)
+    n = sum(len(v) for v in picked.values())
+    if not n:
+        state.queue = rest
+        state.last_digest = digest.today(cfg)
+        return "nothing queued, skipped"
+    sent = post_digest(picked, secs, digest.date_title(cfg), args)
+    if not sent:
+        return "FAILED to post (will retry next run)"
+    state.queue = rest
+    state.last_digest = digest.today(cfg)
+    return f"posted {len(sent)} roles"
 
 
 def write_report(lines):
@@ -154,6 +171,14 @@ def main():
 
     if not args.dry_run and not slack.webhook():
         sys.exit("SLACK_WEBHOOK_URL is not set (add it as a GitHub Actions secret).")
+
+    # ---- daily digest: if it's due, post what's queued right away (before the slow scan),
+    # so it lands close to the scheduled time
+    digest_line = "not due yet"
+    if not args.test_post and not args.digest_now and digest.due(state, cfg):
+        digest_line = run_digest(state, cfg, secs, args)
+        if not args.dry_run:
+            state.save()
 
     results, failed, skipped, fetch_secs = scan_boards(boards, cfg, args, state)
 
@@ -206,24 +231,9 @@ def main():
         state.queue.append(digest.make_entry(it, it["section"]))
     queued = collections.Counter(it["section"] for it in keep)
 
-    # ---- daily digest
-    digest_line = "not due yet"
-    if args.digest_now or digest.due(state, cfg):
-        picked, rest = digest.pick(state.queue, cfg)
-        n = sum(len(v) for v in picked.values())
-        if n:
-            sent = post_digest(picked, secs, digest.date_title(cfg), args)
-            if sent:
-                state.queue = rest
-                digest_line = f"posted {len(sent)} roles"
-            else:
-                state.queue = [e for v in picked.values() for e in v] + rest
-                digest_line = "FAILED to post (will retry next run)"
-        else:
-            state.queue = rest
-            digest_line = "nothing queued, skipped"
-        if not digest_line.startswith("FAILED"):
-            state.last_digest = digest.today(cfg)
+    # ---- manual "digest-now": post after scanning so it includes the newest roles
+    if args.digest_now:
+        digest_line = run_digest(state, cfg, secs, args)
 
     if not args.dry_run:
         state.save()
@@ -278,8 +288,9 @@ def test_post(args, cfg, results, failed, skipped, flt, secs, fetch_secs):
     picked = collections.defaultdict(list)
     for it in keep:
         picked[it["section"]].append(digest.make_entry(it, it["section"]))
+    limits = ", ".join(f"{s.get('limit', 5)} {s['name']}" for s in secs)
     extra = ("_Test post: a sample of roles open right now. Daily digests include only newly released "
-             "roles, up to " + str((cfg.get('digest') or {}).get('per_section', 5)) + " per section._")
+             f"roles: up to {limits}._")
     sent = post_digest(picked, secs, digest.date_title(cfg), args, extra)
     write_report([
         "## Test digest",

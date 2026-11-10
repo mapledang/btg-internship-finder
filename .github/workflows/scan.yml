@@ -3,7 +3,9 @@ name: Scan for internships
 on:
   schedule:
     - cron: "17 */2 * * *"     # scan every 2 hours (UTC)
-    - cron: "3 16,17 * * *"    # ~9:03 AM Pacific (16:03 UTC in summer, 17:03 UTC in winter) for the daily digest
+    # Daily digest around 9 AM Pacific. GitHub often delays or skips scheduled runs, so there
+    # are several slots; the digest is posted by the first run after 9:00 and only once a day.
+    - cron: "7,27,47 16,17 * * *"
   workflow_dispatch:
     inputs:
       mode:

@@ -11,15 +11,14 @@ except ImportError:  # pragma: no cover
 
 from .filters import is_underclass
 from .details import season_label, grad_label
-from .tiers import tier
+from .tiers import tier, is_tech_company
+from .filters import LABELS
 
 DEFAULT_SECTIONS = [
-    {"name": "Product Management", "categories": ["product"]},
-    {"name": "Strategy & Consulting", "categories": ["consulting"]},
-    {"name": "Finance, Venture Capital & Real Estate", "categories": ["finance"]},
-    {"name": "Data & Analytics", "categories": ["data"]},
-    {"name": "Marketing & Growth", "categories": ["marketing"]},
-    {"name": "Freshman & Sophomore Programs", "underclass": True},
+    {"name": "Business, Strategy & Consulting", "categories": ["consulting", "business"],
+     "limit": 15, "prefer_tech": True},
+    {"name": "Other Notable Roles", "categories": ["product", "finance", "data", "marketing"],
+     "underclass": True, "limit": 5, "show_category": True},
 ]
 
 
@@ -46,6 +45,8 @@ def make_entry(item, section) -> dict:
         "section": section, "category": item["category"], "title": j.title, "company": j.company,
         "url": j.url, "locations": item["locations"], "season": season_label(info),
         "grad": grad_label(info), "posted": j.posted, "tier": tier(j.company),
+        "tech": is_tech_company(j),
+        "label": "Freshman & Sophomore Program" if is_underclass(j, info) else LABELS.get(item["category"], ""),
         "queued": int(time.time()), "uids": item["uids"], "fp": item["fp"],
     }
 
@@ -72,21 +73,39 @@ def big_enough(company: str, cfg) -> bool:
 
 
 def pick(queue, cfg, per_section=None):
-    """Return ({section: [entries]}, entries left in the queue). Biggest companies first, then newest."""
+    """Return ({section: [entries]}, entries left in the queue).
+
+    Each section takes up to its `limit` roles: tech companies first where the section has
+    prefer_tech, then biggest companies, then newest.
+    """
     from .slack import plain
     d = cfg.get("digest") or {}
-    n = per_section or int(d.get("per_section", 5))
+    default_n = per_section or int(d.get("per_section", 5))
+    secs = {plain(s["name"]): s for s in sections(cfg)}
     keep_after = time.time() - float(d.get("keep_days", 7)) * 86400
     fresh = [e for e in queue if e.get("queued", 0) >= keep_after]
     for e in fresh:
         e["tier"] = tier(e["company"])          # tiers file may have been edited since queuing
         e["section"] = plain(e["section"])
-    fresh.sort(key=lambda e: (e["tier"], -(e.get("posted") or e.get("queued") or 0)))
     picked, rest = {}, []
     for e in fresh:
-        lst = picked.setdefault(e["section"], [])
-        (lst if len(lst) < n else rest).append(e)
-    return {k: v for k, v in picked.items() if v}, rest
+        if e["section"] not in secs:            # sections were renamed: re-file by role type
+            under = "Freshman" in (e.get("label") or "") or "Freshman" in e["section"]
+            e["section"] = next((n for n, sc in secs.items()
+                                 if (under and sc.get("underclass")) or
+                                 (not under and e.get("category") in (sc.get("categories") or []))), None)
+            if not e["section"]:
+                continue
+        picked.setdefault(e["section"], []).append(e)
+    out = {}
+    for name, lst in picked.items():
+        sec = secs[name]
+        n = per_section or int(sec.get("limit", default_n))
+        lst.sort(key=lambda e: ((not e.get("tech", True)) if sec.get("prefer_tech") else 0, e["tier"],
+                                -(e.get("posted") or e.get("queued") or 0)))
+        out[name], extra = lst[:n], lst[n:]
+        rest += extra
+    return {k: v for k, v in out.items() if v}, rest
 
 
 def date_title(cfg) -> str:

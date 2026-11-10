@@ -28,6 +28,7 @@ class State:
         self.fingerprints = data.get("fingerprints", {})
         self.boards = data.get("boards_initialized", {})
         self.failures = data.get("board_failures", {})
+        self.errors = data.get("board_errors", {})          # last error message per failing board
         self.queue = data.get("queue", [])                 # roles waiting for the daily digest
         self.last_digest = data.get("last_digest", "")     # date of the last digest (local)
         self.now = int(time.time())
@@ -50,9 +51,12 @@ class State:
     def board_ok(self, key):
         self.boards.setdefault(key, self.now)
         self.failures.pop(key, None)
+        self.errors.pop(key, None)
 
-    def board_failed(self, key):
+    def board_failed(self, key, error=""):
         self.failures[key] = self.failures.get(key, 0) + 1
+        if error:
+            self.errors[key] = error[:200]
 
     def save(self):
         cut_j = self.now - KEEP_JOBS_DAYS * 86400
@@ -63,6 +67,7 @@ class State:
             "fingerprints": {k: v for k, v in self.fingerprints.items() if v >= cut_f},
             "boards_initialized": self.boards,
             "board_failures": self.failures,
+            "board_errors": self.errors,
             "queue": self.queue,
             "last_digest": self.last_digest,
         }

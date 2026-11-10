@@ -31,7 +31,7 @@ def _posted(ts) -> str:
     return f"Posted {d.strftime('%b')} {d.day}"
 
 
-def role_text(e: dict) -> str:
+def role_text(e: dict, show_category: bool = False) -> str:
     """Two lines per role:  *Title* — Company  /  Location | Summer 2027 | Class of 2028 | Posted Nov 5"""
     locs = e.get("locations") or []
     loc = locs[0] if locs else "Location not listed"
@@ -40,13 +40,17 @@ def role_text(e: dict) -> str:
     if len(loc) > 60:
         loc = loc[:57] + "..."
     details = [loc, plain(e.get("season", "")), plain(e.get("grad", "")), _posted(e.get("posted"))]
+    if show_category and e.get("label"):
+        details.insert(0, plain(e["label"]))
     return (f"*<{e['url']}|{_esc(plain(e['title']))}>*  —  {_esc(plain(e['company']))}\n"
             + "  |  ".join(_esc(x) for x in details if x))
 
 
-def digest_message(picked: dict, section_names: list, title: str, note: str = "") -> dict:
+def digest_message(picked: dict, section_names: list, title: str, note: str = "",
+                   show_category: set | None = None) -> dict:
     """The whole digest as one Slack message (header, summary, one block per section, footer)."""
     names = [plain(s) for s in section_names]
+    show_category = {plain(s) for s in (show_category or set())}
     by = {plain(k): v for k, v in picked.items()}
     have = [s for s in names if by.get(s)]
     empty = [s for s in names if not by.get(s)]
@@ -55,14 +59,18 @@ def digest_message(picked: dict, section_names: list, title: str, note: str = ""
     blocks = [
         {"type": "header", "text": {"type": "plain_text", "text": f"Internship Roundup  |  {title}"}},
         {"type": "context", "elements": [{"type": "mrkdwn", "text":
-            f"{total} new undergraduate summer internship{'s' if total != 1 else ''} in the US, "
-            "listed by company size and posting date."}]},
+            f"{total} new undergraduate summer internship{'s' if total != 1 else ''} in the US at large "
+            "companies, newest first within each company tier."}]},
     ]
     if note:
         blocks.append({"type": "context", "elements": [{"type": "mrkdwn", "text": note}]})
     for s in have:
-        body = f"*{_esc(s)}*\n\n" + "\n\n".join(role_text(e) for e in by[s])
-        blocks += [{"type": "divider"}, {"type": "section", "text": {"type": "mrkdwn", "text": body[:2990]}}]
+        roles = [role_text(e, s in show_category) for e in by[s]]
+        blocks.append({"type": "divider"})
+        # Slack allows 3,000 characters per block, so long sections are split into groups of 5
+        for i in range(0, len(roles), 5):
+            body = (f"*{_esc(s)}*\n\n" if i == 0 else "") + "\n\n".join(roles[i:i + 5])
+            blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": body[:2990]}})
     blocks.append({"type": "divider"})
     footer = "Sourced from company career sites and the Simplify internship list."
     if empty:

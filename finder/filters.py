@@ -5,7 +5,7 @@ import re
 import time
 
 from .sources import Job
-from .tiers import is_tech_company
+from .tiers import is_tech_company, is_consulting_firm
 from .location import us_status, mentions_us_location
 
 
@@ -96,15 +96,15 @@ class Filter:
 # Checked in this order; the first match wins.
 
 LABELS = {
-    "product": "🧭 Product",
-    "consulting": "🧠 Strategy & Consulting",
-    "finance": "📈 Finance, VC & Real Estate",
-    "data": "📊 Data & Analytics",
-    "marketing": "📣 Marketing & Growth",
-    "business": "💼 Business & Ops",
-    "it": "🖥 IT & Security",
-    "engineering": "💻 Engineering",
-    "other": "🧩 Other",
+    "product": "Product",
+    "consulting": "Strategy & Consulting",
+    "business": "Business",
+    "finance": "Finance",
+    "data": "Data & Analytics",
+    "marketing": "Marketing",
+    "it": "IT & Security",
+    "engineering": "Engineering",
+    "other": "Other",
 }
 
 _R = lambda p: re.compile(p, re.I)  # noqa: E731
@@ -119,22 +119,25 @@ RULES = [
                    r"acquisitions|private equity|investment banking)\b"), False),
     ("consulting", _R(r"\b(consult\w*|strateg\w*|corporate development|transformation|advisory|"
                       r"management associate|chief of staff|bizops|business operations)\b"), False),
+    ("business", _R(r"\b(business(?! intelligence| analytics)|business development|biz\s?dev|\bbd\b|go-to-market|"
+                    r"\bgtm\b|revenue operations|rev\s?ops|sales strategy|strategic partnerships?|"
+                    r"general management|leadership development|rotational)\b"), False),
     ("marketing", _R(r"\b(marketing|brand|communications|public relations|\bpr\b|advertis\w*|social media|"
                      r"content|growth|creative|media|partnerships)\b"), False),
     ("product", _R(r"\b(product manag\w*|product owner|apm|product analyst|product strategy|"
                    r"product operations|product intern|product development|product)\b"), False),
     ("finance", _R(r"\b(financ\w*|accounting|accountant|audit\w*|tax|banking|banker|investment\w*|"
-                   r"capital markets|equity|equities|trading|trader|quant\w*|wealth|asset management|"
+                   r"capital markets|equity|equities|trading|trader|quant|quants|quantitative (?:trad\w*|research\w*|analy\w*|financ\w*|strateg\w*|invest\w*)|"
+                   r"wealth|asset management|"
                    r"treasury|risk|credit|actuar\w*|underwrit\w*|fp&a|summer analyst|economic\w*|"
                    r"markets|fixed income|m&a|mergers|restructuring|insurance|valuation)\b"), False),
-    ("data", _R(r"\b(data analy\w*|business analy\w*|analytics|business intelligence|\bbi\b|insights|"
+    ("data", _R(r"\b(data analy\w*|analytics|business intelligence|\bbi\b|insights|"
                 r"reporting|data)\b"), False),
     ("it", _R(r"\b(\bit\b|information technology|technology analyst|cyber\w*|security|solutions|"
               r"sales engineer|technical|technology|systems analyst)\b"), False),
-    ("business", _R(r"\b(business|operations|supply chain|procurement|sourcing|logistics|sales|"
-                    r"merchandis\w*|buyer|category|commercial|account management|customer success|"
-                    r"planning|program|project|analyst|people|human resources|\bhr\b|talent|"
-                    r"legal|compliance|policy|government|sustainability|esg|retail|hospitality)\b"), False),
+    ("business", _R(r"\b(operations|supply chain|procurement|sourcing|logistics|sales|merchandis\w*|buyer|"
+                    r"category manag\w*|commercial|account management|customer success|planning|"
+                    r"program manag\w*|project manag\w*|analyst)\b"), False),
 ]
 # Role words that pull a title out of "engineering" even if it mentions an engineering word,
 # e.g. "Product Manager Intern - AI Platform" or "Technology Consulting Intern".
@@ -142,12 +145,29 @@ _BUSINESS_OVERRIDE = _R(r"\b(product manag\w*|consult\w*|strateg\w*|business ana
                         r"financial engineer\w*|sales|marketing|supply chain|industrial engineer\w*)\b")
 
 
+_TECH_ROLE = _R(r"\b(engineer|engineers|engineering intern|developer|developers|scientist|scientists|"
+                r"data science|software|swe|programmer)\b")
+_BIZ_ENGINEER = _R(r"\b(sales engineer\w*|solutions engineer\w*|financial engineer\w*|industrial engineer\w*|"
+                   r"product manag\w*|engineering manag\w*|engineering operations)\b")
+_CONSULTING_FIRM_ROLE = _R(r"\b(analyst|consultant|consulting|associate|business|advisory|strategy)\b")
+
+
 def classify(job: Job) -> str:
     t = job.title
+    # At consulting firms (McKinsey, Deloitte...), analyst / consultant roles are consulting roles
+    if is_consulting_firm(job.company) and _CONSULTING_FIRM_ROLE.search(t) and not _TECH_ROLE.search(t) \
+            and not re.search(r"\b(data|research|software)\b", t, re.I):
+        if not re.search(r"\b(audit|tax|accounting|assurance)\b", t, re.I):
+            return "consulting"
     for cat, rx, needs_check in RULES:
         if rx.search(t):
-            if needs_check and _BUSINESS_OVERRIDE.search(t):
-                continue
+            if needs_check:
+                # a real technical role noun ("Systems Engineer", "Strategy Developer", "Data Scientist")
+                # stays technical; otherwise business words win ("AI Strategy Intern", "Sales Engineer")
+                if _TECH_ROLE.search(t) and not _BIZ_ENGINEER.search(t):
+                    return cat
+                if _BUSINESS_OVERRIDE.search(t):
+                    continue
             return cat
     hint = (job.category_hint or "").lower()
     if "product" in hint:

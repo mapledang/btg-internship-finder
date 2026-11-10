@@ -25,21 +25,21 @@ def norm(s: str) -> str:
 @functools.lru_cache(maxsize=1)
 def _lists():
     if not os.path.exists(PATH):
-        return set(), set(), set(), set()
+        return set(), set(), set(), set(), set()
     with open(PATH) as f:
         d = yaml.safe_load(f) or {}
     get = lambda k: {norm(x) for x in (d.get(k) or []) if x}  # noqa: E731
-    return get("tier1"), get("tier2"), get("tech"), get("not_tech")
+    return get("tier1"), get("tier2"), get("tech"), get("not_tech"), get("consulting_firms")
 
 
 def tier(company: str) -> int:
-    t1, t2, _, _ = _lists()
+    t1, t2, _, _, _ = _lists()
     n = norm(company)
     return 1 if n in t1 else 2 if n in t2 else 3
 
 
 def is_tech_company(job: Job) -> bool:
-    _, _, tech, not_tech = _lists()
+    _, _, tech, not_tech, _ = _lists()
     n = norm(job.company)
     if n in tech:
         return True
@@ -52,3 +52,7 @@ def is_tech_company(job: Job) -> bool:
         b = parse_board_url(job.url)
         ats = b["ats"] if b else None
     return (ats or job.source) in STARTUP_ATS
+
+
+def is_consulting_firm(company: str) -> bool:
+    return norm(company) in _lists()[4]

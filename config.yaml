@@ -86,7 +86,7 @@ include_off_season: false
 digest:
   time: "09:00"                    # first scan at/after this time posts the digest
   timezone: America/Los_Angeles
-  per_section: 5
+  per_section: 5                   # default when a section has no `limit`
   keep_days: 7
   # Company size: only Tier 1 (Fortune 100, big tech, MBB, Big 4) and Tier 2 (other large,
   # well-known companies) by default; see data/company_tiers.yaml. Set max_company_tier: 3
@@ -94,27 +94,26 @@ digest:
   max_company_tier: 2
   fill_with_smaller_companies: false
   sections:
-    - name: "Product Management"
-      categories: [product]
-    - name: "Strategy & Consulting"
-      categories: [consulting]
-    - name: "Finance, Venture Capital & Real Estate"
-      categories: [finance]
-    - name: "Data & Analytics"
-      categories: [data]
-    - name: "Marketing & Growth"
-      categories: [marketing]
-    - name: "Freshman & Sophomore Programs"
-      underclass: true             # programs for freshmen/sophomores, from any category
+    # Main section: 15 business / strategy / consulting roles. Tech companies are listed
+    # first, then other big companies.
+    - name: "Business, Strategy & Consulting"
+      categories: [consulting, business]
+      limit: 15
+      prefer_tech: true
+    # A short section for everything else. Set limit: 0 to remove it.
+    - name: "Other Notable Roles"
+      categories: [product, finance, data, marketing]
+      underclass: true             # freshman / sophomore programs go here
+      limit: 5
+      show_category: true          # label each role (Product, Finance, ...)
 
 # Role categories to look at. Each section above draws from these.
 # Others available: business (ops, sales, supply chain), it, engineering.
-post_categories: [product, consulting, finance, data, marketing]
+post_categories: [consulting, business, product, finance, data, marketing]
 
-# These kinds of roles are only posted from tech companies (see data/company_tiers.yaml),
-# so business / strategy / product / consulting roles come from tech companies.
-# Finance and data/IT roles still come from any company. Empty list = no restriction.
-tech_companies_only_for: [consulting, product, marketing]
+# Role categories that must come from tech companies (see data/company_tiers.yaml).
+# Empty = any big company; the main section still lists tech companies first.
+tech_companies_only_for: []
 
 # Engineering roles (software, ML, hardware...) are only used from these companies,
 # and only if you add "engineering" to post_categories and a digest section.

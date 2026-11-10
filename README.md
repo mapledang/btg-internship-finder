@@ -1,27 +1,32 @@
 # Internship Finder → Slack
 
 Scans ~1,000 company job boards (plus the community-maintained Simplify internship list)
-every 2 hours, and posts a **daily roundup at 9 AM Pacific** as a single Slack message,
-with up to 5 new roles in each section: Product Management; Strategy & Consulting;
-Finance, Venture Capital & Real Estate; Data & Analytics; Marketing & Growth; and
-Freshman & Sophomore Programs.
+every 2 hours, and posts a **daily roundup around 9 AM Pacific** as a single Slack message:
+
+- **Business, Strategy & Consulting**: up to 15 roles (tech companies first)
+- **Other Notable Roles**: up to 5 more across product, finance, data, marketing and
+  freshman/sophomore programs, each labeled
 
 ```
-Internship Roundup  |  Saturday, November 7
-12 new undergraduate summer internships in the US, listed by company size and posting date.
+Internship Roundup  |  Wednesday, November 11
 ──────────────
-Product Management
+Business, Strategy & Consulting
 
-Associate Product Manager Intern  —  Google
-Mountain View, CA  |  Summer 2027  |  Class of 2028  |  Posted Nov 6
+Strategy & Operations Intern  —  Google
+New York, NY  |  Summer 2027  |  Class of 2028  |  Posted Nov 10
+──────────────
+Other Notable Roles
+
+2027 Summer Analyst - Investment Banking  —  Goldman Sachs
+Finance  |  New York, NY  |  Summer 2027  |  Class of 2028
 ```
 
 It's tuned for **undergrad summer internships in the US**. MBA / Master's / PhD roles are
-skipped. Business, strategy, product and consulting roles come from **tech companies**.
-Only large, well-known companies are included by default (Tier 1: Fortune 100, big tech,
-MBB, Big 4; Tier 2: ~300 other major companies), biggest first. For each
+skipped. Business, strategy and consulting roles from **tech companies** are listed first,
+then other big companies. Only large, well-known companies are included (Tier 1: Fortune 100, big tech,
+MBB, Big 4; Tier 2: ~280 other major companies), biggest first. For each
 role it reads the full description to show the graduation year and season it asks for.
-Roles that don't make the day's top 5 carry over to the next digest (for up to 7 days).
+Roles that don't make the day's cut carry over to the next digest (for up to 7 days).
 
 ## How it works
 

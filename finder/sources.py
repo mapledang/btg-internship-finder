@@ -183,25 +183,50 @@ def _workday_base(b):
     return api, public
 
 
+# Workday's search is fuzzy ("intern" also matches "International"), so big companies return
+# 1,000+ results. Exact title matches come first, so we stop paging as soon as a page has no
+# internship-looking titles, and cap pages per search. Workday also throttles bursts, so only a
+# few Workday requests run at once.
+_WD_SLOTS = threading.Semaphore(8)
+_INTERNISH = re.compile(r"\b(intern|interns|internship|internships|co-?op|summer|apprentice\w*)\b", re.I)
+WD_MAX_PAGES = 6
+
+
+def _wd_post(api, payload):
+    for attempt in range(4):
+        with _WD_SLOTS:
+            if STOP.is_set():
+                raise TimeoutError("run time limit reached")
+            r = session().post(api, json=payload, timeout=TIMEOUT)
+        if r.status_code in (429, 502, 503, 504) and attempt < 3:
+            time.sleep(min(float(r.headers.get("Retry-After") or 0) or 2 * (attempt + 1), 10))
+            continue
+        r.raise_for_status()
+        return r.json()
+    r.raise_for_status()
+    return r.json()
+
+
 def fetch_workday(b):
     api, public = _workday_base(b)
     out, seen = [], set()
-    for term in SEARCH_TERMS:
-        offset = 0
-        while offset < 400:
-            data = _post(api, {"appliedFacets": {}, "limit": 20, "offset": offset, "searchText": term})
+    for term in ("intern", "summer"):
+        for page in range(WD_MAX_PAGES):
+            data = _wd_post(api, {"appliedFacets": {}, "limit": 20, "offset": page * 20, "searchText": term})
             posts = data.get("jobPostings") or []
+            hits = 0
             for j in posts:
                 path = j.get("externalPath") or ""
+                title = j.get("title", "")
+                if _INTERNISH.search(title):
+                    hits += 1
                 if not path or path in seen:
                     continue
                 seen.add(path)
-                out.append(Job("workday", board_key(b), b["name"], j.get("title", ""),
+                out.append(Job("workday", board_key(b), b["name"], title,
                                public + path, path, j.get("locationsText", "") or ""))
-            if len(posts) < 20:
+            if len(posts) < 20 or hits == 0:
                 break
-            offset += 20
-            time.sleep(0.2)
     return out
 
 

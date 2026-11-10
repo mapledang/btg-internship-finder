@@ -72,7 +72,7 @@ def gh_jobs():
     jobs = [gh(1, "Product Manager Intern"), {"id": 2, "title": "Senior Software Engineer",
                                               "absolute_url": "https://x/2", "location": {"name": "NYC"}}]
     if WORLD["round"] >= 2:
-        jobs += [gh(20 + i, f"Product Manager Intern - Team {i}") for i in range(7)]   # 7 PM roles: cap is 5
+        jobs += [gh(20 + i, f"Strategy & Operations Intern - Team {i}") for i in range(17)]  # main section cap is 15
         jobs += [gh(3, "Growth Marketing Intern - Summer 2027", "Austin, TX"),
                  gh(4, "Marketing Intern", "London, United Kingdom"),           # non-US
                  gh(5, "Strategy Intern"),                                      # MBA-only description
@@ -95,6 +95,7 @@ def wd_jobs(term, offset):
         posts += [{"title": f"Operations Intern {i}", "externalPath": f"/job/x/Ops_{i}", "locationsText": "Remote"}
                   for i in range(25)]                                                # not a section category
         posts += [{"title": "Real Estate Investment Intern", "externalPath": "/job/NY/RE_R9", "locationsText": "New York, NY"}]
+        posts += [{"title": "Business Analyst Summer Intern", "externalPath": "/job/NY/BA_R10", "locationsText": "New York, NY"}]
     if term not in ("intern", "summer"):
         return {"jobPostings": []}
     return {"jobPostings": posts[offset:offset + 20], "total": len(posts)}
@@ -146,6 +147,7 @@ def fake_post(url, payload, **kw):
 
 
 sources._get, sources._post = fake_get, fake_post
+sources._wd_post = fake_post
 simplify_file = sys.argv[1] if len(sys.argv) > 1 else None
 _simplify_rows = json.load(open(simplify_file)) if simplify_file else []
 
@@ -182,12 +184,15 @@ def run(r, *extra):
     received.clear()
     sys.argv = ["scan.py", *extra]
     scan.main()
-    sections = {}
+    sections, cur = {}, None
     for p in received:
         for b in p["blocks"]:
             if b["type"] == "section":
                 parts = b["text"]["text"].split("\n\n")
-                sections[parts[0].strip("*")] = parts[1:]
+                if parts[0].startswith("*") and "\n" not in parts[0]:
+                    cur = parts[0].strip("*")
+                    parts = parts[1:]
+                sections.setdefault(cur, []).extend(parts)
     return received[:], sections
 
 
@@ -207,34 +212,41 @@ by = {}
 for e in q:
     by.setdefault(e["section"], []).append(e["title"])
 print(json.dumps(by, indent=1, ensure_ascii=False))
-pm, strat, fin, data, mkt, under = (s["name"] for s in digest.DEFAULT_SECTIONS)
-assert len(by[pm]) == 8, by[pm]                            # 7 Databricks "Team" PM roles + Google APM
-assert "Product Manager Intern II" not in by[pm], "smaller company skipped"
-assert "Associate Product Manager Intern" in by[pm]
-assert "Strategy & Operations Intern" in by[strat]
-assert "Venture Capital Intern (Summer 2027)" in by[fin] and "Real Estate Investment Intern" in by[fin]
-assert by[data] == ["Data Analytics Summer Intern"], "two cities merged into one entry"
-assert by[mkt] == ["Growth Marketing Intern - Summer 2027"], "duplicate across sources merged"
-assert set(by[under]) == {"Sophomore Explore Program - Business", "Treasury Analyst Intern"}, by[under]
+main, other = (s["name"] for s in digest.DEFAULT_SECTIONS)
+# 18 Databricks strategy roles (tech) + Goldman's business analyst + 25 Goldman operations roles (big, non-tech)
+assert len(by[main]) == 18 + 1 + 25, len(by[main])
+assert "Business Analyst Summer Intern" in by[main]
+assert set(by[other]) >= {"Associate Product Manager Intern", "Venture Capital Intern (Summer 2027)",
+                          "Real Estate Investment Intern", "Data Analytics Summer Intern",
+                          "Growth Marketing Intern - Summer 2027", "Sophomore Explore Program - Business",
+                          "Treasury Analyst Intern"}, by[other]
+assert by[other].count("Data Analytics Summer Intern") == 1, "two cities merged into one entry"
 flat = " ".join(e["title"] + " " + e["url"] for e in q)
-for bad in ["Strategy Intern ", "Finance Intern", "MBA Summer", "Software Engineering", "Operations Intern 1",
-            "Product Analyst Intern", "Product Strategy Intern", "London"]:
+for bad in ["Strategy Intern ", "Finance Intern", "MBA Summer", "Software Engineering",
+            "Product Analyst Intern", "Product Strategy Intern", "London", "Product Manager Intern II"]:
     assert bad not in flat + " ", bad
 assert all("Baku" not in "; ".join(e["locations"]) for e in q), "non-US"
 assert "boards.greenhouse.io/acme/jobs/3" in flat, "company link preferred over Simplify"
 
-print("\n========== RUN 3: digest time: 5 per section, biggest companies first ==========")
+print("\n========== RUN 3: digest time: 15 business/strategy + 5 other, in ONE message ==========")
 DUE["v"] = True
 msgs, sections = run(3)
 print("SECTIONS:", {k: len(v) for k, v in sections.items()})
+main_e, other_e = main.replace("&", "&amp;"), other
 assert len(msgs) == 1, "whole digest is one Slack message"
+assert all(len(b.get("text", {}).get("text", "")) < 3000 for b in msgs[0]["blocks"]), "Slack block size limit"
+assert len(msgs[0]["blocks"]) <= 50
 assert msgs[0]["blocks"][0]["type"] == "header" and msgs[0]["blocks"][0]["text"]["text"].startswith("Internship Roundup")
-assert len(sections[pm]) == 5, "capped at 5 per section"
-assert "Associate Product Manager Intern" in sections[pm][0] and "Google" in sections[pm][0], "Tier 1 first"
+assert len(sections[main_e]) == 15 and len(sections[other_e]) == 5, sections.keys()
+assert all("Goldman" not in r for r in sections[main_e]), "tech companies listed before non-tech ones"
+assert any(r.split("\n")[1].startswith(("Product", "Finance", "Data", "Marketing", "Freshman")) for r in sections[other_e]), \
+    "role type shown in the mixed section"
 allroles = " ".join(" ".join(v) for v in sections.values())
 assert "Class of 2027–2028" in allroles and "Summer 2027" in allroles
 assert not slack_emoji(json.dumps(msgs[0], ensure_ascii=False)), "no emojis"
-assert len(queue()) == 3, "3 leftover PM roles carried over to tomorrow"
+left = queue()
+print("carried over:", [e["title"] for e in left])
+assert len(left) == 44 - 15 + 7 - 5 and any("Goldman" in e["company"] for e in left), "leftovers carry to tomorrow"
 
 print("\n========== RUN 4: same day again: no second digest ==========")
 DUE["v"] = False
@@ -244,7 +256,8 @@ assert msgs == []
 print("\n========== RUN 5: next day: leftovers posted ==========")
 DUE["v"] = True
 msgs, sections = run(5)
-assert len(sections[pm]) == 3 and queue() == []
+assert len(sections[main_e]) == 15 and len(sections[other_e]) == 2 and len(queue()) == 14
+assert sum("Databricks" in r for r in sections[main_e]) == 3, "remaining tech-company roles first"
 before = open(STATE).read()
 
 print("\n========== TEST MODE: sample digest, save nothing ==========")
