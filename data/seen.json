@@ -10,15 +10,15 @@
 "lever:mbrdna": "HTTPError: 404 Client Error: Not Found for url: https://api.lever.co/v0/postings/mbrdna?mode=json",
 "lever:saronic": "HTTPError: 404 Client Error: Not Found for url: https://api.lever.co/v0/postings/saronic?mode=json",
 "lever:welocalize": "HTTPError: 404 Client Error: Not Found for url: https://api.lever.co/v0/postings/welocalize?mode=json",
-"lever:wyetechllc": "ConnectionError: HTTPSConnectionPool(host='api.lever.co', port=443): Max retries exceeded with url: /v0/postings/wyetechllc?mode=json (Ca",
+"workday:bmo.wd3.myworkdayjobs.com/bmo/external": "HTTPError: 500 Server Error: Internal Server Error for url: https://bmo.wd3.myworkdayjobs.com/wday/cxs/bmo/External/jobs",
 "workday:cmu.wd5.myworkdayjobs.com/cmu/cmu": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://cmu.wd5.myworkdayjobs.com/wday/cxs/cmu/cmu/jobs",
 "workday:comcast.wd5.myworkdayjobs.com/comcast/comcast_careers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://comcast.wd5.myworkdayjobs.com/wday/cxs/comcast/Comcast_Careers/j",
-"workday:globalhr.wd5.myworkdayjobs.com/globalhr/private_posting_no_tmp": "HTTPError: 500 Server Error: Internal Server Error for url: https://globalhr.wd5.myworkdayjobs.com/wday/cxs/globalhr/Private_Postin",
 "workday:gtsgbu.wd3.myworkdayjobs.com/gtsgbu/careers": "HTTPError: 403 Client Error: Forbidden for url: https://gtsgbu.wd3.myworkdayjobs.com/wday/cxs/gtsgbu/Careers/jobs",
+"workday:hntb.wd5.myworkdayjobs.com/hntb/hntb_careers": "HTTPError: 500 Server Error: Internal Server Error for url: https://hntb.wd5.myworkdayjobs.com/wday/cxs/hntb/hntb_careers/jobs",
 "workday:hpe.wd5.myworkdayjobs.com/hpe/jobsathpe": "HTTPError: 500 Server Error: Internal Server Error for url: https://hpe.wd5.myworkdayjobs.com/wday/cxs/hpe/jobsathpe/jobs",
 "workday:intel.wd1.myworkdayjobs.com/intel/en-us": "HTTPError: 404 Client Error: Not Found for url: https://intel.wd1.myworkdayjobs.com/wday/cxs/intel/en-us/jobs",
-"workday:kla.wd1.myworkdayjobs.com/kla/annarbor": "HTTPError: 500 Server Error: Internal Server Error for url: https://kla.wd1.myworkdayjobs.com/wday/cxs/kla/AnnArbor/jobs",
 "workday:kla.wd1.myworkdayjobs.com/kla/ur": "HTTPError: 500 Server Error: Internal Server Error for url: https://kla.wd1.myworkdayjobs.com/wday/cxs/kla/UR/jobs",
+"workday:kyndryl.wd5.myworkdayjobs.com/kyndryl/kyndrylprofessionalcareers": "HTTPError: 500 Server Error: Internal Server Error for url: https://kyndryl.wd5.myworkdayjobs.com/wday/cxs/kyndryl/KyndrylProfessio",
 "workday:liveramp.wd5.myworkdayjobs.com/liveramp/liverampcareers": "HTTPError: 403 Client Error: Forbidden for url: https://liveramp.wd5.myworkdayjobs.com/wday/cxs/liveramp/LiveRampCareers/jobs",
 "workday:netflix.wd1.myworkdayjobs.com/netflix/netflix": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://netflix.wd1.myworkdayjobs.com/wday/cxs/netflix/Netflix/jobs",
 "workday:nio.wd3.myworkdayjobs.com/nio/nio_careers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://nio.wd3.myworkdayjobs.com/wday/cxs/nio/NIO_Careers/jobs",
@@ -26,42 +26,46 @@
 "workday:osv-cci.wd1.myworkdayjobs.com/osv-cci/ccicareers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://osv-cci.wd1.myworkdayjobs.com/wday/cxs/osv-cci/CCICareers/jobs",
 "workday:osv-edf.wd5.myworkdayjobs.com/osv-edf/confidential": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://osv-edf.wd5.myworkdayjobs.com/wday/cxs/osv-edf/Confidential/jobs",
 "workday:osv-rubicon.wd5.myworkdayjobs.com/osv-rubicon/magnitecareers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://osv-rubicon.wd5.myworkdayjobs.com/wday/cxs/osv-rubicon/MagniteCa",
+"workday:rockwellautomation.wd1.myworkdayjobs.com/rockwellautomation/external-rockwell-automation-early-careers": "HTTPError: 500 Server Error: Internal Server Error for url: https://rockwellautomation.wd1.myworkdayjobs.com/wday/cxs/rockwellautom",
+"workday:ryan.wd1.myworkdayjobs.com/ryan/ryancareers": "HTTPError: 500 Server Error: Internal Server Error for url: https://ryan.wd1.myworkdayjobs.com/wday/cxs/ryan/RyanCareers/jobs",
 "workday:sallie-mae.wd5.myworkdayjobs.com/sallie-mae/careers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://sallie-mae.wd5.myworkdayjobs.com/wday/cxs/sallie-mae/Careers/job",
 "workday:vhr-epri.wd1.myworkdayjobs.com/vhr-epri/epricareers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://vhr-epri.wd1.myworkdayjobs.com/wday/cxs/vhr-epri/epricareers/job",
 "workday:vhr-genband.wd1.myworkdayjobs.com/vhr-genband/ribboncareers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://vhr-genband.wd1.myworkdayjobs.com/wday/cxs/vhr-genband/ribboncar",
 "workday:walmart.wd5.myworkdayjobs.com/walmart/walmartexternal": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://walmart.wd5.myworkdayjobs.com/wday/cxs/walmart/WalmartExternal/j"
 },
 "board_failures": {
-"ashby:atomicsemi": 23,
-"ashby:mach": 23,
-"ashby:mentis": 23,
-"ashby:mtesting.ai": 23,
-"greenhouse:capitalrx": 23,
-"lever:aifund": 23,
-"lever:cesiumastro": 23,
-"lever:mbrdna": 23,
-"lever:saronic": 23,
-"lever:welocalize": 23,
-"lever:wyetechllc": 1,
-"workday:cmu.wd5.myworkdayjobs.com/cmu/cmu": 23,
-"workday:comcast.wd5.myworkdayjobs.com/comcast/comcast_careers": 23,
-"workday:globalhr.wd5.myworkdayjobs.com/globalhr/private_posting_no_tmp": 1,
-"workday:gtsgbu.wd3.myworkdayjobs.com/gtsgbu/careers": 23,
-"workday:hpe.wd5.myworkdayjobs.com/hpe/jobsathpe": 1,
-"workday:intel.wd1.myworkdayjobs.com/intel/en-us": 23,
-"workday:kla.wd1.myworkdayjobs.com/kla/annarbor": 1,
-"workday:kla.wd1.myworkdayjobs.com/kla/ur": 1,
-"workday:liveramp.wd5.myworkdayjobs.com/liveramp/liverampcareers": 23,
-"workday:netflix.wd1.myworkdayjobs.com/netflix/netflix": 23,
-"workday:nio.wd3.myworkdayjobs.com/nio/nio_careers": 23,
-"workday:nxp.wd3.myworkdayjobs.com/nxp/careers": 21,
-"workday:osv-cci.wd1.myworkdayjobs.com/osv-cci/ccicareers": 23,
-"workday:osv-edf.wd5.myworkdayjobs.com/osv-edf/confidential": 23,
-"workday:osv-rubicon.wd5.myworkdayjobs.com/osv-rubicon/magnitecareers": 23,
-"workday:sallie-mae.wd5.myworkdayjobs.com/sallie-mae/careers": 23,
-"workday:vhr-epri.wd1.myworkdayjobs.com/vhr-epri/epricareers": 23,
-"workday:vhr-genband.wd1.myworkdayjobs.com/vhr-genband/ribboncareers": 23,
-"workday:walmart.wd5.myworkdayjobs.com/walmart/walmartexternal": 23
+"ashby:atomicsemi": 24,
+"ashby:mach": 24,
+"ashby:mentis": 24,
+"ashby:mtesting.ai": 24,
+"greenhouse:capitalrx": 24,
+"lever:aifund": 24,
+"lever:cesiumastro": 24,
+"lever:mbrdna": 24,
+"lever:saronic": 24,
+"lever:welocalize": 24,
+"workday:bmo.wd3.myworkdayjobs.com/bmo/external": 1,
+"workday:cmu.wd5.myworkdayjobs.com/cmu/cmu": 24,
+"workday:comcast.wd5.myworkdayjobs.com/comcast/comcast_careers": 24,
+"workday:gtsgbu.wd3.myworkdayjobs.com/gtsgbu/careers": 24,
+"workday:hntb.wd5.myworkdayjobs.com/hntb/hntb_careers": 1,
+"workday:hpe.wd5.myworkdayjobs.com/hpe/jobsathpe": 2,
+"workday:intel.wd1.myworkdayjobs.com/intel/en-us": 24,
+"workday:kla.wd1.myworkdayjobs.com/kla/ur": 2,
+"workday:kyndryl.wd5.myworkdayjobs.com/kyndryl/kyndrylprofessionalcareers": 1,
+"workday:liveramp.wd5.myworkdayjobs.com/liveramp/liverampcareers": 24,
+"workday:netflix.wd1.myworkdayjobs.com/netflix/netflix": 24,
+"workday:nio.wd3.myworkdayjobs.com/nio/nio_careers": 24,
+"workday:nxp.wd3.myworkdayjobs.com/nxp/careers": 22,
+"workday:osv-cci.wd1.myworkdayjobs.com/osv-cci/ccicareers": 24,
+"workday:osv-edf.wd5.myworkdayjobs.com/osv-edf/confidential": 24,
+"workday:osv-rubicon.wd5.myworkdayjobs.com/osv-rubicon/magnitecareers": 24,
+"workday:rockwellautomation.wd1.myworkdayjobs.com/rockwellautomation/external-rockwell-automation-early-careers": 1,
+"workday:ryan.wd1.myworkdayjobs.com/ryan/ryancareers": 1,
+"workday:sallie-mae.wd5.myworkdayjobs.com/sallie-mae/careers": 24,
+"workday:vhr-epri.wd1.myworkdayjobs.com/vhr-epri/epricareers": 24,
+"workday:vhr-genband.wd1.myworkdayjobs.com/vhr-genband/ribboncareers": 24,
+"workday:walmart.wd5.myworkdayjobs.com/walmart/walmartexternal": 24
 },
 "boards_initialized": {
 "ashby:1password": 1794031569,
@@ -1240,6 +1244,7 @@
 "adobe|2027 intern enterprise architecture analyst": 1794362270,
 "adobe|2027 intern fp a finance reporting": 1794031569,
 "adobe|2027 intern media editorial generalist": 1794031569,
+"adobe|2027 intern product design intern": 1794477249,
 "adobe|2027 intern sales velocity analyst": 1794362270,
 "adobe|2027 intern solutions consulting analyst": 1794031569,
 "adobe|2027 sami intern adobe sales academy bdr": 1794362270,
@@ -1388,6 +1393,7 @@
 "anduril|2027 product designer intern": 1794031569,
 "anduril|2027 supply chain intern": 1794444474,
 "anduril|finance data analyst intern": 1794444474,
+"anduril|winter 2027 supply chain analyst co op": 1794477249,
 "angelcity|data analytics intern": 1794031569,
 "ankuraconsultinggroup|university intern construction disputes advisory": 1794355780,
 "ankuraconsultinggroup|university intern disputes economics": 1794031569,
@@ -1685,12 +1691,17 @@
 "bny|2027 bny summer internship program audit new york ny": 1794031569,
 "bny|2027 bny summer internship program audit pittsburgh pa": 1794031569,
 "bny|2027 bny summer internship program bny investments pittsburgh pa": 1794031569,
+"bny|2027 bny summer internship program marketing new york ny": 1794477249,
+"bny|2027 bny summer internship program marketing pittsburgh pa": 1794477249,
+"bny|2027 bny summer internship program office of the cfo finance strategy new york ny": 1794477249,
+"bny|2027 bny summer internship program office of the cfo finance strategy pittsburgh pa": 1794477249,
 "bny|2027 bny summer internship program product management lake mary fl": 1794444474,
 "bny|2027 bny summer internship program product management pittsburgh pa": 1794444474,
 "bny|2027 bny summer internship program risk and compliance lake mary fl": 1794031569,
 "bny|2027 bny summer internship program risk and compliance new york ny": 1794031569,
 "bny|2027 bny summer internship program risk and compliance pittsburgh pa": 1794031569,
 "bny|product management intern": 1794444474,
+"bny|product management intern product management": 1794477249,
 "bny|product management intern program management": 1794444474,
 "boeingcompany|data analytics intern": 1794269322,
 "boozallen|enterprise cybersecurity data and business intelligence analyst intern": 1794031569,
@@ -1855,6 +1866,7 @@
 "chubb|finance intern": 1794031569,
 "chubb|insurance specialist internship summer 2027": 1794031569,
 "chubb|summer placement bermuda chubb tempest life re finance intern": 1794031569,
+"chubb|summer placement bermuda communications intern": 1794477249,
 "chubb|summer placement bermuda finance intern": 1794031569,
 "chubb|summer placement bermuda underwriting intern": 1794031569,
 "chubb|underwriting intern": 1794031569,
@@ -1996,6 +2008,7 @@
 "cummins|accounting summer internship positions": 1794031569,
 "cummins|corporate strategy manager summer internship positions": 1794444474,
 "cummins|finance summer internship positions": 1794031569,
+"cummins|integrated supply chain co op positions": 1794477249,
 "cummins|integrated supply chain summer internship positions": 1794444474,
 "cummins|marketing summer internship positions": 1794444474,
 "cummins|product functional test co op positions": 1794444474,
@@ -2066,6 +2079,7 @@
 "deutschebank|off cycle internship program 2026 investment banking capital markets milan f m x": 1794031569,
 "dickssportinggoods|finance summer 2027 corporate internship": 1794419710,
 "dickssportinggoods|product design ux summer 2027 corporate internship": 1794389414,
+"dickssportinggoods|product management intern corporate internship": 1794477249,
 "dickssportinggoods|product management summer 2027 corporate internship": 1794389414,
 "dickssportinggoods|retail analytics summer 2027 corporate internship": 1794082142,
 "didiglobal|research intern scene understanding and planning": 1794355780,
@@ -2158,8 +2172,10 @@
 "elekta|sourcing indirect procurement intern": 1794355780,
 "emcinsurance|underwriting intern northeast region providence": 1794031569,
 "emcinsurance|underwriting intern south central region wichita": 1794031569,
+"emersonelectric|america s field marketing intern": 1794477249,
 "emersonelectric|business operations intern": 1794444474,
 "emersonelectric|data analytics intern": 1794031569,
+"emersonelectric|field device management sales enablement intern": 1794477249,
 "emersonelectric|finance operations intern": 1794031569,
 "emersonelectric|marketing communications intern": 1794444474,
 "emersonelectric|material planning and inventory intern spring 2027": 1794444474,
@@ -2167,6 +2183,7 @@
 "emersonelectric|product marketing intern": 1794444474,
 "emersonelectric|sales and application engineering co op": 1794444474,
 "emersonelectric|sales and operations planning intern": 1794444474,
+"emersonelectric|software product management intern": 1794477249,
 "emersonelectric|sourcing co op spring 2027": 1794444474,
 "emersonelectric|technical marketing and business management intern": 1794444474,
 "energytransferpartners|commodity trading analyst intern": 1794031569,
@@ -2726,6 +2743,7 @@
 "ideas|product management intern": 1794355780,
 "idme|product intern": 1794031569,
 "idme|summer intern 2027 product intern": 1794031569,
+"illinoistoolworks|product management intern": 1794477249,
 "imctrading|quantitative research intern": 1794031569,
 "imctrading|quantitative research intern bs ms summer 2027": 1794031569,
 "imctrading|quantitative trader intern": 1794031569,
@@ -3053,8 +3071,13 @@
 "macys|macy s 2027 summer internship customer digital growth insights and platforms analytics": 1794444474,
 "macys|macy s 2027 summer internship customer digital growth insights and platforms data systems": 1794444474,
 "macys|macy s 2027 summer internship digital site merchandising": 1794444474,
+"macys|macy s 2027 summer internship merchandise planning inventory management": 1794477249,
+"macys|macy s 2027 summer internship merchandising assortment planning": 1794477249,
+"macys|macy s 2027 summer internship merchandising buying": 1794477249,
+"macys|macy s 2027 summer internship merchandising product development": 1794477249,
 "macys|macy s 2027 summer internship store management san juan pr": 1794444474,
 "macys|macy s 2027 supply chain internship operations china grove nc": 1794444474,
+"macys|macy s 2027 supply chain internship operations columbus oh": 1794477249,
 "macys|macy s 2027 supply chain internship operations goodyear az": 1794444474,
 "macys|macy s 2027 supply chain internship operations martinsburg wv": 1794444474,
 "macys|macy s 2027 supply chain internship operations portland tn": 1794444474,
@@ -3068,6 +3091,7 @@
 "mannhummel|product management market intelligence intern": 1794355780,
 "manulifefinancial|actuarial internship program 2027 6 5 months": 1794031569,
 "manulifefinancial|co op internship 2027 regional marketing strategy ux ui": 1794355780,
+"manulifefinancial|mgs actuarial intern 2027": 1794477249,
 "manulifefinancial|summer intern 2027 canadian real estate finance group": 1794419710,
 "manulifefinancial|summer intern 2027 investment management sales desk boston ma": 1794031569,
 "manulifefinancial|summer intern 2027 investment management sales desk tempe az": 1794436739,
@@ -3318,6 +3342,7 @@
 "nielseniq|intern operations": 1794355780,
 "nike|nike inc apparel accessories product line management undergraduate intern": 1794355780,
 "nike|product line management intern apparel accessories": 1794362270,
+"nintendo|business intelligence intern": 1794477249,
 "nissanglobal|aftersales business planning intern": 1794355780,
 "nissanglobal|aftersales business planning intern summer 2027 franklin tn": 1794355780,
 "nissanglobal|connected car business development intern": 1794355780,
@@ -3737,6 +3762,7 @@
 "robertboschventurecapital|tax admin intern vat": 1794031569,
 "robertboschventurecapital|tax admin intern wht": 1794031569,
 "robertboschventurecapital|tax intern": 1794031569,
+"robinhood|fraud operations intern summer 2027": 1794477249,
 "roche|accounting intern": 1794031569,
 "roche|data analytics intern": 1794031569,
 "roche|internship data and digital enablement prlabd m f d": 1794031569,
@@ -3762,6 +3788,7 @@
 "rockwellautomation|intern product management": 1794436739,
 "rockwellautomation|intern technical sales consulting canada": 1794436739,
 "rockwellautomation|intern technical sales consulting usa": 1794436739,
+"rockwellautomation|product management intern": 1794477249,
 "rockwellautomation|product management intern digital client": 1794444474,
 "rockwoolgroup|associate product management intern": 1794355780,
 "rollsroyce|accounting tax summer intern": 1794031569,
@@ -3836,6 +3863,7 @@
 "salesforce|summer 2027 intern finance operations associate": 1794031569,
 "salesforce|summer 2027 intern pro serve strategy change management": 1794057034,
 "salesforce|summer 2027 intern product management": 1794031569,
+"salesforce|summer intern 2027 content writer": 1794477249,
 "samsung|accounting intern": 1794347179,
 "samsung|business intelligence data analytics intern": 1794031569,
 "samsung|business strategy intelligence intern": 1794206667,
@@ -3909,18 +3937,26 @@
 "sherwinwilliams|2027 management and sales intern cincinnati dayton": 1794444474,
 "sherwinwilliams|2027 management and sales intern houston tx": 1794444474,
 "sherwinwilliams|2027 management and sales intern san antonio": 1794444474,
+"sherwinwilliams|2027 management and sales internship arizona district": 1794477249,
+"sherwinwilliams|2027 management and sales internship denver co": 1794477249,
 "sherwinwilliams|2027 management and sales internship el paso": 1794444474,
 "sherwinwilliams|2027 management and sales internship las vegas district": 1794444474,
+"sherwinwilliams|2027 management and sales internship los angeles district": 1794477249,
 "sherwinwilliams|2027 management and sales internship northern co": 1794444474,
+"sherwinwilliams|2027 management and sales internship phoenix district": 1794477249,
+"sherwinwilliams|2027 management and sales internship southern co": 1794477249,
+"sherwinwilliams|2027 management and sales internship utah": 1794477249,
 "sherwinwilliams|2027 management and sales summer internship detroit": 1794444474,
 "sherwinwilliams|2027 management and sales summer internship fresno": 1794444474,
 "sherwinwilliams|2027 management and sales summer internship hawaii": 1794444474,
 "sherwinwilliams|2027 management and sales summer internship milwaukee": 1794444474,
 "sherwinwilliams|2027 management and sales summer internship twin cities": 1794436739,
+"sherwinwilliams|2027 management sales summer intern dallas fort worth": 1794477249,
 "sherwinwilliams|2027 management sales summer intern west texas": 1794444474,
 "sherwinwilliams|2027 r d data visualization intern cleveland": 1794031569,
 "sherwinwilliams|2027 r d product systems internship cleveland": 1794444474,
 "sherwinwilliams|management and sales summer 2027 internship arkansas district": 1794444474,
+"sherwinwilliams|management and sales summer 2027 internship kansas city district": 1794477249,
 "sherwinwilliams|management and sales summer internship 2027 boise": 1794444474,
 "sherwinwilliams|management and sales summer internship 2027 cleveland": 1794444474,
 "sherwinwilliams|management and sales summer internship 2027 columbus": 1794444474,
@@ -4166,7 +4202,9 @@
 "texasinstruments|brand marketing intern": 1794031569,
 "texasinstruments|communications intern": 1794031569,
 "texasinstruments|corporate audit intern": 1794031569,
+"texasinstruments|operations intern": 1794477249,
 "texasinstruments|portfolio marketing engineering intern": 1794031569,
+"texasinstruments|procurement intern": 1794477249,
 "texasinstruments|product marketing engineering intern": 1794031569,
 "texasinstruments|sales marketing and content enablement intern": 1794343930,
 "texasinstruments|systems marketing engineer intern": 1794031569,
@@ -4184,6 +4222,7 @@
 "thomsonreuters|reuters news internship program 2027 finance markets london": 1794082142,
 "thomsonreuters|reuters news internship program 2027 temp guild finance markets new york": 1794082142,
 "tiaa|2027 early talent internship internal audit": 1794031569,
+"tiaa|2027 early talent internship marketing communications sports sponsorships folds of honor": 1794477249,
 "tiktok|ai agent product manager intern product infrastructure customer service platform": 1794031569,
 "tiktok|ai governance strategy product manager intern platform trust and ecosystem": 1794031569,
 "tiktok|ai product manager intern product social": 1794031569,
@@ -4308,6 +4347,7 @@
 "travelers|marketing communications intern integrated marketing": 1794436739,
 "travelers|marketing communications intern social media": 1794436739,
 "travelers|product management development program pmdp intern": 1794436739,
+"travelers|product management intern pmdp": 1794477249,
 "travelers|research operations marketing communications intern": 1794436739,
 "travelers|risk control intern": 1794250322,
 "triafederal|growth operations intern": 1794355780,
@@ -4562,6 +4602,7 @@
 "wattswater|strategic marketing intern benchmarking summer 2027": 1794355780,
 "wattswater|supply chain logistics intern summer 2027": 1794355780,
 "waymo|human behavior analytics intern safety research": 1794031569,
+"wellingtonmanagement|investment strategy technology co op": 1794477249,
 "wellmark|audit services internship": 1794031569,
 "wellmark|health care innovation operations internship": 1794355780,
 "wellmark|health services operations systems internship health care innovation insure your future": 1794355780,
@@ -4711,6 +4752,7 @@
 "greenhouse:akunacapitaloci|8065680": 1794031569,
 "greenhouse:akunacapitaloci|8066880": 1794031569,
 "greenhouse:akunacapitaloci|8066884": 1794031569,
+"greenhouse:andurilindustries|5236592007": 1794477249,
 "greenhouse:andurilindustries|5255827007": 1794444474,
 "greenhouse:andurilindustries|5265097007": 1794031569,
 "greenhouse:andurilindustries|5269977007": 1794031569,
@@ -4837,6 +4879,7 @@
 "greenhouse:rfsmart|5433156008": 1794031569,
 "greenhouse:rfsmart|5437729008": 1794355780,
 "greenhouse:rfsmart|5441069008": 1794031569,
+"greenhouse:robinhood|8198241": 1794477249,
 "greenhouse:rocketlab|7984568003": 1794355780,
 "greenhouse:rocketlab|7984786003": 1794355780,
 "greenhouse:rocketlab|7985032003": 1794355780,
@@ -4960,6 +5003,11 @@
 "lever:zoox|614f35d6-a415-4f44-be38-cb38877df1db": 1794031569,
 "oracle:ebcs.fa.em2.oraclecloud.com/cx_1|45734": 1794355780,
 "oracle:ebwb.fa.us2.oraclecloud.com/cx|12686": 1794031569,
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91731": 1794477249,
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91733": 1794477249,
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91739": 1794477249,
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91741": 1794477249,
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91766": 1794477249,
 "oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|92024": 1794444474,
 "oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|92298": 1794444474,
 "oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|92400": 1794444474,
@@ -4990,6 +5038,8 @@
 "oracle:ecnf.fa.us2.oraclecloud.com/cx|301987": 1794031569,
 "oracle:edbz.fa.us2.oraclecloud.com/cx|25017540": 1794031569,
 "oracle:edbz.fa.us2.oraclecloud.com/cx|25017560": 1794031569,
+"oracle:edbz.fa.us2.oraclecloud.com/cx|25017562": 1794477249,
+"oracle:edbz.fa.us2.oraclecloud.com/cx|25017563": 1794477249,
 "oracle:edbz.fa.us2.oraclecloud.com/cx|25017564": 1794031569,
 "oracle:edbz.fa.us2.oraclecloud.com/cx|25017565": 1794031569,
 "oracle:edbz.fa.us2.oraclecloud.com/cx|25017582": 1794031569,
@@ -5063,13 +5113,21 @@
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2621842": 1794444474,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2621847": 1794444474,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2621948": 1794444474,
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2622363": 1794477249,
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2622784": 1794477249,
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623076": 1794477249,
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623099": 1794477249,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623101": 1794444474,
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623495": 1794477249,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623524": 1794444474,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623751": 1794444474,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623904": 1794444474,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623908": 1794444474,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2624025": 1794444474,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2624026": 1794444474,
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2624035": 1794477249,
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2624079": 1794477249,
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2624081": 1794477249,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2625141": 1794444474,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2627066": 1794444474,
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2627296": 1794444474,
@@ -5100,7 +5158,11 @@
 "oracle:emit.fa.ca3.oraclecloud.com/cx_2001|98916": 1794355780,
 "oracle:eofd.fa.us6.oraclecloud.com/cx_1001|751321": 1794389414,
 "oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81248": 1794031569,
+"oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81256": 1794477249,
+"oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81260": 1794477249,
 "oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81262": 1794031569,
+"oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81268": 1794477249,
+"oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81270": 1794477249,
 "oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81271": 1794031569,
 "oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81276": 1794031569,
 "oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81277": 1794031569,
@@ -5138,6 +5200,7 @@
 "oracle:fa-espx-saasfaprod1.fa.ocs.oraclecloud.com/cx_1|2437575": 1794031569,
 "oracle:fa-espx-saasfaprod1.fa.ocs.oraclecloud.com/cx_1|2437578": 1794031569,
 "oracle:fa-espx-saasfaprod1.fa.ocs.oraclecloud.com/cx_1|2437602": 1794444474,
+"oracle:fa-espx-saasfaprod1.fa.ocs.oraclecloud.com/cx_1|2437736": 1794477249,
 "oracle:fa-espx-saasfaprod1.fa.ocs.oraclecloud.com/cx_1|2437737": 1794444474,
 "oracle:fa-espx-saasfaprod1.fa.ocs.oraclecloud.com/cx_1|2437747": 1794444474,
 "oracle:fa-espx-saasfaprod1.fa.ocs.oraclecloud.com/cx_1|2437749": 1794444474,
@@ -5164,6 +5227,7 @@
 "oracle:fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/cx_2001|35926": 1794031569,
 "oracle:fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/cx_2001|35928": 1794031569,
 "oracle:fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/cx_2001|35964": 1794031569,
+"oracle:fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/cx_2001|36197": 1794477249,
 "oracle:fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/cx_2001|37382": 1794031569,
 "oracle:fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/cx_2001|38295": 1794031569,
 "oracle:fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/cx_2001|38331": 1794031569,
@@ -5211,13 +5275,16 @@
 "oracle:hdhl.fa.us6.oraclecloud.com/cx_1|1008438": 1794355780,
 "oracle:hdhl.fa.us6.oraclecloud.com/cx_1|1008554": 1794355780,
 "oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26009793": 1794444474,
+"oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26009838": 1794477249,
 "oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010041": 1794444474,
 "oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010043": 1794444474,
+"oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010058": 1794477249,
 "oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010151": 1794444474,
 "oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010168": 1794444474,
 "oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010170": 1794444474,
 "oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010452": 1794444474,
 "oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010624": 1794031569,
+"oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010799": 1794477249,
 "oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26012080": 1794444474,
 "oracle:hdnn.fa.us6.oraclecloud.com/cx|114138": 1794031569,
 "oracle:hdnn.fa.us6.oraclecloud.com/cx|114139": 1794031569,
@@ -5391,6 +5458,7 @@
 "simplify|1982a165-a74a-476f-8ebb-5136a38d056d": 1794444474,
 "simplify|1a0796bb-e137-4e30-9fac-961ff7c26f42": 1794355780,
 "simplify|1aabc22e-1fb5-4112-982f-6ac8f727c097": 1794362270,
+"simplify|1ab411c4-7013-4eeb-8835-d8bb9baa3f39": 1794477249,
 "simplify|1c383dbb-054d-4c85-8375-ac420436d3f7": 1794355780,
 "simplify|1cb17d04-00ff-475a-8d37-3a9a45606bf9": 1794031569,
 "simplify|1ce187ae-c250-4b22-8bee-28e3422d6cba": 1794031569,
@@ -5440,6 +5508,7 @@
 "simplify|2b618d42-4ed5-4c28-afba-944f17ce61fd": 1794031569,
 "simplify|2c1e4de1-dc7c-4c61-a87f-e32d307d8d5c": 1794031569,
 "simplify|2c334a12-438c-49bb-8cf8-53a3ebc22b33": 1794031569,
+"simplify|2cea51eb-48da-45c8-a9e8-7067345c2cae": 1794477249,
 "simplify|2d95aab9-745c-4250-bdfc-eeba0eae5b63": 1794031569,
 "simplify|2d992297-70f1-4f62-852b-75acf2b9ef3b": 1794031569,
 "simplify|2daece64-1f02-4b15-8dd6-e4c4e1ce0b89": 1794031569,
@@ -5538,6 +5607,7 @@
 "simplify|4c0ecb7d-5370-4670-b348-d2eb4e6be3f6": 1794031569,
 "simplify|4c1e849b-6ed3-4fc8-a84b-1f9dd177b17a": 1794031569,
 "simplify|4c265b88-cc24-4514-96f5-7d199e5670ef": 1794031569,
+"simplify|4c81f85e-2b26-4deb-8711-3bf27be310ef": 1794477249,
 "simplify|4d500daf-f215-4098-89bd-65f0f3d60ffe": 1794031569,
 "simplify|4df32e9a-c2bf-41b5-a2d3-5bffe9caf0b5": 1794031569,
 "simplify|4e01562f-f8bc-4029-bc79-5ea4aa18c8a3": 1794031569,
@@ -5624,6 +5694,7 @@
 "simplify|67041569-f40a-4034-9b65-745d5d33c1ee": 1794031569,
 "simplify|673a3035-f4bb-47d2-912f-bee053a64f17": 1794031569,
 "simplify|678495bb-e157-455e-8bb4-01d862999751": 1794355780,
+"simplify|67dcd601-0896-4297-950a-3ec8b5d57109": 1794477249,
 "simplify|69d073f7-29c2-47a9-9d99-d87676c3ea7b": 1794031569,
 "simplify|6a614540-0ae2-4f36-ae68-ab93d4857da1": 1794444474,
 "simplify|6a849ae3-5b64-44ef-8bcc-a7bb32766d9f": 1794031569,
@@ -5786,6 +5857,7 @@
 "simplify|a042d610-957b-4d5c-a233-944efa6819fc": 1794355780,
 "simplify|a072ab70-f702-4cf1-addf-6a9bc09aa7bc": 1794355780,
 "simplify|a07827a9-ad39-4bc7-ac54-89535faf28db": 1794031569,
+"simplify|a07da328-cad2-4ede-bbbb-87ffe48211e5": 1794477249,
 "simplify|a09251e8-6de5-41cd-9e32-868a15bc1c1a": 1794031569,
 "simplify|a0a234ba-306d-4be2-b894-fa0f79172c2c": 1794355780,
 "simplify|a0d1ae40-cc95-41c1-b7b0-1b9c30b2ce8a": 1794031569,
@@ -5825,8 +5897,10 @@
 "simplify|ab7e8aac-4b5b-4405-876c-38abb79ba5a6": 1794355780,
 "simplify|abe62d14-e5be-4b9f-93be-f8d60c28dd40": 1794444474,
 "simplify|ac27249b-0f36-44ff-a07c-513168c4e98b": 1794031569,
+"simplify|ac40f589-13ea-49dc-948f-064027da53cb": 1794477249,
 "simplify|ac514eef-85b9-4b16-b1f4-64e545052831": 1794444474,
 "simplify|ac58dc2d-b396-4361-bb77-56d82fb06fbb": 1794031569,
+"simplify|ac7bfb32-7f0b-4685-a576-98f6e7acd1d9": 1794477249,
 "simplify|acaafa81-6155-4e77-8d56-dc8aac3847d6": 1794031569,
 "simplify|acda40fc-1690-467d-92ef-f27c904fb1bb": 1794031569,
 "simplify|ad7a72cf-ccd7-4926-a711-e4ff9a6f8520": 1794355780,
@@ -6109,6 +6183,7 @@
 "simplify|fd464347-4df7-40dc-86c4-3b7ff3dfb1ce": 1794031569,
 "simplify|fd5f230b-99df-4f7a-9232-1b95fac6d0f8": 1794031569,
 "simplify|fdc152bc-2ce6-48c0-86db-6a70bc5a49f3": 1794355780,
+"simplify|fdef26c7-fa7e-4032-b5b0-ddc1667549ba": 1794477249,
 "simplify|fe030c39-86ac-4766-8c2e-ccd5638a8cfd": 1794031569,
 "simplify|fe0f0f3d-3ecc-46df-85f6-1122898c33f5": 1794031569,
 "simplify|fe236070-be61-4ddf-b369-1eab4543e031": 1794031569,
@@ -6349,6 +6424,7 @@
 "workday:accenture.wd103.myworkdayjobs.com/accenture/accenturecareers|/job/Toronto-40-King-St-W-Corp/Entry-Level-Advisory-Development-Program---Summer-Analyst---Canada---NAELFY27_R00364487": 1794355780,
 "workday:accenture.wd103.myworkdayjobs.com/accenture/accenturecareers|/job/Toronto-40-King-St-W-Corp/Entry-Level-Technology-Development-Program---Summer-Analyst---Canada---NAELFY27_R00363654-1": 1794031569,
 "workday:accuray.wd5.myworkdayjobs.com/accuray/external|/job/Madison-WI/Sourcing-Data-Management-Intern_3265": 1794031569,
+"workday:adobe.wd5.myworkdayjobs.com/adobe/external_experienced|/job/Bangalore/XMLNAME-2027-Intern---Product-Design-Intern_R172738": 1794477249,
 "workday:adobe.wd5.myworkdayjobs.com/adobe/external_experienced|/job/New-York/XMLNAME-2027-Intern---Digital-Strategy-Analyst_R171828": 1794031569,
 "workday:adobe.wd5.myworkdayjobs.com/adobe/external_experienced|/job/New-York/XMLNAME-2027-Intern---Enterprise-Architecture-Analyst_R171856": 1794362270,
 "workday:adobe.wd5.myworkdayjobs.com/adobe/external_experienced|/job/New-York/XMLNAME-2027-Intern---Sales-Velocity-Analyst_R171869": 1794362270,
@@ -7719,6 +7795,7 @@
 "workday:manulife.wd3.myworkdayjobs.com/manulife/mfcjh_adminjobs|/job/Boston-Massachusetts/Summer-Intern-2027---Investment-Management-Sales-Desk--Boston--MA-_JR26081869": 1794031569,
 "workday:manulife.wd3.myworkdayjobs.com/manulife/mfcjh_adminjobs|/job/Boston-Massachusetts/Summer-Intern-2027---US-Retail-Marketing_JR26081277": 1794355780,
 "workday:manulife.wd3.myworkdayjobs.com/manulife/mfcjh_adminjobs|/job/Hong-Kong-Manulife-Tower/Actuarial-Internship-Program-2027--65-months-_JR26081201": 1794031569,
+"workday:manulife.wd3.myworkdayjobs.com/manulife/mfcjh_adminjobs|/job/Quezon-City/MGS-Actuarial-Intern---2027_JR26110651": 1794477249,
 "workday:manulife.wd3.myworkdayjobs.com/manulife/mfcjh_adminjobs|/job/Tempe-Arizona/Summer-Intern-2027---Investment-Management-Sales-Desk--Tempe--AZ-_JR26081868": 1794436739,
 "workday:manulife.wd3.myworkdayjobs.com/manulife/mfcjh_adminjobs|/job/Toronto-Ontario/Summer-Intern-2027---Canadian-Real-Estate-Finance-Group_JR26091907": 1794419710,
 "workday:manulife.wd3.myworkdayjobs.com/manulife/mfcjh_jobs|/job/Hong-Kong-Manulife-Tower/Co-op-Internship-2027---Regional-Marketing-Strategy--UX-UI_JR26110506": 1794355780,
@@ -8330,6 +8407,7 @@
 "workday:salesforce.wd12.myworkdayjobs.com/salesforce/external_career_site|/job/California---San-Francisco/Summer-2027-Intern---Applied-AI-Strategy---Research_JR367516-1": 1794355780,
 "workday:salesforce.wd12.myworkdayjobs.com/salesforce/external_career_site|/job/California---San-Francisco/Summer-2027-Intern---Product-Management_JR367659-1": 1794031569,
 "workday:salesforce.wd12.myworkdayjobs.com/salesforce/external_career_site|/job/Illinois---Chicago/Summer-2027-Intern---Pro-Serve-Strategy---Change-Management_JR366222-2": 1794031569,
+"workday:salesforce.wd12.myworkdayjobs.com/salesforce/external_career_site|/job/India---Bangalore/Summer-Intern-2027---Content-Writer_JR368157": 1794477249,
 "workday:salesforce.wd12.myworkdayjobs.com/salesforce/external_career_site|/job/Indiana---Indianapolis/Summer-2027-Intern---Finance-Operations-Associate_JR359638-2": 1794031569,
 "workday:salesforce.wd12.myworkdayjobs.com/salesforce/futureforce_internships|/job/California---San-Francisco/Summer-2027-Intern---Product-Management_JR367659": 1794031569,
 "workday:salesforce.wd12.myworkdayjobs.com/salesforce/futureforce_internships|/job/Illinois---Chicago/Summer-2027-Intern---Pro-Serve-Strategy---Change-Management_JR366222": 1794031569,
@@ -8556,6 +8634,7 @@
 "workday:thomsonreuters.wd5.myworkdayjobs.com/thomsonreuters/external_career_site|/job/United-Kingdom-London/Reuters-News-Internship-Program-2027---Finance---Markets--London_JREQ204982": 1794082142,
 "workday:thomsonreuters.wd5.myworkdayjobs.com/thomsonreuters/external_career_site|/job/United-States-of-America-New-York-New-York/Reuters-News-Internship-Program-2027--Temp-Guild----Finance---Markets--New-York_JREQ204984": 1794082142,
 "workday:tiaa.wd1.myworkdayjobs.com/tiaa/search|/job/Charlotte-NC-USA/XMLNAME-2027-Early-Talent-Internship--Internal-Audit_R261000123": 1794031569,
+"workday:tiaa.wd1.myworkdayjobs.com/tiaa/search|/job/Charlotte-NC-USA/XMLNAME-2027-Early-Talent-Internship--Marketing---Communications--Sports-Sponsorships--Folds-of-Honor_R261000122-1": 1794477249,
 "workday:tjx.wd1.myworkdayjobs.com/tjx/tjx_external|/job/Framingham-MA-01701/Merchandising-Internship-Program--Framingham--MA-_REQ152170": 1794355780,
 "workday:tmobile.wd1.myworkdayjobs.com/tmobile/external|/job/Bellevue-Washington/Summer-2027-AI-Strategist-Internship_REQ381279": 1794118225,
 "workday:tmobile.wd1.myworkdayjobs.com/tmobile/external|/job/Bellevue-Washington/Summer-2027-Business-Analytics---Reporting-Internship_REQ381319": 1794343930,
@@ -20723,6 +20802,575 @@
 "oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2624026"
 ],
 "url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2624026"
+},
+{
+"category": "marketing",
+"company": "TIAA",
+"fp": "tiaa|2027 early talent internship marketing communications sports sponsorships folds of honor",
+"grad": "Class of 2028\u20132029",
+"label": "Marketing",
+"locations": [
+"Charlotte, NC, USA"
+],
+"posted": null,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 1,
+"title": "2027 Early Talent Internship: Marketing & Communications, Sports Sponsorships, Folds of Honor",
+"uids": [
+"workday:tiaa.wd1.myworkdayjobs.com/tiaa/search|/job/Charlotte-NC-USA/XMLNAME-2027-Early-Talent-Internship--Marketing---Communications--Sports-Sponsorships--Folds-of-Honor_R261000122-1"
+],
+"url": "https://tiaa.wd1.myworkdayjobs.com/Search/job/Charlotte-NC-USA/XMLNAME-2027-Early-Talent-Internship--Marketing---Communications--Sports-Sponsorships--Folds-of-Honor_R261000122-1"
+},
+{
+"category": "business",
+"company": "Sherwin-Williams",
+"fp": "sherwinwilliams|2027 management and sales internship denver co",
+"grad": "Open to juniors and seniors",
+"label": "Business",
+"locations": [
+"Denver, CO, United States"
+],
+"posted": 1789603200.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 Management and Sales Internship (Denver, CO)",
+"uids": [
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2624035"
+],
+"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2624035"
+},
+{
+"category": "business",
+"company": "Sherwin-Williams",
+"fp": "sherwinwilliams|2027 management and sales internship southern co",
+"grad": "Open to juniors and seniors",
+"label": "Business",
+"locations": [
+"Colorado Springs, CO, United States"
+],
+"posted": 1789603200.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 Management and Sales Internship (Southern CO)",
+"uids": [
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2624081"
+],
+"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2624081"
+},
+{
+"category": "business",
+"company": "Sherwin-Williams",
+"fp": "sherwinwilliams|2027 management and sales internship utah",
+"grad": "Open to juniors and seniors",
+"label": "Business",
+"locations": [
+"Salt Lake City, UT, United States"
+],
+"posted": 1789603200.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 Management and Sales Internship (Utah)",
+"uids": [
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2624079"
+],
+"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2624079"
+},
+{
+"category": "business",
+"company": "Macy's",
+"fp": "macys|macy s 2027 summer internship merchandise planning inventory management",
+"grad": "Open to rising seniors",
+"label": "Business",
+"locations": [
+"New York, NY, United States"
+],
+"posted": 1789516800.0,
+"queued": 1794477476,
+"season": "Summer 2027",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Macy's 2027 Summer Internship - Merchandise Planning & Inventory Management",
+"uids": [
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91741"
+],
+"url": "https://ebwh.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/91741"
+},
+{
+"category": "product",
+"company": "Illinois Tool Works",
+"fp": "illinoistoolworks|product management intern",
+"grad": "",
+"label": "Product",
+"locations": [
+"Troy, OH"
+],
+"posted": 1789510942,
+"queued": 1794477476,
+"season": "Summer 2027",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "Product Management Intern",
+"uids": [
+"simplify|4c81f85e-2b26-4deb-8711-3bf27be310ef"
+],
+"url": "https://careers.itw.com/global/en/job/JR10105"
+},
+{
+"category": "business",
+"company": "Robinhood",
+"fp": "robinhood|fraud operations intern summer 2027",
+"grad": "Class of 2027\u20132028",
+"label": "Business",
+"locations": [
+"Denver, CO"
+],
+"posted": 1789387209.0,
+"queued": 1794477476,
+"season": "Summer 2027",
+"section": "Business, Strategy & Consulting",
+"tech": true,
+"tier": 2,
+"title": "Fraud Operations Intern (Summer 2027)",
+"uids": [
+"greenhouse:robinhood|8198241"
+],
+"url": "https://boards.greenhouse.io/robinhood/jobs/8198241?t=gh_src=&gh_jid=8198241"
+},
+{
+"category": "marketing",
+"company": "Emerson Electric",
+"fp": "emersonelectric|america s field marketing intern",
+"grad": "",
+"label": "Marketing",
+"locations": [
+"Austin, TX, United States"
+],
+"posted": 1789344000.0,
+"queued": 1794477476,
+"season": "",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "America's Field Marketing Intern",
+"uids": [
+"oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26009838"
+],
+"url": "https://hdjq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26009838"
+},
+{
+"category": "product",
+"company": "Emerson Electric",
+"fp": "emersonelectric|software product management intern",
+"grad": "",
+"label": "Product",
+"locations": [
+"Austin, TX",
+"Austin, TX, United States"
+],
+"posted": 1789084800.0,
+"queued": 1794477476,
+"season": "",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "Software Product Management Intern",
+"uids": [
+"simplify|ac40f589-13ea-49dc-948f-064027da53cb",
+"oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010799"
+],
+"url": "https://hdjq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26010799"
+},
+{
+"category": "business",
+"company": "Emerson Electric",
+"fp": "emersonelectric|field device management sales enablement intern",
+"grad": "Open to rising juniors and seniors",
+"label": "Business",
+"locations": [
+"Austin, TX, United States"
+],
+"posted": 1789084800.0,
+"queued": 1794477476,
+"season": "",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Field Device Management Sales Enablement Intern",
+"uids": [
+"oracle:hdjq.fa.us2.oraclecloud.com/cx_1|26010058"
+],
+"url": "https://hdjq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26010058"
+},
+{
+"category": "business",
+"company": "Sherwin-Williams",
+"fp": "sherwinwilliams|management and sales summer 2027 internship kansas city district",
+"grad": "Open to juniors and seniors",
+"label": "Business",
+"locations": [
+"Lenexa, KS, United States"
+],
+"posted": 1789084800.0,
+"queued": 1794477476,
+"season": "Summer 2027",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Management and Sales Summer 2027 Internship (Kansas City District)",
+"uids": [
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623495"
+],
+"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2623495"
+},
+{
+"category": "business",
+"company": "Sherwin-Williams",
+"fp": "sherwinwilliams|2027 management and sales internship los angeles district",
+"grad": "Open to juniors and seniors",
+"label": "Business",
+"locations": [
+"Los Angeles, CA, United States"
+],
+"posted": 1789084800.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 Management and Sales Internship - Los Angeles District",
+"uids": [
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2622363"
+],
+"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2622363"
+},
+{
+"category": "business",
+"company": "Sherwin-Williams",
+"fp": "sherwinwilliams|2027 management and sales internship phoenix district",
+"grad": "Open to juniors and seniors",
+"label": "Business",
+"locations": [
+"Phoenix, AZ, United States"
+],
+"posted": 1789084800.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 Management and Sales Internship - Phoenix District",
+"uids": [
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623076"
+],
+"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2623076"
+},
+{
+"category": "business",
+"company": "Sherwin-Williams",
+"fp": "sherwinwilliams|2027 management and sales internship arizona district",
+"grad": "Open to juniors and seniors",
+"label": "Business",
+"locations": [
+"Tucson, AZ, United States"
+],
+"posted": 1789084800.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 Management and Sales Internship - Arizona District",
+"uids": [
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2623099"
+],
+"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2623099"
+},
+{
+"category": "business",
+"company": "Macy's",
+"fp": "macys|macy s 2027 summer internship merchandising buying",
+"grad": "Open to rising juniors and seniors",
+"label": "Business",
+"locations": [
+"New York, NY, United States"
+],
+"posted": 1788912000.0,
+"queued": 1794477476,
+"season": "Summer 2027",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Macy's 2027 Summer Internship - Merchandising - Buying",
+"uids": [
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91731"
+],
+"url": "https://ebwh.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/91731"
+},
+{
+"category": "business",
+"company": "Macy's",
+"fp": "macys|macy s 2027 summer internship merchandising assortment planning",
+"grad": "Open to rising juniors and seniors",
+"label": "Business",
+"locations": [
+"New York, NY, United States"
+],
+"posted": 1788912000.0,
+"queued": 1794477476,
+"season": "Summer 2027",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Macy's 2027 Summer Internship - Merchandising - Assortment Planning",
+"uids": [
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91733"
+],
+"url": "https://ebwh.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/91733"
+},
+{
+"category": "product",
+"company": "Macy's",
+"fp": "macys|macy s 2027 summer internship merchandising product development",
+"grad": "Open to rising juniors and seniors",
+"label": "Product",
+"locations": [
+"New York, NY, United States"
+],
+"posted": 1788912000.0,
+"queued": 1794477476,
+"season": "Summer 2027",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "Macy's 2027 Summer Internship - Merchandising - Product Development",
+"uids": [
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91739"
+],
+"url": "https://ebwh.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/91739"
+},
+{
+"category": "business",
+"company": "Macy's",
+"fp": "macys|macy s 2027 supply chain internship operations columbus oh",
+"grad": "Open to rising seniors",
+"label": "Business",
+"locations": [
+"Columbus, OH, United States"
+],
+"posted": 1788912000.0,
+"queued": 1794477476,
+"season": "",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Macy's 2027 Supply Chain Internship, Operations - Columbus OH",
+"uids": [
+"oracle:ebwh.fa.us2.oraclecloud.com/cx_1001|91766"
+],
+"url": "https://ebwh.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/91766"
+},
+{
+"category": "product",
+"company": "Dick's Sporting Goods",
+"fp": "dickssportinggoods|product management intern corporate internship",
+"grad": "Class of 2027\u20132028",
+"label": "Product",
+"locations": [
+"Pittsburgh, PA"
+],
+"posted": 1788825600,
+"queued": 1794477476,
+"season": "Summer 2027",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "Product Management Intern - Corporate Internship",
+"uids": [
+"simplify|1ab411c4-7013-4eeb-8835-d8bb9baa3f39"
+],
+"url": "https://dickssportinggoods.wd1.myworkdayjobs.com/en-US/DSG/job/Customer-Support-Center/Product-Management---Summer-2027-Corporate-Internship_202608791-1"
+},
+{
+"category": "business",
+"company": "Sherwin-Williams",
+"fp": "sherwinwilliams|2027 management sales summer intern dallas fort worth",
+"grad": "Open to juniors and seniors",
+"label": "Business",
+"locations": [
+"Irving, TX, United States"
+],
+"posted": 1788825600.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 Management & Sales Summer Intern - Dallas Fort Worth",
+"uids": [
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2622784"
+],
+"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2622784"
+},
+{
+"category": "business",
+"company": "Texas Instruments",
+"fp": "texasinstruments|operations intern",
+"grad": "",
+"label": "Business",
+"locations": [
+"Dallas, TX, United States"
+],
+"posted": 1788393600.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": true,
+"tier": 2,
+"title": "Operations Intern",
+"uids": [
+"oracle:edbz.fa.us2.oraclecloud.com/cx|25017562"
+],
+"url": "https://edbz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/25017562"
+},
+{
+"category": "business",
+"company": "Texas Instruments",
+"fp": "texasinstruments|procurement intern",
+"grad": "",
+"label": "Business",
+"locations": [
+"Dallas, TX, United States"
+],
+"posted": 1788393600.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": true,
+"tier": 2,
+"title": "Procurement Intern",
+"uids": [
+"oracle:edbz.fa.us2.oraclecloud.com/cx|25017563"
+],
+"url": "https://edbz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/25017563"
+},
+{
+"category": "product",
+"company": "BNY",
+"fp": "bny|product management intern product management",
+"grad": "Class of 2027\u20132028",
+"label": "Product",
+"locations": [
+"NYC"
+],
+"posted": 1787602474,
+"queued": 1794477476,
+"season": "Summer 2027",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "Product Management Intern - Product Management",
+"uids": [
+"simplify|a07da328-cad2-4ede-bbbb-87ffe48211e5"
+],
+"url": "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/81345"
+},
+{
+"category": "marketing",
+"company": "BNY",
+"fp": "bny|2027 bny summer internship program marketing pittsburgh pa",
+"grad": "Class of 2027\u20132028",
+"label": "Marketing",
+"locations": [
+"Pittsburgh, PA, United States"
+],
+"posted": 1787529600.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "2027 BNY Summer Internship Program - Marketing (Pittsburgh, PA)",
+"uids": [
+"oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81270"
+],
+"url": "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/81270"
+},
+{
+"category": "marketing",
+"company": "BNY",
+"fp": "bny|2027 bny summer internship program marketing new york ny",
+"grad": "Class of 2027\u20132028",
+"label": "Marketing",
+"locations": [
+"New York, NY, United States"
+],
+"posted": 1787529600.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "2027 BNY Summer Internship Program - Marketing (New York, NY)",
+"uids": [
+"oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81268"
+],
+"url": "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/81268"
+},
+{
+"category": "consulting",
+"company": "BNY",
+"fp": "bny|2027 bny summer internship program office of the cfo finance strategy pittsburgh pa",
+"grad": "Class of 2027\u20132028",
+"label": "Strategy & Consulting",
+"locations": [
+"Pittsburgh, PA, United States"
+],
+"posted": 1787529600.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 BNY Summer Internship Program - Office of the CFO - Finance & Strategy (Pittsburgh, PA)",
+"uids": [
+"oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81260"
+],
+"url": "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/81260"
+},
+{
+"category": "consulting",
+"company": "BNY",
+"fp": "bny|2027 bny summer internship program office of the cfo finance strategy new york ny",
+"grad": "Class of 2027\u20132028",
+"label": "Strategy & Consulting",
+"locations": [
+"New York, NY, United States"
+],
+"posted": 1787529600.0,
+"queued": 1794477476,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 BNY Summer Internship Program - Office of the CFO - Finance & Strategy (New York, NY)",
+"uids": [
+"oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81256"
+],
+"url": "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/81256"
 }
 ],
 "version": 1
