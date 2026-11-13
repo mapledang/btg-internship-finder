@@ -4,6 +4,7 @@
 "ashby:mach": "HTTPError: 404 Client Error: Not Found for url: https://api.ashbyhq.com/posting-api/job-board/mach",
 "ashby:mentis": "HTTPError: 404 Client Error: Not Found for url: https://api.ashbyhq.com/posting-api/job-board/mentis",
 "ashby:mtesting.ai": "HTTPError: 404 Client Error: Not Found for url: https://api.ashbyhq.com/posting-api/job-board/mtesting.ai",
+"greenhouse:andurilindustries": "ConnectionError: HTTPSConnectionPool(host='boards-api.greenhouse.io', port=443): Max retries exceeded with url: /v1/boards/andurilindustr",
 "greenhouse:capitalrx": "HTTPError: 404 Client Error: Not Found for url: https://boards-api.greenhouse.io/v1/boards/capitalrx/jobs",
 "lever:aifund": "HTTPError: 404 Client Error: Not Found for url: https://api.lever.co/v0/postings/aifund?mode=json",
 "lever:cesiumastro": "HTTPError: 404 Client Error: Not Found for url: https://api.lever.co/v0/postings/cesiumastro?mode=json",
@@ -12,58 +13,57 @@
 "lever:welocalize": "HTTPError: 404 Client Error: Not Found for url: https://api.lever.co/v0/postings/welocalize?mode=json",
 "workday:cmu.wd5.myworkdayjobs.com/cmu/cmu": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://cmu.wd5.myworkdayjobs.com/wday/cxs/cmu/cmu/jobs",
 "workday:comcast.wd5.myworkdayjobs.com/comcast/comcast_careers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://comcast.wd5.myworkdayjobs.com/wday/cxs/comcast/Comcast_Careers/j",
-"workday:globalhr.wd5.myworkdayjobs.com/globalhr/private_posting_no_tmp": "HTTPError: 500 Server Error: Internal Server Error for url: https://globalhr.wd5.myworkdayjobs.com/wday/cxs/globalhr/Private_Postin",
 "workday:gtsgbu.wd3.myworkdayjobs.com/gtsgbu/careers": "HTTPError: 403 Client Error: Forbidden for url: https://gtsgbu.wd3.myworkdayjobs.com/wday/cxs/gtsgbu/Careers/jobs",
-"workday:hntb.wd5.myworkdayjobs.com/hntb/hntb_careers": "HTTPError: 500 Server Error: Internal Server Error for url: https://hntb.wd5.myworkdayjobs.com/wday/cxs/hntb/hntb_careers/jobs",
-"workday:hpe.wd5.myworkdayjobs.com/hpe/acjobsite": "HTTPError: 500 Server Error: Internal Server Error for url: https://hpe.wd5.myworkdayjobs.com/wday/cxs/hpe/acjobsite/jobs",
+"workday:hp.wd5.myworkdayjobs.com/hp/exteu-ac-careersite": "HTTPError: 500 Server Error: Internal Server Error for url: https://hp.wd5.myworkdayjobs.com/wday/cxs/hp/EXTEU-AC-CareerSite/jobs",
+"workday:hpe.wd5.myworkdayjobs.com/hpe/jobsathpe": "HTTPError: 500 Server Error: Internal Server Error for url: https://hpe.wd5.myworkdayjobs.com/wday/cxs/hpe/jobsathpe/jobs",
 "workday:intel.wd1.myworkdayjobs.com/intel/en-us": "HTTPError: 404 Client Error: Not Found for url: https://intel.wd1.myworkdayjobs.com/wday/cxs/intel/en-us/jobs",
+"workday:kla.wd1.myworkdayjobs.com/kla/annarbor": "HTTPError: 500 Server Error: Internal Server Error for url: https://kla.wd1.myworkdayjobs.com/wday/cxs/kla/AnnArbor/jobs",
 "workday:kla.wd1.myworkdayjobs.com/kla/search": "HTTPError: 500 Server Error: Internal Server Error for url: https://kla.wd1.myworkdayjobs.com/wday/cxs/kla/Search/jobs",
 "workday:liveramp.wd5.myworkdayjobs.com/liveramp/liverampcareers": "HTTPError: 403 Client Error: Forbidden for url: https://liveramp.wd5.myworkdayjobs.com/wday/cxs/liveramp/LiveRampCareers/jobs",
-"workday:ms.wd5.myworkdayjobs.com/ms/private": "HTTPError: 500 Server Error: Internal Server Error for url: https://ms.wd5.myworkdayjobs.com/wday/cxs/ms/private/jobs",
-"workday:mufgub.wd3.myworkdayjobs.com/mufgub/mufg-earlycareers": "HTTPError: 500 Server Error: Internal Server Error for url: https://mufgub.wd3.myworkdayjobs.com/wday/cxs/mufgub/mufg-earlycareers/",
 "workday:netflix.wd1.myworkdayjobs.com/netflix/netflix": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://netflix.wd1.myworkdayjobs.com/wday/cxs/netflix/Netflix/jobs",
 "workday:nio.wd3.myworkdayjobs.com/nio/nio_careers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://nio.wd3.myworkdayjobs.com/wday/cxs/nio/NIO_Careers/jobs",
 "workday:nxp.wd3.myworkdayjobs.com/nxp/careers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://nxp.wd3.myworkdayjobs.com/wday/cxs/nxp/careers/jobs",
 "workday:osv-cci.wd1.myworkdayjobs.com/osv-cci/ccicareers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://osv-cci.wd1.myworkdayjobs.com/wday/cxs/osv-cci/CCICareers/jobs",
 "workday:osv-edf.wd5.myworkdayjobs.com/osv-edf/confidential": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://osv-edf.wd5.myworkdayjobs.com/wday/cxs/osv-edf/Confidential/jobs",
 "workday:osv-rubicon.wd5.myworkdayjobs.com/osv-rubicon/magnitecareers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://osv-rubicon.wd5.myworkdayjobs.com/wday/cxs/osv-rubicon/MagniteCa",
+"workday:ryan.wd1.myworkdayjobs.com/ryan/ryancareers": "HTTPError: 500 Server Error: Internal Server Error for url: https://ryan.wd1.myworkdayjobs.com/wday/cxs/ryan/RyanCareers/jobs",
 "workday:sallie-mae.wd5.myworkdayjobs.com/sallie-mae/careers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://sallie-mae.wd5.myworkdayjobs.com/wday/cxs/sallie-mae/Careers/job",
 "workday:vhr-epri.wd1.myworkdayjobs.com/vhr-epri/epricareers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://vhr-epri.wd1.myworkdayjobs.com/wday/cxs/vhr-epri/epricareers/job",
 "workday:vhr-genband.wd1.myworkdayjobs.com/vhr-genband/ribboncareers": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://vhr-genband.wd1.myworkdayjobs.com/wday/cxs/vhr-genband/ribboncar",
 "workday:walmart.wd5.myworkdayjobs.com/walmart/walmartexternal": "HTTPError: 422 Client Error: Unprocessable Entity for url: https://walmart.wd5.myworkdayjobs.com/wday/cxs/walmart/WalmartExternal/j"
 },
 "board_failures": {
-"ashby:atomicsemi": 27,
-"ashby:mach": 27,
-"ashby:mentis": 27,
-"ashby:mtesting.ai": 27,
-"greenhouse:capitalrx": 27,
-"lever:aifund": 27,
-"lever:cesiumastro": 27,
-"lever:mbrdna": 27,
-"lever:saronic": 27,
-"lever:welocalize": 27,
-"workday:cmu.wd5.myworkdayjobs.com/cmu/cmu": 27,
-"workday:comcast.wd5.myworkdayjobs.com/comcast/comcast_careers": 27,
-"workday:globalhr.wd5.myworkdayjobs.com/globalhr/private_posting_no_tmp": 1,
-"workday:gtsgbu.wd3.myworkdayjobs.com/gtsgbu/careers": 27,
-"workday:hntb.wd5.myworkdayjobs.com/hntb/hntb_careers": 1,
-"workday:hpe.wd5.myworkdayjobs.com/hpe/acjobsite": 2,
-"workday:intel.wd1.myworkdayjobs.com/intel/en-us": 27,
-"workday:kla.wd1.myworkdayjobs.com/kla/search": 1,
-"workday:liveramp.wd5.myworkdayjobs.com/liveramp/liverampcareers": 27,
-"workday:ms.wd5.myworkdayjobs.com/ms/private": 1,
-"workday:mufgub.wd3.myworkdayjobs.com/mufgub/mufg-earlycareers": 1,
-"workday:netflix.wd1.myworkdayjobs.com/netflix/netflix": 27,
-"workday:nio.wd3.myworkdayjobs.com/nio/nio_careers": 27,
-"workday:nxp.wd3.myworkdayjobs.com/nxp/careers": 25,
-"workday:osv-cci.wd1.myworkdayjobs.com/osv-cci/ccicareers": 27,
-"workday:osv-edf.wd5.myworkdayjobs.com/osv-edf/confidential": 27,
-"workday:osv-rubicon.wd5.myworkdayjobs.com/osv-rubicon/magnitecareers": 27,
-"workday:sallie-mae.wd5.myworkdayjobs.com/sallie-mae/careers": 27,
-"workday:vhr-epri.wd1.myworkdayjobs.com/vhr-epri/epricareers": 27,
-"workday:vhr-genband.wd1.myworkdayjobs.com/vhr-genband/ribboncareers": 27,
-"workday:walmart.wd5.myworkdayjobs.com/walmart/walmartexternal": 27
+"ashby:atomicsemi": 28,
+"ashby:mach": 28,
+"ashby:mentis": 28,
+"ashby:mtesting.ai": 28,
+"greenhouse:andurilindustries": 1,
+"greenhouse:capitalrx": 28,
+"lever:aifund": 28,
+"lever:cesiumastro": 28,
+"lever:mbrdna": 28,
+"lever:saronic": 28,
+"lever:welocalize": 28,
+"workday:cmu.wd5.myworkdayjobs.com/cmu/cmu": 28,
+"workday:comcast.wd5.myworkdayjobs.com/comcast/comcast_careers": 28,
+"workday:gtsgbu.wd3.myworkdayjobs.com/gtsgbu/careers": 28,
+"workday:hp.wd5.myworkdayjobs.com/hp/exteu-ac-careersite": 1,
+"workday:hpe.wd5.myworkdayjobs.com/hpe/jobsathpe": 1,
+"workday:intel.wd1.myworkdayjobs.com/intel/en-us": 28,
+"workday:kla.wd1.myworkdayjobs.com/kla/annarbor": 1,
+"workday:kla.wd1.myworkdayjobs.com/kla/search": 2,
+"workday:liveramp.wd5.myworkdayjobs.com/liveramp/liverampcareers": 28,
+"workday:netflix.wd1.myworkdayjobs.com/netflix/netflix": 28,
+"workday:nio.wd3.myworkdayjobs.com/nio/nio_careers": 28,
+"workday:nxp.wd3.myworkdayjobs.com/nxp/careers": 26,
+"workday:osv-cci.wd1.myworkdayjobs.com/osv-cci/ccicareers": 28,
+"workday:osv-edf.wd5.myworkdayjobs.com/osv-edf/confidential": 28,
+"workday:osv-rubicon.wd5.myworkdayjobs.com/osv-rubicon/magnitecareers": 28,
+"workday:ryan.wd1.myworkdayjobs.com/ryan/ryancareers": 1,
+"workday:sallie-mae.wd5.myworkdayjobs.com/sallie-mae/careers": 28,
+"workday:vhr-epri.wd1.myworkdayjobs.com/vhr-epri/epricareers": 28,
+"workday:vhr-genband.wd1.myworkdayjobs.com/vhr-genband/ribboncareers": 28,
+"workday:walmart.wd5.myworkdayjobs.com/walmart/walmartexternal": 28
 },
 "boards_initialized": {
 "ashby:1password": 1794031569,
@@ -1165,6 +1165,7 @@
 "abbvie|2027 business technology solutions intern cybersecurity undergraduate": 1794362270,
 "abbvie|2027 procurement intern undergraduate": 1794362270,
 "abbvie|2027 product development science and technology intern undergraduate": 1794362270,
+"abbvie|intern financiero": 1794592128,
 "abb|aspire internship marketing finance supply chain information technology": 1794355780,
 "abb|commercial sales intern summer 2027": 1794355780,
 "abb|corporate finance intern summer 2027": 1794031569,
@@ -1265,6 +1266,7 @@
 "advancedenergy|service product marketing intern": 1794355780,
 "aecom|aviation planning intern": 1794355780,
 "aecom|communications intern hiring event with aecom atlanta ga": 1794355780,
+"aecom|consulting services intern": 1794592128,
 "aecom|planning intern": 1794507770,
 "aecom|planning intern hiring event with aecom atlanta ga": 1794355780,
 "aerospacecorporation|2027 space communications and network systems undergrad intern": 1794355780,
@@ -1459,10 +1461,12 @@
 "aspentech|product owner intern product management summer 2027": 1794031569,
 "assurant|data support analyst intern": 1794031569,
 "assurant|manufactured housing product analysis intern": 1794355780,
+"assurant|summer 2027 intern account management": 1794592128,
 "assurant|summer 2027 intern assurant claims operations intern": 1794355780,
 "assurant|summer 2027 intern data support analyst": 1794118225,
 "assurant|summer 2027 intern global finance intern": 1794118225,
 "assurant|summer 2027 intern manufactured housing product analysis intern": 1794355780,
+"assurant|summer 2027 marketing operations project analyst intern": 1794592128,
 "assurant|summer 2027 underwriter intern": 1794118225,
 "asteralabs|ai product management intern": 1794031569,
 "asteralabs|business acceleration intern": 1794355780,
@@ -1780,6 +1784,7 @@
 "c3ai|ai product manager intern": 1794031569,
 "c3ai|ai product manager intern summer 2027": 1794031569,
 "caci|business systems analyst intern summer 2027": 1794355780,
+"caci|configuration control data management co op spring summer 2027": 1794592128,
 "cadencedesignsystems|cst intern data center gtm intern": 1794206667,
 "cadencesolutions|product management intern": 1794031569,
 "caesarsentertainment|internal audit intern corporate las vegas": 1794031569,
@@ -1895,7 +1900,7 @@
 "chukmedia|data analytics resident": 1794419710,
 "cibc|2027 summer analyst global markets": 1794343930,
 "cibc|2027 summer intern commercial banking": 1794031569,
-"cibc|2027 summer intern commercial real estate": 1794031569,
+"cibc|2027 summer intern commercial real estate": 1794592128,
 "cibc|2027 summer intern equity research buy side chicago": 1794031569,
 "cibc|2027 summer intern investment communication nyc": 1794031569,
 "cibc|2027 summer intern private wealth management atlanta": 1794031569,
@@ -1904,6 +1909,7 @@
 "ciena|services business intelligence analytics intern": 1794031569,
 "cignagroup|accredo product summer intern": 1794362270,
 "cignagroup|business analytics intern": 1794031569,
+"cignagroup|healthcare analytics summer intern start date may 24 2027": 1794592128,
 "cignagroup|pharmacy benefits management strategy intern": 1794362270,
 "cignagroup|product analytics intern": 1794444474,
 "cignagroup|product analytics summer intern start date may 24 2027": 1794436739,
@@ -1965,6 +1971,7 @@
 "clydecompanies|accounting intern": 1794031569,
 "clydecompanies|business intelligence intern": 1794031569,
 "clydecompanies|enterprise business solutions intern": 1794355780,
+"cmegroup|it asset management intern summer 2027": 1794592128,
 "cmsenergy|learning development intern co op data visualization": 1794031569,
 "cnainsurance|actuarial intern summer 2027": 1794031569,
 "cnainsurance|technology intern agile product design": 1794355780,
@@ -2068,6 +2075,7 @@
 "daimlertruck|asset inventory and travel accounting intern": 1794031569,
 "daimlertruck|procurement and supply chain intern stamping fabrication and raw material": 1794355780,
 "daimlertruck|project analyst intern": 1794532133,
+"daimlertruck|supply chain systems digitalization intern": 1794592128,
 "dairylandpowercooperative|business analyst intern": 1794031569,
 "dairylandpowercooperative|energy data analyst intern": 1794031569,
 "dairylandpowercooperative|intern energy data analyst": 1794031569,
@@ -2219,6 +2227,7 @@
 "energytransferpartners|commodity trading analyst intern": 1794031569,
 "enova|analytics intern": 1794250322,
 "enovis|finance intern": 1794031569,
+"entegris|associate product manager intern": 1794592128,
 "entegris|business process architect co op": 1794355780,
 "entegris|internal audit co op": 1794094771,
 "entegris|internal audit intern": 1794343930,
@@ -2234,6 +2243,7 @@
 "entegris|qa lab analyst co op": 1794355780,
 "entegris|supply chain planning co op": 1794355780,
 "entegris|supply planning intern summer 2027": 1794507770,
+"entegris|technical marketing intern": 1794592128,
 "environmentaldefensefund|consumer energy analytics intern": 1794532133,
 "envoyair|airport operations administrative analyst intern": 1794419710,
 "envoyair|college intern airport operations planning analyst": 1794355780,
@@ -2329,6 +2339,7 @@
 "fhlbankchicago|summer internship mpf operations": 1794355780,
 "fhlbankchicago|summer internship sales": 1794355780,
 "fidelityinvestments|equity research analyst intern summer 2027": 1794031569,
+"fifththirdbank|summer 2027 commercial middle market internship costa mesa": 1794592128,
 "fifththirdbank|summer 2027 commercial middle market internship san jose": 1794389414,
 "fifththirdbank|wealth and asset management co op full time january 2027 may 2027": 1794031569,
 "fifththirdbank|wealth and asset management co op full time may 2027 august 2027": 1794031569,
@@ -2383,6 +2394,7 @@
 "fox|summer 2027 fox news media internship program washington dc": 1794419710,
 "franklinelectric|global business strategy development intern": 1794355780,
 "freddiemac|quantitative risk management intern": 1794031569,
+"freseniusmedicalcare|analytics and ai business analyst co op": 1794592128,
 "freudenberggroup|finance accounting intern": 1794031569,
 "freudenberggroup|intern f m d in the field corporate strategic planning and business development mergers acquisitions january 2027 duration 2 3 months": 1794031569,
 "freudenberggroup|intern marketing trade marketing f m d": 1794355780,
@@ -3216,6 +3228,7 @@
 "merck|future talent program co op global supplier management group business ops": 1794362270,
 "merck|intern hbo wo business administration or data analytics intellectual property": 1794031569,
 "merck|international pricing analytics intern international pricing analytics": 1794031569,
+"merrick|gis analyst intern": 1794592128,
 "metlife|data analytics intern": 1794031569,
 "metropolitantransportationauthority|data analyst intern power control center": 1794031569,
 "michelin|2027 summer inclusion strategy business integration intern": 1794355780,
@@ -3246,11 +3259,14 @@
 "molinahealthcare|behavioral health project management internship remote summer 2027 undergraduate": 1794532133,
 "molinahealthcare|customer experience analytics intern undergraduate": 1794031569,
 "molinahealthcare|customer experience analytics internship remote summer 2027 undergraduate": 1794031569,
+"molinahealthcare|data analytics intern": 1794592128,
+"molinahealthcare|data analytics internship remote summer 2027 undergraduate": 1794592128,
 "molinahealthcare|electronic data interchange intern": 1794031569,
 "molinahealthcare|electronic data interchange intern remote summer 2027 undergraduate": 1794031569,
 "molinahealthcare|healthcare growth community engagement internship nebraska health plan summer 2027 undergraduate": 1794355780,
 "molinahealthcare|healthcare growth community engagement internship new york health plan summer 2027 undergraduate": 1794355780,
 "molinahealthcare|healthcare growth community engagement internship wisconsin health plan summer 2027 undergraduate": 1794355780,
+"molinahealthcare|healthcare quality analytics intern": 1794592128,
 "molinahealthcare|healthcare quality analytics internship kentucky health plan summer 2027 undergraduate": 1794343930,
 "molinahealthcare|healthcare quality analytics internship massachusetts summer 2027 undergraduate": 1794343930,
 "molinahealthcare|healthcare quality analytics internship michigan health plan summer 2027 undergraduate": 1794343930,
@@ -3275,7 +3291,7 @@
 "montenson|risk management intern": 1794031569,
 "montenson|social media intern": 1794355780,
 "montgomeryinvestmenttechnology|montgomery investment technology": 1794031569,
-"moog|intern business": 1794355780,
+"moog|intern business": 1794592128,
 "morganstanley|2027 financial services representative year up returning interns": 1794031569,
 "morganstanley|financial services representative year up returning interns": 1794031569,
 "motorola|business systems analyst internship summer 2027": 1794436739,
@@ -3614,6 +3630,7 @@
 "pimco|2027 summer intern trading analyst us": 1794118225,
 "pimco|2027 summer internship account analyst apac": 1794389414,
 "pncfinancialservices|asset management group undergraduate intern": 1794343930,
+"pncfinancialservices|corporate institutional banking undergraduate intern business credit": 1794592128,
 "poet|accounting intern summer 2027": 1794031569,
 "poet|business support analyst intern summer 2027": 1794355780,
 "poet|credit analyst intern summer 2027": 1794031569,
@@ -3799,6 +3816,7 @@
 "robertboschventurecapital|academic internship in finance f m div": 1794031569,
 "robertboschventurecapital|bosch hcp internship preventive maintenance planning intern": 1794355780,
 "robertboschventurecapital|business analyst intern": 1794031569,
+"robertboschventurecapital|extracurricular internship functional consulting ai sales solutions f m div": 1794592128,
 "robertboschventurecapital|extracurricular internship product management f m div": 1794355780,
 "robertboschventurecapital|human resources intern recruitment onboarding employer brand": 1794355780,
 "robertboschventurecapital|intern in the finance department": 1794031569,
@@ -3841,12 +3859,33 @@
 "rocketlabusa|supply chain intern": 1794355780,
 "rocketlabusa|supply chain intern spring 2027": 1794355780,
 "rocketlabusa|supply chain intern summer 2027": 1794355780,
+"rocketmortgage|accounting intern summer 2027": 1794592128,
+"rocketmortgage|brand marketing intern summer 2027": 1794592128,
+"rocketmortgage|business strategist intern summer 2027": 1794592128,
+"rocketmortgage|ce ops refinance communications intern summer 2027": 1794592128,
 "rocketmortgage|client experience operations intern az winter 2027": 1794355780,
+"rocketmortgage|client experience operations intern summer 2027": 1794592128,
+"rocketmortgage|corporate tax intern summer 2027": 1794592128,
+"rocketmortgage|creative designer intern summer 2027": 1794592128,
+"rocketmortgage|customer correspondence analyst intern": 1794592128,
+"rocketmortgage|data analyst intern": 1794592128,
+"rocketmortgage|data analyst intern summer 2027": 1794592128,
+"rocketmortgage|digital strategy creator intern summer 2027": 1794592128,
+"rocketmortgage|financial planning analysis intern summer 2027": 1794592128,
+"rocketmortgage|financial systems intern summer 2027": 1794592128,
+"rocketmortgage|insurance risk intern summer 2027": 1794592128,
+"rocketmortgage|internal communications intern summer 2027": 1794592128,
 "rocketmortgage|legal operations intern winter 2027": 1794355780,
+"rocketmortgage|post closing audit intern summer 2027": 1794592128,
+"rocketmortgage|public relations intern summer 2027": 1794592128,
 "rocketmortgage|summer 2027 cleveland internships real estate development property management": 1794031569,
 "rocketmortgage|summer 2027 internships marketing public relations communications accounting or information technology": 1794355780,
 "rocketmortgage|summer 2027 property management internships commercial and residential property management": 1794031569,
 "rocketmortgage|summer 2027 urban planning development intern": 1794355780,
+"rocketmortgage|technology risk assurance intern summer 2027": 1794592128,
+"rocketmortgage|treasury operations analyst intern summer 2027": 1794592128,
+"rocketmortgage|workplace operations intern summer 2027": 1794592128,
+"rocketmortgage|workplace strategy interior design intern summer 2027": 1794592128,
 "rockwellautomation|intern customer success professional": 1794436739,
 "rockwellautomation|intern integrated supply chain and manufacturing": 1794436739,
 "rockwellautomation|intern product management": 1794436739,
@@ -3896,7 +3935,7 @@
 "rtx|advanced measurement str data recording summer intern onsite": 1794031569,
 "rtx|digital technologies project management office operations intern summer 2027": 1794389414,
 "rtx|finance apprentice": 1794031569,
-"rtx|finance intern summer 2027": 1794269322,
+"rtx|finance intern summer 2027": 1794592128,
 "rtx|product safety co op summer fall 2027": 1794389414,
 "rtx|sap erp transformation plan to sustain aftermarket intern summer 2027": 1794419710,
 "rtx|vdsi validation planning intern summer 2027 onsite": 1794362270,
@@ -4566,6 +4605,7 @@
 "vertexpharmaceuticals|spring 2027 co op r d and dte sourcing": 1794419710,
 "vertexpharmaceuticals|spring 2027 co op scientific writing and disease area communications": 1794419710,
 "vertexpharmaceuticals|spring co op 2027 commercial analytics": 1794031569,
+"vertexpharmaceuticals|summer intern 2027 osd process data analytics": 1794592128,
 "vertexpharmaceuticals|vertex spring co op 2027 process and media development": 1794419710,
 "vertiv|business analytics intern summer 2027": 1794031569,
 "vertiv|data analytics intern": 1794031569,
@@ -4608,6 +4648,7 @@
 "vizient|2027 summer internship contract operations analytics": 1794507770,
 "vizient|2027 summer internship corporate procurement": 1794355780,
 "vizient|2027 summer internship cross business unit proposal development": 1794355780,
+"vizient|2027 summer internship data digital finance business partner": 1794592128,
 "vizient|2027 summer internship data digital sales operations": 1794343930,
 "vizient|2027 summer internship data management": 1794343930,
 "vizient|2027 summer internship digital collaboration data insights": 1794118225,
@@ -4697,6 +4738,7 @@
 "westernalliance|summer 2027 internship phoenix az financial crime compliance": 1794031569,
 "westernalliance|summer 2027 internship phoenix az hotel franchise finance": 1794031569,
 "westernalliance|summer 2027 internship phoenix az marketing": 1794355780,
+"westernalliance|summer 2027 internship phoenix az preferred banking": 1794592128,
 "westernalliance|summer 2027 internship phoenix az preferred banking operations": 1794031569,
 "westernalliance|summer 2027 internship phoenix az public non profit affordable housing finance": 1794031569,
 "westernalliance|summer 2027 internship phoenix az resort finance": 1794031569,
@@ -4721,13 +4763,15 @@
 "wsp|transportation data analyst intern summer 2027": 1794031569,
 "wsp|transportation planning intern spring 2027": 1794355780,
 "wsp|transportation planning intern summer 2027": 1794355780,
-"wsp|urban planning intern summer 2027": 1794355780,
+"wsp|urban planning intern summer 2027": 1794592128,
+"wtw|data analyst intern": 1794592128,
 "wtw|early careers adml insurance financial consulting internship northeast summer 2027": 1794355780,
 "wtw|early careers corporate risk and broking crb internship broking placement multiple locations 2027": 1794031569,
 "wtw|early careers corporate risk and broking crb internship mahoney placement dallas 2027": 1794031569,
 "wtw|early careers corporate risk and broking crb internship risk analytics enterprise risk consulting new york 2027": 1794355780,
 "wtw|early careers corporate risk and broking internship client advocacy commercial lines new york chicago and atlanta 2027": 1794507770,
 "wtw|early careers corporate risk and broking internship financial solutions trade credit new york 2027": 1794436739,
+"wtw|early careers data analyst internship": 1794592128,
 "wtw|early careers finance associate internship": 1794419710,
 "wtw|early careers investment internship atlanta summer 2027": 1794436739,
 "wtw|early careers pharmacy benefits consulting internship chicago summer 2027": 1794355780,
@@ -5144,6 +5188,7 @@
 "oracle:eedu.fa.em3.oraclecloud.com/cx_1003|202607191": 1794419710,
 "oracle:eedu.fa.em3.oraclecloud.com/cx_1003|202607242": 1794436739,
 "oracle:eedu.fa.em3.oraclecloud.com/cx_1003|202607255": 1794507770,
+"oracle:eedu.fa.em3.oraclecloud.com/cx_1003|202607277": 1794592128,
 "oracle:eeho.fa.us2.oraclecloud.com/cx_45001|345687": 1794362270,
 "oracle:eeho.fa.us2.oraclecloud.com/cx_45001|345688": 1794362270,
 "oracle:eeho.fa.us2.oraclecloud.com/cx_45001|345689": 1794362270,
@@ -5243,6 +5288,7 @@
 "oracle:emit.fa.ca3.oraclecloud.com/cx_2001|98842": 1794355780,
 "oracle:emit.fa.ca3.oraclecloud.com/cx_2001|98849": 1794355780,
 "oracle:emit.fa.ca3.oraclecloud.com/cx_2001|98916": 1794355780,
+"oracle:emit.fa.ca3.oraclecloud.com/cx_2001|98919": 1794592128,
 "oracle:emit.fa.ca3.oraclecloud.com/cx_2001|99352": 1794507770,
 "oracle:eofd.fa.us6.oraclecloud.com/cx_1001|751321": 1794389414,
 "oracle:eofe.fa.us2.oraclecloud.com/cx_1001|81248": 1794031569,
@@ -5359,6 +5405,7 @@
 "oracle:hckd.fa.us2.oraclecloud.com/cx_1|2040154": 1794343930,
 "oracle:hckd.fa.us2.oraclecloud.com/cx_1|2040155": 1794355780,
 "oracle:hckd.fa.us2.oraclecloud.com/cx_1|2040156": 1794031569,
+"oracle:hckd.fa.us2.oraclecloud.com/cx_1|2040160": 1794592128,
 "oracle:hckd.fa.us2.oraclecloud.com/cx_1|2040163": 1794532133,
 "oracle:hckd.fa.us2.oraclecloud.com/cx_1|2040169": 1794031569,
 "oracle:hcog.fa.em2.oraclecloud.com/cx_1|15708": 1794355780,
@@ -5600,6 +5647,7 @@
 "simplify|29efc01f-ded3-4731-b798-5b9a09c13427": 1794031569,
 "simplify|29f79682-4a77-4fcf-bd7d-a77d3af1acd7": 1794031569,
 "simplify|2aa0e77d-93f7-485a-8b82-0487eb24ac44": 1794532133,
+"simplify|2b041c35-8b41-4e11-ab87-232b37636213": 1794592128,
 "simplify|2b4f0591-67a0-4766-a1d6-6e8758c4128f": 1794355780,
 "simplify|2b618d42-4ed5-4c28-afba-944f17ce61fd": 1794031569,
 "simplify|2c1e4de1-dc7c-4c61-a87f-e32d307d8d5c": 1794031569,
@@ -5684,10 +5732,12 @@
 "simplify|45430dd6-d10c-488f-9e97-caa01db1f0b0": 1794031569,
 "simplify|45a33390-e3d3-4475-8ae9-1e37c162103a": 1794031569,
 "simplify|45cb500e-6cea-48a1-941e-f33226a37036": 1794031569,
+"simplify|45d13310-8ccb-4932-af40-0c16e8220885": 1794592128,
 "simplify|45f96119-ae4c-406b-aa1e-f4c0a6c59d89": 1794444474,
 "simplify|46afb6b3-6be4-457a-ab81-e5a109555aff": 1794355780,
 "simplify|46cf2e1a-9885-45e9-a32e-3ef2ed8e6af6": 1794031569,
 "simplify|46e43e77-a583-4b8b-a107-fac3536b5a7c": 1794355780,
+"simplify|470b39db-6434-4cac-81d5-bfa9c179796e": 1794592128,
 "simplify|4787855b-e024-4938-a00f-7829fac9f8db": 1794031569,
 "simplify|480a67dc-16ba-405a-acd9-1cf14304b979": 1794355780,
 "simplify|48327e8c-a8f7-4339-83a4-019ef774f663": 1794031569,
@@ -5713,6 +5763,7 @@
 "simplify|4d500daf-f215-4098-89bd-65f0f3d60ffe": 1794031569,
 "simplify|4df32e9a-c2bf-41b5-a2d3-5bffe9caf0b5": 1794031569,
 "simplify|4e01562f-f8bc-4029-bc79-5ea4aa18c8a3": 1794031569,
+"simplify|4e1d3eca-60ed-4189-856e-6f7c6a717741": 1794592128,
 "simplify|4e50989c-28b7-441b-aabc-eb291b528b95": 1794031569,
 "simplify|4e618daf-121b-4dda-bc86-e3ddc5cd88bc": 1794031569,
 "simplify|4e7b2780-4210-4901-a852-f42626894dcf": 1794355780,
@@ -5800,6 +5851,7 @@
 "simplify|673a3035-f4bb-47d2-912f-bee053a64f17": 1794031569,
 "simplify|678495bb-e157-455e-8bb4-01d862999751": 1794355780,
 "simplify|67dcd601-0896-4297-950a-3ec8b5d57109": 1794477249,
+"simplify|67e45c9b-a2e8-472f-b2a3-a786a98bf446": 1794592128,
 "simplify|69d073f7-29c2-47a9-9d99-d87676c3ea7b": 1794031569,
 "simplify|6a614540-0ae2-4f36-ae68-ab93d4857da1": 1794444474,
 "simplify|6a849ae3-5b64-44ef-8bcc-a7bb32766d9f": 1794031569,
@@ -6012,6 +6064,7 @@
 "simplify|ac91c5c4-10f9-42af-84f5-18018caf5088": 1794532133,
 "simplify|acaafa81-6155-4e77-8d56-dc8aac3847d6": 1794031569,
 "simplify|acda40fc-1690-467d-92ef-f27c904fb1bb": 1794031569,
+"simplify|ad14b025-74ef-4ada-8315-206a35b4bc1c": 1794592128,
 "simplify|ad7a72cf-ccd7-4926-a711-e4ff9a6f8520": 1794355780,
 "simplify|ad8ba622-f60f-4be2-a7df-744def610f7d": 1794444474,
 "simplify|ad922fdd-2a0e-4ef9-94d9-5e1c54969683": 1794031569,
@@ -6182,6 +6235,7 @@
 "simplify|de1fae80-4df8-4d1d-9d69-9bdecb9cdade": 1794355780,
 "simplify|de610830-2f60-4805-baf7-ae776ebdaeb4": 1794031569,
 "simplify|df021870-bc1b-408c-ac28-255a67469798": 1794031569,
+"simplify|df5eafa1-788e-43eb-a0cd-755cec712155": 1794592128,
 "simplify|df757bc2-dbbd-4572-b2e8-78356ee1a5f4": 1794355780,
 "simplify|df89c940-c5aa-4970-98ef-5b3c19d7b0e7": 1794031569,
 "simplify|e00b3a40-1aa3-4667-b9b1-f5476582a057": 1794031569,
@@ -6315,12 +6369,16 @@
 "smartrecruiters:abbvie|3743990016414086": 1794362270,
 "smartrecruiters:abbvie|3743990016414967": 1794031569,
 "smartrecruiters:abbvie|3743990016416916": 1794362270,
+"smartrecruiters:abbvie|3743990016840076": 1794592128,
 "smartrecruiters:aecom2|744000155034840": 1794355780,
 "smartrecruiters:aecom2|744000158081571": 1794355780,
 "smartrecruiters:aecom2|744000158086664": 1794355780,
 "smartrecruiters:aecom2|744000158841084": 1794355780,
 "smartrecruiters:aecom2|744000161171399": 1794436739,
 "smartrecruiters:aecom2|744000161351210": 1794507770,
+"smartrecruiters:aecom2|744000161538923": 1794592128,
+"smartrecruiters:aecom2|744000161539208": 1794592128,
+"smartrecruiters:aecom2|744000161539368": 1794592128,
 "smartrecruiters:boschgroup|744000141338089": 1794355780,
 "smartrecruiters:boschgroup|744000152705426": 1794355780,
 "smartrecruiters:boschgroup|744000155435816": 1794031569,
@@ -6352,6 +6410,7 @@
 "smartrecruiters:boschgroup|744000160938210": 1794355780,
 "smartrecruiters:boschgroup|744000160939779": 1794355780,
 "smartrecruiters:boschgroup|744000161022599": 1794389414,
+"smartrecruiters:boschgroup|744000161544969": 1794592128,
 "smartrecruiters:captechconsulting|744000155023169": 1794355780,
 "smartrecruiters:captechconsulting|744000155060459": 1794355780,
 "smartrecruiters:captechconsulting|744000159182656": 1794355780,
@@ -6730,8 +6789,10 @@
 "workday:asml.wd3.myworkdayjobs.com/asml/asmlext1|/job/N-Phoenix-AZ-USA/Internship---Supply-Chain-Analytics_J-00356114": 1794436739,
 "workday:asml.wd3.myworkdayjobs.com/asml/asmlext1|/job/San-Jose-CA-USA/HMI-Marketing-Communication-Internship_J-00354945": 1794031569,
 "workday:aspentech.wd5.myworkdayjobs.com/aspentech/aspentech|/job/Bedford-Massachusetts/Product-Owner-Intern---Product-Management----Summer-2027_R9471": 1794031569,
+"workday:assurant.wd1.myworkdayjobs.com/assurant/assurant_careers|/job/Atlanta-GA/Summer-2027--Marketing-Operations-Project-Analyst-Intern_R-116189": 1794592128,
 "workday:assurant.wd1.myworkdayjobs.com/assurant/assurant_careers|/job/Atlanta-GA/Summer-2027-Intern--Global-Finance-Intern_R-115643": 1794118225,
 "workday:assurant.wd1.myworkdayjobs.com/assurant/assurant_careers|/job/Florida-Virtual/Summer-2027---Underwriter-Intern_R-115522": 1794118225,
+"workday:assurant.wd1.myworkdayjobs.com/assurant/assurant_careers|/job/Georgia-Virtual/Summer-2027-Intern--Account-Management_R-116076": 1794592128,
 "workday:assurant.wd1.myworkdayjobs.com/assurant/assurant_careers|/job/Georgia-Virtual/Summer-2027-Intern--Assurant-Claims-Operations-Intern_R-115960": 1794355780,
 "workday:assurant.wd1.myworkdayjobs.com/assurant/assurant_careers|/job/Illinois-Virtual/Summer-2027-Intern--Data-Support-Analyst_R-115717": 1794118225,
 "workday:assurant.wd1.myworkdayjobs.com/assurant/assurant_careers|/job/Miami-FL/Summer-2027-Intern--Manufactured-Housing-Product-Analysis-Intern_R-115769": 1794355780,
@@ -6971,6 +7032,7 @@
 "workday:brunswick.wd1.myworkdayjobs.com/brunswick/search|/job/Fond-du-Lac-WI/Merucry-Marine--Product-Management-Intern---Parts---Accessories_JR-051142": 1794355780,
 "workday:brunswick.wd1.myworkdayjobs.com/brunswick/search|/job/Fond-du-Lac-WI/Supply-Chain-Indirect-Procurement-Co-op-Hybrid-Co-op_JR-051528-1": 1794355780,
 "workday:brunswick.wd1.myworkdayjobs.com/brunswick/search|/job/Menomonee-Falls-WI/Category-Manager-Intern_JR-051847": 1794355780,
+"workday:caci.wd1.myworkdayjobs.com/caci/external|/job/Danbury-CT-US/Configuration-Control-Data-Management-Co-op---Spring---Summer-2027_334005": 1794592128,
 "workday:caci.wd1.myworkdayjobs.com/caci/external|/job/Remote-Any-State/Business-Systems-Analyst-Intern---Summer-2027_331551": 1794355780,
 "workday:cadence.wd1.myworkdayjobs.com/cadence/external_careers|/job/SAN-JOSE/CST-Intern---Data-Center-GTM-Intern_R57099-2": 1794206667,
 "workday:cadence.wd1.myworkdayjobs.com/cadence/univ_careers|/job/SAN-JOSE/CST-Intern---Data-Center-GTM-Intern_R57099-1": 1794031569,
@@ -7065,6 +7127,7 @@
 "workday:cibc.wd3.myworkdayjobs.com/cibc/campus|/job/Atlanta-GA/XMLNAME-2027-Summer-Intern---Commercial-Banking_2620111": 1794031569,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/campus|/job/Atlanta-GA/XMLNAME-2027-Summer-Intern-Private-Wealth-Management-Atlanta_2620157": 1794031569,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/campus|/job/Birmingham-MI/XMLNAME-2027-Summer-Intern---Commercial-Real-Estate_2620106": 1794031569,
+"workday:cibc.wd3.myworkdayjobs.com/cibc/campus|/job/Chicago-IL/XMLNAME-2027-Summer-Intern---Commercial-Real-Estate_2620117": 1794592128,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/campus|/job/Chicago-IL/XMLNAME-2027-Summer-Intern---Private-Equity-Chicago_2620147-1": 1794031569,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/campus|/job/Chicago-IL/XMLNAME-2027-Summer-Intern--Private-Wealth-Management-Chicago_2620150": 1794031569,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/campus|/job/Dallas-TX/XMLNAME-2027-Summer-Intern---Commercial-Real-Estate_2620103": 1794031569,
@@ -7077,6 +7140,7 @@
 "workday:cibc.wd3.myworkdayjobs.com/cibc/search|/job/Atlanta-GA/XMLNAME-2027-Summer-Intern---Commercial-Banking_2620111-1": 1794031569,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/search|/job/Atlanta-GA/XMLNAME-2027-Summer-Intern-Private-Wealth-Management-Atlanta_2620157-1": 1794031569,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/search|/job/Birmingham-MI/XMLNAME-2027-Summer-Intern---Commercial-Real-Estate_2620106-1": 1794031569,
+"workday:cibc.wd3.myworkdayjobs.com/cibc/search|/job/Chicago-IL/XMLNAME-2027-Summer-Intern---Commercial-Real-Estate_2620117-1": 1794592128,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/search|/job/Chicago-IL/XMLNAME-2027-Summer-Intern---Private-Equity-Chicago_2620147": 1794031569,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/search|/job/Chicago-IL/XMLNAME-2027-Summer-Intern--Private-Wealth-Management-Chicago_2620150-1": 1794031569,
 "workday:cibc.wd3.myworkdayjobs.com/cibc/search|/job/Dallas-TX/XMLNAME-2027-Summer-Intern---Commercial-Real-Estate_2620103-1": 1794031569,
@@ -7088,6 +7152,7 @@
 "workday:ciena.wd5.myworkdayjobs.com/ciena/careers|/job/Montreal/Services-Business-Intelligence---Analytics-Intern_R031851": 1794031569,
 "workday:cigna.wd5.myworkdayjobs.com/cigna/cignacareers|/job/Bloomfield-CT/Business-Analytics-Intern_26012472": 1794031569,
 "workday:cigna.wd5.myworkdayjobs.com/cigna/cignacareers|/job/Franklin-TN/Risk---Underwriting-Summer-Internship-Program_26009228": 1794031569,
+"workday:cigna.wd5.myworkdayjobs.com/cigna/cignacareers|/job/Morris-Plains-NJ/Healthcare-Analytics-Summer-Intern---Start-Date--May-24--2027_26009857": 1794592128,
 "workday:cigna.wd5.myworkdayjobs.com/cigna/cignacareers|/job/Morris-Plains-NJ/Product-Analytics-Summer-Intern---Start-Date--May-24--2027_26010180": 1794436739,
 "workday:cigna.wd5.myworkdayjobs.com/cigna/cignacareers|/job/St-Louis-MO/Accredo-Product----Summer-Intern_26009464": 1794362270,
 "workday:cigna.wd5.myworkdayjobs.com/cigna/cignacareers|/job/St-Louis-MO/Pharmacy-Benefits-Management---Strategy-Intern_26009416-1": 1794362270,
@@ -7129,6 +7194,7 @@
 "workday:clearwateranalytics.wd1.myworkdayjobs.com/clearwateranalytics/clearwater_analytics_careers|/job/Office---New-York/UX-UI-Technical-Content-Intern_R12195": 1794031569,
 "workday:clearwateranalytics.wd1.myworkdayjobs.com/clearwateranalytics/clearwater_analytics_careers|/job/Office---New-York/UX-UI-Technical-Content-Intern_R12196": 1794031569,
 "workday:clorox.wd1.myworkdayjobs.com/clorox/inviteclorox|/job/Pleasanton-CA---USA/CloroxPro-B2B-Digital-Marketing-Summer-Intern--Summer-2027-_JR23360": 1794389414,
+"workday:cmegroup.wd1.myworkdayjobs.com/cmegroup/cme_careers|/job/Chicago---20-S-Wacker/IT-Asset-Management-Intern---Summer-2027_34985-1": 1794592128,
 "workday:cna.wd1.myworkdayjobs.com/cna/cna_careers|/job/Chicago-IL-USA/Actuarial-Intern---Summer-2027_R-8026": 1794031569,
 "workday:cna.wd1.myworkdayjobs.com/cna/cna_careers|/job/Chicago-IL-USA/Technology-Internship-Program--Agile-Product-Design-_R-8125": 1794355780,
 "workday:cna.wd1.myworkdayjobs.com/cna/cna_careers|/job/Chicago-IL-USA/Technology-Internship-Program--Data-Analytics-_R-8124": 1794031569,
@@ -7264,6 +7330,7 @@
 "workday:dtna.wd5.myworkdayjobs.com/dtna/dtna_affiliate|/job/Portland-OR-US/Asset--Inventory-and-Travel-Accounting-Intern_DT-20611-1": 1794031569,
 "workday:dtna.wd5.myworkdayjobs.com/dtna/dtna_affiliate|/job/Portland-OR-US/Project-Analyst-Intern_DT-20671-1": 1794532133,
 "workday:dtna.wd5.myworkdayjobs.com/dtna/dtna_affiliate|/job/Portland-OR-US/Raw-Material-Purchasing-Intern_DT-20573-1": 1794355780,
+"workday:dtna.wd5.myworkdayjobs.com/dtna/dtna_affiliate|/job/Portland-OR-US/Supply-Chain-Systems-Digitalization-Intern_DT-20680": 1794592128,
 "workday:dxctechnology.wd1.myworkdayjobs.com/dxctechnology/dxcjobs|/job/MYS---PETALING-JAYA/Business-Intelligence--BI--Intern_51591002": 1794031569,
 "workday:dxctechnology.wd1.myworkdayjobs.com/dxctechnology/dxcjobs|/job/MYS---PETALING-JAYA/Network-Operation-Analyst-Level-1-Internship--2026-Intake-_51580570": 1794419710,
 "workday:elekta.wd3.myworkdayjobs.com/elekta/elekta_careers|/job/Boulogne-Billancourt/Sourcing---Indirect-Procurement-Intern_R2026-0749-1": 1794355780,
@@ -7296,7 +7363,9 @@
 "workday:entegris.wd1.myworkdayjobs.com/entegris/entegriscareers|/job/Billerica-MA/Internal-Communications-Co-Op_REQ-14901": 1794343930,
 "workday:entegris.wd1.myworkdayjobs.com/entegris/entegriscareers|/job/Bloomington-MN/Supply-Chain-Planning-Co-Op_REQ-14450": 1794355780,
 "workday:entegris.wd1.myworkdayjobs.com/entegris/entegriscareers|/job/Bloomington-MN/Supply-Planning-Intern---Summer-2027_REQ-15885-1": 1794507770,
+"workday:entegris.wd1.myworkdayjobs.com/entegris/entegriscareers|/job/Chaska-MN/Associate-Product-Manager-Intern_REQ-15844": 1794592128,
 "workday:entegris.wd1.myworkdayjobs.com/entegris/entegriscareers|/job/Chaska-MN/Business-Process-Architect-Co-Op_REQ-14407": 1794355780,
+"workday:entegris.wd1.myworkdayjobs.com/entegris/entegriscareers|/job/Chaska-MN/Technical-Marketing-Intern_REQ-15843": 1794592128,
 "workday:entegris.wd1.myworkdayjobs.com/entegris/entegriscareers|/job/Colorado-Springs-CO/Marketing-Co-Op_REQ-14406": 1794094771,
 "workday:entegris.wd1.myworkdayjobs.com/entegris/entegriscareers|/job/Colorado-Springs-CO/Product-Design-R-D-Intern---Summer-2027_REQ-15877": 1794507770,
 "workday:entegris.wd1.myworkdayjobs.com/entegris/entegriscareers|/job/Danbury-CT/Production-Planning-Intern_REQ-15837": 1794355780,
@@ -7343,6 +7412,7 @@
 "workday:fhlbi.wd1.myworkdayjobs.com/fhlbi/fhlbi_careers|/job/Indianapolis/Treasury-Intern_R640": 1794031569,
 "workday:fifththird.wd5.myworkdayjobs.com/fifththird/53careers|/job/Cincinnati-OH/Wealth-and-Asset-Management-Co-Op----FULL-TIME--May-2027-August-2027_R74090": 1794031569,
 "workday:fifththird.wd5.myworkdayjobs.com/fifththird/53careers|/job/Cincinnati-OH/Wealth-and-Asset-Management-Co-Op---FULL-TIME-January-2027---May-2027_R74059": 1794031569,
+"workday:fifththird.wd5.myworkdayjobs.com/fifththird/53careers|/job/Newport-Beach-CA/Summer-2027-Commercial-Middle-Market-Internship---Costa-Mesa_R72039": 1794592128,
 "workday:fifththird.wd5.myworkdayjobs.com/fifththird/53careers|/job/San-Jose-CA/Summer-2027-Commercial-Middle-Market-Internship---San-Jose_R72043": 1794389414,
 "workday:fiserv.wd5.myworkdayjobs.com/fiserv/ext|/job/Alpharetta-Georgia/XMLNAME-2027-Finance---Accounting-Internship---Alpharetta_R-10403556": 1794343930,
 "workday:fiserv.wd5.myworkdayjobs.com/fiserv/ext|/job/Milwaukee-Wisconsin/XMLNAME-2027-Finance---Accounting-Internship-Program--Milwaukee--WI-_R-10403814": 1794343930,
@@ -7382,6 +7452,7 @@
 "workday:fox.wd1.myworkdayjobs.com/fox/domestic|/job/Washington-District-of-Columbia-USA/Spring-2027-FOX-News-Media-Internship-Program---Washington-DC_R50033921": 1794419710,
 "workday:fox.wd1.myworkdayjobs.com/fox/domestic|/job/Washington-District-of-Columbia-USA/Summer-2027-FOX-News-Media-Internship-Program---Technical-Operations---Washington-DC_R50033947": 1794419710,
 "workday:fox.wd1.myworkdayjobs.com/fox/domestic|/job/Washington-District-of-Columbia-USA/Summer-2027-FOX-News-Media-Internship-Program---Washington-DC_R50033949": 1794419710,
+"workday:freseniusmedicalcare.wd3.myworkdayjobs.com/freseniusmedicalcare/fme|/job/Lawrence-MA-USA/Analytics-and-AI-Business-Analyst-Co-op_R0277519": 1794592128,
 "workday:freudenberg.wd3.myworkdayjobs.com/freudenberg/freudenberg-group|/job/Asheville-NC/Sales---Marketing-Intern_R_00108732": 1794355780,
 "workday:freudenberg.wd3.myworkdayjobs.com/freudenberg/freudenberg-group|/job/Asheville-NC/Supply-Chain-Intern_R_00108221": 1794355780,
 "workday:freudenberg.wd3.myworkdayjobs.com/freudenberg/freudenberg-group|/job/Durham-NC/Finance-Accounting-Intern_R_00107225-1": 1794031569,
@@ -7504,6 +7575,7 @@
 "workday:globalhr.wd5.myworkdayjobs.com/globalhr/rec_rtx_ext_gateway|/job/US-IA-CEDAR-RAPIDS-193--1120-Collins-Rd-NE--BLDG193/Digital-Technologies-Project-Management-Office-Operations-Intern--Summer-2027-_01884834": 1794389414,
 "workday:globalhr.wd5.myworkdayjobs.com/globalhr/rec_rtx_ext_gateway|/job/US-MA-TEWKSBURY-TB4--836-North-St--INNOVATION-BLDG/Finance-Intern--Summer-2027-_01888472": 1794269322,
 "workday:globalhr.wd5.myworkdayjobs.com/globalhr/rec_rtx_ext_gateway|/job/US-MN-BURNSVILLE-NORTH--2900-County-Rd-42-W--NORTH-BLDG/Product-Safety-Co-op--Summer-Fall-2027-_01887481": 1794389414,
+"workday:globalhr.wd5.myworkdayjobs.com/globalhr/rec_rtx_ext_gateway|/job/US-TX-MCKINNEY-513PW--2501-W-University-Dr--PW-BLDG/Finance-Intern--Summer-2027-_01889012": 1794592128,
 "workday:gnw.wd1.myworkdayjobs.com/gnw/gnw|/job/Raleigh-North-Carolina/Accounting-Intern_REQ-260366-1": 1794031569,
 "workday:gnw.wd1.myworkdayjobs.com/gnw/gnw|/job/Richmond-Virginia/Public-Relations-Intern---Winter-Spring-2027_REQ-260415": 1794355780,
 "workday:graco.wd501.myworkdayjobs.com/graco/graco_careers|/job/Anoka-Minnesota-USA/Accounting-Intern_R0023526": 1794031569,
@@ -8026,6 +8098,7 @@
 "workday:momentive.wd1.myworkdayjobs.com/momentive/mc|/job/US-NY-Niskayuna/Summer-2027-Intern---Logistics-Optimization_R9741": 1794355780,
 "workday:momentive.wd1.myworkdayjobs.com/momentive/mc|/job/US-NY-Niskayuna/Summer-2027-Intern---Strategic-Project-Continuous-Improvement_R9787": 1794031569,
 "workday:moog.wd5.myworkdayjobs.com/moog/moog_external_career_site|/job/Blacksburg-VA/Intern--Business_R-26-21049": 1794355780,
+"workday:moog.wd5.myworkdayjobs.com/moog/moog_external_career_site|/job/Blacksburg-VA/Intern--Business_R-26-21164": 1794592128,
 "workday:motorolasolutions.wd5.myworkdayjobs.com/motorolasolutions/careers|/job/Allen-TX-TX139/Junior-Presales-Business-Manager--Ecosystem----Internship-2027_R69243": 1794436739,
 "workday:motorolasolutions.wd5.myworkdayjobs.com/motorolasolutions/careers|/job/Allen-TX-TX139/Presales-Business-Manager---Internship-2027_R70094": 1794436739,
 "workday:motorolasolutions.wd5.myworkdayjobs.com/motorolasolutions/careers|/job/Chicago-IL/Business-Systems-Analyst-Internship-Summer-2027_R68572": 1794436739,
@@ -8263,6 +8336,7 @@
 "workday:pimco.wd1.myworkdayjobs.com/pimco/pimco-careers|/job/Newport-Beach-CA-USA/XMLNAME-2027-Summer-Intern---Trade-Support-Analyst_R106744": 1794389414,
 "workday:pimco.wd1.myworkdayjobs.com/pimco/pimco-careers|/job/Newport-Beach-CA-USA/XMLNAME-2027-Summer-Intern---Trading-Analyst--US_R106763": 1794118225,
 "workday:pimco.wd1.myworkdayjobs.com/pimco/pimco-careers|/job/Singapore/XMLNAME-2027-Summer-Internship---Account-Analyst--APAC_R106818-1": 1794389414,
+"workday:pnc.wd5.myworkdayjobs.com/pnc/external|/job/IL---Chicago/Corporate---Institutional-Banking-Undergraduate-Intern---Business-Credit_R230898-1": 1794592128,
 "workday:pnc.wd5.myworkdayjobs.com/pnc/external|/job/PA---Pittsburgh-15222/Asset-Management-Group-Undergraduate-Intern_R230880-1": 1794343930,
 "workday:poet.wd1.myworkdayjobs.com/poet/poet|/job/Sioux-Falls-SD/Credit-Analyst-Intern---Summer-2027_R101739": 1794031569,
 "workday:poet.wd1.myworkdayjobs.com/poet/poet|/job/Sioux-Falls-SD/International-Logistics-Intern---Summer-2027_R101698": 1794355780,
@@ -8331,10 +8405,30 @@
 "workday:qtsdatacenters.wd5.myworkdayjobs.com/qtsdatacenters/qts|/job/Suwanee-GA/Summer-2027-Internship--Data-Center-Infrastructure-Management--DCIM-_R2026-1892": 1794031569,
 "workday:qtsdatacenters.wd5.myworkdayjobs.com/qtsdatacenters/qts|/job/US-GA-Peach-Tree/Summer-2027-Internship--Analyst--Strategy---Operations_R2026-2439": 1794355780,
 "workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Cleveland---200-Euclid/Summer-2027-Cleveland-Internships--Real-Estate-Development---Property-Management-_R-085039-1": 1794031569,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Accounting-Intern---Summer-2027_R-085013": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Brand-Marketing-Intern---Summer-2027_R-085132": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Business-Strategist-Intern---Summer-2027_R-084651": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Client-Experience-Operations-Intern---Summer-2027_R-084616": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Corporate-Tax-Intern---Summer-2027_R-084936": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Creative-Designer-Intern---Summer-2027_R-084550": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Data-Analyst-Intern---Summer-2027_R-083832": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Digital-Strategy---Creator-Intern---Summer-2027_R-085131": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Financial-Planning---Analysis-Intern---Summer-2027_R-085192-1": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Financial-Systems-Intern---Summer-2027_R-084978": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Insurance-Risk-Intern---Summer-2027_R-084805": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Internal-Communications-Intern---Summer-2027_R-084659": 1794592128,
 "workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Legal-Operations-Intern---Winter-2027_R-084962": 1794355780,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Post-Closing-Audit-Intern---Summer-2027_R-084450": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Public-Relations-Intern---Summer-2027_R-084660": 1794592128,
 "workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Summer-2027-Internships---Marketing--Accounting--or-Information-Technology_R-085042-1": 1794355780,
 "workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Summer-2027-Property-Management-Internships--Commercial-and-Residential-Property-Management-_R-085041": 1794031569,
 "workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Summer-2027-Urban-Planning-Development-Intern_R-085098": 1794355780,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Technology-Risk-Assurance-Intern---Summer-2027_R-084815": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Treasury-Operations-Analyst-Intern---Summer-2027_R-084321": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Workplace-Operations-Intern---Summer-2027_R-084742": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Detroit-MI/Workplace-Strategy-Interior-Design-Intern---Summer-2027_R-084789": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Phoenix-AZ/CE-OPs-Refinance-Communications-Intern---Summer-2027_R-084621": 1794592128,
+"workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Phoenix-AZ/Client-Experience-Operations-Intern---Summer-2027_R-084748-1": 1794592128,
 "workday:quickenloans.wd5.myworkdayjobs.com/quickenloans/rocket_careers|/job/Phoenix-AZ/Client-Experience-Operations-Intern--AZ----Winter-2027_R-085291": 1794355780,
 "workday:raymondjames.wd1.myworkdayjobs.com/raymondjames/raymondjamesearlycareers|/job/Mc-Lean-Virginia---United-States/XMLNAME-2027-Investment-Banking-Summer-Analyst-Diversified-Industrials-McLean--VA_R-0012139": 1794206667,
 "workday:raymondjames.wd1.myworkdayjobs.com/raymondjames/raymondjamesearlycareers|/job/New-York-New-York---United-States/XMLNAME-2027-Investment-Banking-Summer-Analyst-Leveraged-Finance-New-York--NY_R-0013576": 1794206667,
@@ -8979,6 +9073,7 @@
 "workday:visa.wd5.myworkdayjobs.com/visa/visa_early_careers|/job/CI---Abidjan-Cote-DIvoire/Intern_REF086769W": 1794031569,
 "workday:vizient.wd1.myworkdayjobs.com/vizient/vizient_careers|/job/Chicago-IL-60607/XMLNAME-2027-Summer-Internship---Contract-Operations---Analytics_36238R-1": 1794507770,
 "workday:vizient.wd1.myworkdayjobs.com/vizient/vizient_careers|/job/Chicago-IL-60607/XMLNAME-2027-Summer-Internship---Cross-Business-Unit-Proposal-Development_36077R-1": 1794355780,
+"workday:vizient.wd1.myworkdayjobs.com/vizient/vizient_careers|/job/Chicago-IL-60607/XMLNAME-2027-Summer-Internship---Data---Digital-Finance-Business-Partner_36051R-1": 1794592128,
 "workday:vizient.wd1.myworkdayjobs.com/vizient/vizient_careers|/job/Chicago-IL-60607/XMLNAME-2027-Summer-Internship---Data---Digital-Sales-Operations_36211R": 1794343930,
 "workday:vizient.wd1.myworkdayjobs.com/vizient/vizient_careers|/job/Chicago-IL-60607/XMLNAME-2027-Summer-Internship---Digital-Collaboration---Data-Insights_35969R": 1794118225,
 "workday:vizient.wd1.myworkdayjobs.com/vizient/vizient_careers|/job/Chicago-IL-60607/XMLNAME-2027-Summer-Internship---HR-Strategy-and-Program-Management_35991R": 1794355780,
@@ -9001,8 +9096,10 @@
 "workday:vrtx.wd501.myworkdayjobs.com/vrtx/vertex_careers|/job/Boston-MA/Spring-2027-Co-op--Performance-Excellence-and-Business-Transformation_REQ-31100-1": 1794389414,
 "workday:vrtx.wd501.myworkdayjobs.com/vrtx/vertex_careers|/job/Boston-MA/Spring-2027-Co-op-Business-Process-Excellence--HR-Transformation_REQ-31104-1": 1794419710,
 "workday:vrtx.wd501.myworkdayjobs.com/vrtx/vertex_careers|/job/Boston-MA/Spring-Co-Op-2027--Commercial-Analytics_REQ-31112-1": 1794031569,
+"workday:vrtx.wd501.myworkdayjobs.com/vrtx/vertex_careers|/job/Boston-MA/Summer-Intern-2027--OSD-Process-Data-Analytics_REQ-31312": 1794592128,
 "workday:vrtx.wd501.myworkdayjobs.com/vrtx/vertex_careers|/job/Boston-MA/Vertex-Spring-2027-Co-op--Scientific-Writing-and-Disease-Area-Communications_REQ-30514-1": 1794419710,
 "workday:vrtx.wd501.myworkdayjobs.com/vrtx/vertex_careers|/job/Boston-MA/Vertex-Spring-Co-Op-2027--Process-and-Media-Development_REQ-30512-1": 1794419710,
+"workday:vrtx.wd501.myworkdayjobs.com/vrtx/vertex_intern|/job/Boston-MA/Summer-Intern-2027--OSD-Process-Data-Analytics_REQ-31312-2": 1794592128,
 "workday:walmart.wd504.myworkdayjobs.com/walmart/walmartexternal|/job/Bentonville-AR/Summer-2027-Global-Supply-Chain-Internship_R-2702474": 1794362270,
 "workday:walmart.wd504.myworkdayjobs.com/walmart/walmartexternal|/job/USA-AR-BENTONVILLE-09848-REG-OPERATIONS-CENTER/Summer-2027--Intern--Load-Logistics-Manager--Transportation-Corporate-Intern_R-2617827": 1794362270,
 "workday:walmart.wd504.myworkdayjobs.com/walmart/walmartexternal|/job/USA-Always-AR-Bentonville-Home-Office/R-2690844--USA--Corporate-Intern---Market-Strategy-Data-Science-Intern_R-2690844": 1794362270,
@@ -9057,6 +9154,7 @@
 "workday:wd5.myworkdaysite.com/westernalliancebank/wab|/job/Phoenix-AZ/Summer-2027-Internship---Phoenix--AZ---Hotel-Franchise-Finance_R13954": 1794031569,
 "workday:wd5.myworkdaysite.com/westernalliancebank/wab|/job/Phoenix-AZ/Summer-2027-Internship---Phoenix--AZ---Marketing_R13975": 1794355780,
 "workday:wd5.myworkdaysite.com/westernalliancebank/wab|/job/Phoenix-AZ/Summer-2027-Internship---Phoenix--AZ---Preferred-Banking-Operations_R13762": 1794031569,
+"workday:wd5.myworkdaysite.com/westernalliancebank/wab|/job/Phoenix-AZ/Summer-2027-Internship---Phoenix--AZ---Preferred-Banking_R13779": 1794592128,
 "workday:wd5.myworkdaysite.com/westernalliancebank/wab|/job/Phoenix-AZ/Summer-2027-Internship---Phoenix--AZ---Public--Non-Profit----Affordable-Housing-Finance_R13776": 1794031569,
 "workday:wd5.myworkdaysite.com/westernalliancebank/wab|/job/Phoenix-AZ/Summer-2027-Internship---Phoenix--AZ---Resort-Finance_R13961": 1794031569,
 "workday:wd5.myworkdaysite.com/westernalliancebank/wab|/job/San-Francisco-CA/Summer-2027-Internship---San-Francisco--CA---Technology---Innovation-Banking_R13940": 1794031569,
@@ -9089,50 +9187,8 @@
 "workday:zillow.wd5.myworkdayjobs.com/zillow/zillow_group_external|/job/Seattle-WA-2nd-Ave/Applied-Scientist--Economics--Intern_P751642-1": 1794082142,
 "workday:zillow.wd5.myworkdayjobs.com/zillow/zillow_group_external|/job/Seattle-WA-2nd-Ave/Product-Design-Intern_P751613": 1794082142
 },
-"last_digest": "2026-11-12",
+"last_digest": "2026-11-13",
 "queue": [
-{
-"category": "marketing",
-"company": "Walmart",
-"fp": "walmart|usa 2027 summer corporate intern corporate product marketing intern",
-"grad": "Class of 2027\u20132028",
-"label": "Marketing",
-"locations": [
-"(USA) Upstream Building AR Bentonville Home Office"
-],
-"posted": null,
-"queued": 1794362518,
-"season": "Summer 2027",
-"section": "Other Notable Roles",
-"tech": false,
-"tier": 1,
-"title": "(USA) 2027 Summer Corporate Intern:  Corporate\u00a0Product\u00a0Marketing\u00a0Intern",
-"uids": [
-"workday:walmart.wd504.myworkdayjobs.com/walmart/walmartexternal|/job/USA-Upstream-Building-AR-Bentonville-Home-Office/XMLNAME--USA--2027-Summer-Corporate-Intern---Corporate-Product-Marketing-Intern_R-2690891"
-],
-"url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-Upstream-Building-AR-Bentonville-Home-Office/XMLNAME--USA--2027-Summer-Corporate-Intern---Corporate-Product-Marketing-Intern_R-2690891"
-},
-{
-"category": "marketing",
-"company": "Caterpillar Inc.",
-"fp": "caterpillar|2027 summer corporate intern marketing",
-"grad": "",
-"label": "Marketing",
-"locations": [
-"7 Locations"
-],
-"posted": null,
-"queued": 1794362518,
-"season": "Summer 2027",
-"section": "Other Notable Roles",
-"tech": false,
-"tier": 1,
-"title": "2027 Summer Corporate Intern - Marketing",
-"uids": [
-"workday:cat.wd5.myworkdayjobs.com/cat/caterpillarcareers|/job/Peoria-Illinois/XMLNAME-2027-Summer-Corporate-Intern---Marketing_R0000391407"
-],
-"url": "https://cat.wd5.myworkdayjobs.com/CaterpillarCareers/job/Peoria-Illinois/XMLNAME-2027-Summer-Corporate-Intern---Marketing_R0000391407"
-},
 {
 "category": "marketing",
 "company": "Abbott",
@@ -9903,6 +9959,153 @@
 "simplify|b7198b61-27db-46c1-8155-5a5bdb14370f"
 ],
 "url": "https://apply.careers.microsoft.com/careers/job/1970393556953113"
+},
+{
+"category": "finance",
+"company": "S&P Global",
+"fp": "spglobal|summer intern managed services tax outsourcing",
+"grad": "Class of 2027\u20132028",
+"label": "Finance",
+"locations": [
+"Massachusetts, US"
+],
+"posted": null,
+"queued": 1794532359,
+"season": "Summer",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "Summer Intern, Managed Services - Tax Outsourcing",
+"uids": [
+"workday:spgi.wd5.myworkdayjobs.com/spgi/spgi_careers|/job/Massachusetts-US/Managed-Services---Tax-Outsourcing_332648"
+],
+"url": "https://spgi.wd5.myworkdayjobs.com/SPGI_Careers/job/Massachusetts-US/Managed-Services---Tax-Outsourcing_332648"
+},
+{
+"category": "product",
+"company": "ServiceNow",
+"fp": "servicenow|product security intern",
+"grad": "Class of 2027 or later",
+"label": "Product",
+"locations": [
+"San Diego, CALIFORNIA, US"
+],
+"posted": 1794519198.134,
+"queued": 1794532359,
+"season": "",
+"section": "Other Notable Roles",
+"tech": true,
+"tier": 2,
+"title": "Product Security Intern",
+"uids": [
+"smartrecruiters:servicenow|744000161385779"
+],
+"url": "https://jobs.smartrecruiters.com/ServiceNow/744000161385779"
+},
+{
+"category": "product",
+"company": "Kraft Heinz",
+"fp": "kraftheinz|product design intern",
+"grad": "",
+"label": "Product",
+"locations": [
+"Nijmegen"
+],
+"posted": null,
+"queued": 1794508038,
+"season": "",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "Product design intern",
+"uids": [
+"workday:heinz.wd1.myworkdayjobs.com/heinz/kraftheinz_careers|/job/Nijmegen/Product-design-intern_R-108404"
+],
+"url": "https://heinz.wd1.myworkdayjobs.com/KraftHeinz_Careers/job/Nijmegen/Product-design-intern_R-108404"
+},
+{
+"category": "finance",
+"company": "M&T Bank",
+"fp": "mtbank|2027 corporate summer internship program banking services wilmington vault",
+"grad": "",
+"label": "Finance",
+"locations": [
+"Wilmington, DE"
+],
+"posted": null,
+"queued": 1794508038,
+"season": "Summer",
+"section": "Other Notable Roles",
+"tech": false,
+"tier": 2,
+"title": "2027 Corporate Summer Internship Program- Banking Services: Wilmington Vault",
+"uids": [
+"workday:mtb.wd5.myworkdayjobs.com/mtb/campus|/job/Wilmington-DE/XMLNAME-2027-Corporate-Summer-Internship-Program--Banking-Services--Wilmington-Vault_R91804"
+],
+"url": "https://mtb.wd5.myworkdayjobs.com/Campus/job/Wilmington-DE/XMLNAME-2027-Corporate-Summer-Internship-Program--Banking-Services--Wilmington-Vault_R91804"
+},
+{
+"category": "product",
+"company": "T-Mobile",
+"fp": "tmobile|summer 2027 data product internship",
+"grad": "",
+"label": "Product",
+"locations": [
+"Bellevue, Washington"
+],
+"posted": null,
+"queued": 1794508038,
+"season": "Summer 2027",
+"section": "Other Notable Roles",
+"tech": true,
+"tier": 2,
+"title": "Summer 2027 Data Product Internship",
+"uids": [
+"workday:tmobile.wd1.myworkdayjobs.com/tmobile/external|/job/Bellevue-Washington/Summer-2027-Data-Product-Internship_REQ381212"
+],
+"url": "https://tmobile.wd1.myworkdayjobs.com/external/job/Bellevue-Washington/Summer-2027-Data-Product-Internship_REQ381212"
+},
+{
+"category": "marketing",
+"company": "The New York Times",
+"fp": "newyorktimes|b2b subscriptions marketing intern",
+"grad": "Open to juniors and seniors",
+"label": "Marketing",
+"locations": [
+"New York, NY"
+],
+"posted": 1794500164.0,
+"queued": 1794508038,
+"season": "Summer",
+"section": "Other Notable Roles",
+"tech": true,
+"tier": 2,
+"title": "B2B Subscriptions, Marketing Intern",
+"uids": [
+"greenhouse:thenewyorktimes|4753228005"
+],
+"url": "https://job-boards.greenhouse.io/thenewyorktimes/jobs/4753228005"
+},
+{
+"category": "product",
+"company": "T-Mobile",
+"fp": "tmobile|data product intern",
+"grad": "",
+"label": "Product",
+"locations": [
+"Bellevue, WA"
+],
+"posted": 1794441600,
+"queued": 1794532359,
+"season": "Summer 2027",
+"section": "Other Notable Roles",
+"tech": true,
+"tier": 2,
+"title": "Data Product Intern",
+"uids": [
+"simplify|c61c3197-26ec-4fec-a5f5-e604bd6d0899"
+],
+"url": "https://tmobile.wd1.myworkdayjobs.com/External/job/Bellevue-Washington/Summer-2027-Data-Product-Internship_REQ381212"
 },
 {
 "category": "finance",
@@ -13419,235 +13622,25 @@
 "url": "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/81268"
 },
 {
-"category": "business",
-"company": "Analog Devices",
-"fp": "analogdevices|field applications sales intern",
+"category": "finance",
+"company": "Hudson River Trading",
+"fp": "hudsonrivertrading|algorithm development intern quant research",
 "grad": "",
-"label": "Business",
+"label": "Finance",
 "locations": [
-"US, MA, Wilmington"
+"NYC"
 ],
-"posted": null,
-"queued": 1794436987,
-"season": "",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Field Applications (Sales) Intern",
-"uids": [
-"workday:analogdevices.wd1.myworkdayjobs.com/analogdevices/external|/job/US-MA-Wilmington/Field-Applications--Sales--Intern_R266123"
-],
-"url": "https://analogdevices.wd1.myworkdayjobs.com/External/job/US-MA-Wilmington/Field-Applications--Sales--Intern_R266123"
-},
-{
-"category": "business",
-"company": "Analog Devices",
-"fp": "analogdevices|supply chain analyst intern",
-"grad": "",
-"label": "Business",
-"locations": [
-"2 Locations"
-],
-"posted": null,
-"queued": 1794436987,
-"season": "",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Supply Chain Analyst Intern",
-"uids": [
-"workday:analogdevices.wd1.myworkdayjobs.com/analogdevices/external|/job/US-MA-Wilmington/Supply-Chain-Analyst-Intern_R265511"
-],
-"url": "https://analogdevices.wd1.myworkdayjobs.com/External/job/US-MA-Wilmington/Supply-Chain-Analyst-Intern_R265511"
-},
-{
-"category": "business",
-"company": "Analog Devices",
-"fp": "analogdevices|procurement operations intern",
-"grad": "",
-"label": "Business",
-"locations": [
-"US, OR, Beaverton"
-],
-"posted": null,
-"queued": 1794436987,
-"season": "",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Procurement (Operations) Intern",
-"uids": [
-"workday:analogdevices.wd1.myworkdayjobs.com/analogdevices/external|/job/US-OR-Beaverton/Procurement--Operations--Intern_R266141"
-],
-"url": "https://analogdevices.wd1.myworkdayjobs.com/External/job/US-OR-Beaverton/Procurement--Operations--Intern_R266141"
-},
-{
-"category": "business",
-"company": "Analog Devices",
-"fp": "analogdevices|facilities operations intern",
-"grad": "",
-"label": "Business",
-"locations": [
-"US, CA, San Jose, Rio Robles"
-],
-"posted": null,
-"queued": 1794436987,
-"season": "",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Facilities Operations Intern",
-"uids": [
-"workday:analogdevices.wd1.myworkdayjobs.com/analogdevices/external|/job/US-CA-San-Jose-Rio-Robles/Facilities-Operations-Intern_R266133"
-],
-"url": "https://analogdevices.wd1.myworkdayjobs.com/External/job/US-CA-San-Jose-Rio-Robles/Facilities-Operations-Intern_R266133"
-},
-{
-"category": "business",
-"company": "Applied Materials",
-"fp": "appliedmaterials|summer 2027 buyer intern advanced materials sourcing bachelor s austin tx",
-"grad": "",
-"label": "Business",
-"locations": [
-"Austin,TX"
-],
-"posted": null,
-"queued": 1794436987,
+"posted": 1783981845,
+"queued": 1794508038,
 "season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
+"section": "Other Notable Roles",
 "tech": true,
 "tier": 2,
-"title": "Summer 2027 Buyer Intern- Advanced Materials Sourcing- Bachelor's (Austin, TX)",
+"title": "Algorithm Development Intern - Quant Research",
 "uids": [
-"workday:amat.wd1.myworkdayjobs.com/amat/external|/job/AustinTX/Summer-2027-Buyer-Intern--Advanced-Materials-Sourcing--Bachelor-s--Austin--TX-_R2631583-1"
+"simplify|e37131d1-d111-4bf1-8493-2e54ad4ced68"
 ],
-"url": "https://amat.wd1.myworkdayjobs.com/External/job/AustinTX/Summer-2027-Buyer-Intern--Advanced-Materials-Sourcing--Bachelor-s--Austin--TX-_R2631583-1"
-},
-{
-"category": "business",
-"company": "Applied Materials",
-"fp": "appliedmaterials|summer 2027 revenue operations intern bachelor s chandler az",
-"grad": "",
-"label": "Business",
-"locations": [
-"Chandler,AZ"
-],
-"posted": null,
-"queued": 1794436987,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Summer 2027 Revenue Operations Intern- Bachelor's (Chandler, AZ)",
-"uids": [
-"workday:amat.wd1.myworkdayjobs.com/amat/external|/job/ChandlerAZ/Summer-2027-Revenue-Operations-Intern--Bachelor-s--Chandler--AZ-_R2627539"
-],
-"url": "https://amat.wd1.myworkdayjobs.com/External/job/ChandlerAZ/Summer-2027-Revenue-Operations-Intern--Bachelor-s--Chandler--AZ-_R2627539"
-},
-{
-"category": "business",
-"company": "Applied Materials",
-"fp": "appliedmaterials|summer 2027 materials project management intern bachelor s austin tx",
-"grad": "",
-"label": "Business",
-"locations": [
-"2 Locations"
-],
-"posted": null,
-"queued": 1794436987,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Summer 2027 Materials Project Management Intern- Bachelor's (Austin, TX)",
-"uids": [
-"workday:amat.wd1.myworkdayjobs.com/amat/external|/job/AustinTX/Summer-2027-Materials-Project-Management-Intern--Bachelor-s--Austin--TX-_R2627302"
-],
-"url": "https://amat.wd1.myworkdayjobs.com/External/job/AustinTX/Summer-2027-Materials-Project-Management-Intern--Bachelor-s--Austin--TX-_R2627302"
-},
-{
-"category": "business",
-"company": "Applied Materials",
-"fp": "appliedmaterials|2027 supply chain buyer intern bachelor s costa rica",
-"grad": "",
-"label": "Business",
-"locations": [
-"San Francisco,CRI"
-],
-"posted": null,
-"queued": 1794436987,
-"season": "",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "2027 Supply Chain Buyer Intern- Bachelor's (Costa Rica)",
-"uids": [
-"workday:amat.wd1.myworkdayjobs.com/amat/external|/job/San-FranciscoCRI/XMLNAME-2027-Supply-Chain-Buyer-Intern--Bachelor-s--Costa-Rica-_R2627710"
-],
-"url": "https://amat.wd1.myworkdayjobs.com/External/job/San-FranciscoCRI/XMLNAME-2027-Supply-Chain-Buyer-Intern--Bachelor-s--Costa-Rica-_R2627710"
-},
-{
-"category": "business",
-"company": "Applied Materials",
-"fp": "appliedmaterials|summer 2027 supply chain buyer intern bachelor s austin tx",
-"grad": "",
-"label": "Business",
-"locations": [
-"Austin,TX"
-],
-"posted": null,
-"queued": 1794436987,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Summer 2027 Supply Chain Buyer Intern- Bachelor's (Austin, TX)",
-"uids": [
-"workday:amat.wd1.myworkdayjobs.com/amat/external|/job/AustinTX/Summer-2027-Supply-Chain-Buyer-Intern--Bachelor-s--Austin--TX-_R2627046-1"
-],
-"url": "https://amat.wd1.myworkdayjobs.com/External/job/AustinTX/Summer-2027-Supply-Chain-Buyer-Intern--Bachelor-s--Austin--TX-_R2627046-1"
-},
-{
-"category": "business",
-"company": "Applied Materials",
-"fp": "appliedmaterials|summer 2027 supply chain buyer intern bachelor s gloucester ma",
-"grad": "",
-"label": "Business",
-"locations": [
-"Gloucester,MA"
-],
-"posted": null,
-"queued": 1794436987,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Summer 2027 Supply Chain Buyer Intern- Bachelor's (Gloucester, MA)",
-"uids": [
-"workday:amat.wd1.myworkdayjobs.com/amat/external|/job/GloucesterMA/Summer-2027-Supply-Chain-Buyer-Intern--Bachelor-s--Gloucester--MA-_R2627055"
-],
-"url": "https://amat.wd1.myworkdayjobs.com/External/job/GloucesterMA/Summer-2027-Supply-Chain-Buyer-Intern--Bachelor-s--Gloucester--MA-_R2627055"
-},
-{
-"category": "business",
-"company": "Marvell",
-"fp": "marvell|supply chain intern bs summer 2027",
-"grad": "Class of 2027\u20132028",
-"label": "Business",
-"locations": [
-"Santa Clara, CA"
-],
-"posted": null,
-"queued": 1794436987,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Supply Chain Intern, BS - Summer 2027",
-"uids": [
-"workday:marvell.wd1.myworkdayjobs.com/marvell/marvellcareers|/job/Santa-Clara-CA/Supply-Chain-Intern--BS---Summer-2027_2604541-1"
-],
-"url": "https://marvell.wd1.myworkdayjobs.com/MarvellCareers/job/Santa-Clara-CA/Supply-Chain-Intern--BS---Summer-2027_2604541-1"
+"url": "https://www.hudsonrivertrading.com/careers/job/?gh_jid=7964062"
 },
 {
 "category": "business",
@@ -14027,6 +14020,126 @@
 "oracle:edbz.fa.us2.oraclecloud.com/cx|25017563"
 ],
 "url": "https://edbz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/25017563"
+},
+{
+"category": "business",
+"company": "GE Aerospace",
+"fp": "geaerospace|test and manufacturing operations intern bohemia ny summer 2027",
+"grad": "",
+"label": "Business",
+"locations": [
+"Bohemia"
+],
+"posted": null,
+"queued": 1794532359,
+"season": "Summer 2027",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 1,
+"title": "Test and Manufacturing Operations Intern - Bohemia, NY - Summer 2027",
+"uids": [
+"workday:geaerospace.wd5.myworkdayjobs.com/geaerospace/ge_externalsite|/job/Bohemia/Test-and-Manufacturing-Operations-Intern---Bohemia--NY---Summer-2027_R5042960-1"
+],
+"url": "https://geaerospace.wd5.myworkdayjobs.com/ge_externalsite/job/Bohemia/Test-and-Manufacturing-Operations-Intern---Bohemia--NY---Summer-2027_R5042960-1"
+},
+{
+"category": "business",
+"company": "Tyson Foods",
+"fp": "tysonfoods|2027 summer operations intern dakota city",
+"grad": "",
+"label": "Business",
+"locations": [
+"Dakota City Plant - Dakota City, Nebraska"
+],
+"posted": null,
+"queued": 1794508038,
+"season": "Summer 2027",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 1,
+"title": "2027 Summer Operations Intern - Dakota, City",
+"uids": [
+"workday:tysonfoods.wd5.myworkdayjobs.com/tysonfoods/tsn|/job/Dakota-City-Plant---Dakota-City-Nebraska/XMLNAME-2027-Summer-Operations-Inter---Dakota--City_R0495819-3"
+],
+"url": "https://tysonfoods.wd5.myworkdayjobs.com/TSN/job/Dakota-City-Plant---Dakota-City-Nebraska/XMLNAME-2027-Summer-Operations-Inter---Dakota--City_R0495819-3"
+},
+{
+"category": "consulting",
+"company": "Accenture",
+"fp": "accenture|client transaction services summer analyst new york naelfy27",
+"grad": "Class of 2027\u20132028",
+"label": "Strategy & Consulting",
+"locations": [],
+"posted": null,
+"queued": 1794508038,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 1,
+"title": "Client Transaction Services Summer Analyst - New York - NAELFY27",
+"uids": [
+"workday:accenture.wd103.myworkdayjobs.com/accenture/accenturecareers|/job/New-York-One-Manhattan-West-Corp/Client-Transaction-Services-Summer-Analyst---New-York---NAELFY27_R00371373"
+],
+"url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/New-York-One-Manhattan-West-Corp/Client-Transaction-Services-Summer-Analyst---New-York---NAELFY27_R00371373"
+},
+{
+"category": "consulting",
+"company": "Accenture",
+"fp": "accenture|client transaction services summer analyst san francisco naelfy27",
+"grad": "Class of 2027\u20132028",
+"label": "Strategy & Consulting",
+"locations": [],
+"posted": null,
+"queued": 1794508038,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 1,
+"title": "Client Transaction Services Summer Analyst - San Francisco - NAELFY27",
+"uids": [
+"workday:accenture.wd103.myworkdayjobs.com/accenture/accenturecareers|/job/San-Francisco-415-Mission-Street-Corp/Client-Transaction-Services-Summer-Analyst---San-Francisco---NAELFY27_R00371377"
+],
+"url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/San-Francisco-415-Mission-Street-Corp/Client-Transaction-Services-Summer-Analyst---San-Francisco---NAELFY27_R00371377"
+},
+{
+"category": "consulting",
+"company": "Accenture",
+"fp": "accenture|client transaction services summer analyst dallas naelfy27",
+"grad": "Class of 2027\u20132028",
+"label": "Strategy & Consulting",
+"locations": [],
+"posted": null,
+"queued": 1794508038,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 1,
+"title": "Client Transaction Services Summer Analyst - Dallas - NAELFY27",
+"uids": [
+"workday:accenture.wd103.myworkdayjobs.com/accenture/accenturecareers|/job/Dallas-5205-N-OConnor-Las-Colinas-Corp/Client-Transaction-Services-Summer-Analyst---Dallas---NAELFY27_R00357966"
+],
+"url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/Dallas-5205-N-OConnor-Las-Colinas-Corp/Client-Transaction-Services-Summer-Analyst---Dallas---NAELFY27_R00357966"
+},
+{
+"category": "business",
+"company": "GE Aerospace",
+"fp": "geaerospace|supply chain operations intern us summer 2027",
+"grad": "",
+"label": "Business",
+"locations": [
+"23 Locations"
+],
+"posted": null,
+"queued": 1794508038,
+"season": "Summer 2027",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 1,
+"title": "Supply Chain Operations Intern \u2013 US \u2013 Summer 2027",
+"uids": [
+"workday:geaerospace.wd5.myworkdayjobs.com/geaerospace/ge_externalsite|/job/Evendale/Supply-Chain-Operations-Intern---US---Summer-2027_R5029660-1"
+],
+"url": "https://geaerospace.wd5.myworkdayjobs.com/ge_externalsite/job/Evendale/Supply-Chain-Operations-Intern---US---Summer-2027_R5029660-1"
 },
 {
 "category": "business",
@@ -16646,6 +16759,111 @@
 "oracle:eofd.fa.us6.oraclecloud.com/cx_1001|751321"
 ],
 "url": "https://eofd.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/751321"
+},
+{
+"category": "business",
+"company": "Sherwin-Williams",
+"fp": "sherwinwilliams|2027 management and sales intern chicago metro north suburbs",
+"grad": "Open to juniors and seniors",
+"label": "Business",
+"locations": [
+"Schaumburg, IL, United States"
+],
+"posted": 1794528000.0,
+"queued": 1794562889,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 Management and Sales Intern (Chicago Metro - North Suburbs)",
+"uids": [
+"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2621827"
+],
+"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2621827"
+},
+{
+"category": "consulting",
+"company": "Omnicom Group",
+"fp": "omnicomgroup|credera management consulting intern",
+"grad": "",
+"label": "Strategy & Consulting",
+"locations": [
+"6 Locations"
+],
+"posted": null,
+"queued": 1794508038,
+"season": "",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Credera Management Consulting Intern",
+"uids": [
+"workday:interpublic.wd5.myworkdayjobs.com/interpublic/omc|/job/Addison-Texas-United-States-of-America/Management-Consulting-Intern_R14135"
+],
+"url": "https://interpublic.wd5.myworkdayjobs.com/omc/job/Addison-Texas-United-States-of-America/Management-Consulting-Intern_R14135"
+},
+{
+"category": "business",
+"company": "Philips",
+"fp": "philips|intern project management plymouth mn summer 2027",
+"grad": "",
+"label": "Business",
+"locations": [
+"Plymouth, Minnesota, United States"
+],
+"posted": null,
+"queued": 1794508038,
+"season": "Summer 2027",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Intern \u2013 Project Management \u2013 Plymouth, MN \u2013 Summer 2027",
+"uids": [
+"workday:philips.wd3.myworkdayjobs.com/philips/jobs-and-careers|/job/Plymouth-Minnesota-United-States/Intern---Project-Management---Plymouth--MN---Summer-2027_593002"
+],
+"url": "https://philips.wd3.myworkdayjobs.com/jobs-and-careers/job/Plymouth-Minnesota-United-States/Intern---Project-Management---Plymouth--MN---Summer-2027_593002"
+},
+{
+"category": "business",
+"company": "Citizens Financial Group",
+"fp": "citizensfinancialgroup|2027 commercial summer intern houston tx",
+"grad": "Class of 2027\u20132028",
+"label": "Business",
+"locations": [
+"United States"
+],
+"posted": 1794441600.0,
+"queued": 1794508038,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "2027 Commercial Summer Intern - Houston, TX",
+"uids": [
+"oracle:hcgn.fa.us2.oraclecloud.com/cx_1|49213"
+],
+"url": "https://hcgn.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/49213"
+},
+{
+"category": "business",
+"company": "Marriott International",
+"fp": "marriottinternational|food beverage co operations 6 month university intern",
+"grad": "",
+"label": "Business",
+"locations": [
+"Scottsdale, AZ, United States"
+],
+"posted": 1794441600.0,
+"queued": 1794532359,
+"season": "",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Food & Beverage Co-Operations (6-Month University Intern)",
+"uids": [
+"oracle:ejwl.fa.us2.oraclecloud.com/cx|26148188"
+],
+"url": "https://ejwl.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/26148188"
 },
 {
 "category": "business",
@@ -21112,544 +21330,131 @@
 "url": "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/81256"
 },
 {
-"category": "business",
-"company": "Tyson Foods",
-"fp": "tysonfoods|2027 summer operations intern dakota city",
-"grad": "",
-"label": "Business",
+"category": "data",
+"company": "Cigna Group",
+"fp": "cignagroup|healthcare analytics summer intern start date may 24 2027",
+"grad": "Open to rising juniors and seniors",
+"label": "Data & Analytics",
 "locations": [
-"Dakota City Plant - Dakota City, Nebraska"
+"Morris Plains, NJ"
 ],
 "posted": null,
-"queued": 1794508038,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": false,
-"tier": 1,
-"title": "2027 Summer Operations Intern - Dakota, City",
-"uids": [
-"workday:tysonfoods.wd5.myworkdayjobs.com/tysonfoods/tsn|/job/Dakota-City-Plant---Dakota-City-Nebraska/XMLNAME-2027-Summer-Operations-Inter---Dakota--City_R0495819-3"
-],
-"url": "https://tysonfoods.wd5.myworkdayjobs.com/TSN/job/Dakota-City-Plant---Dakota-City-Nebraska/XMLNAME-2027-Summer-Operations-Inter---Dakota--City_R0495819-3"
-},
-{
-"category": "consulting",
-"company": "Accenture",
-"fp": "accenture|client transaction services summer analyst new york naelfy27",
-"grad": "Class of 2027\u20132028",
-"label": "Strategy & Consulting",
-"locations": [],
-"posted": null,
-"queued": 1794508038,
+"queued": 1794592369,
 "season": "Summer",
-"section": "Business, Strategy & Consulting",
+"section": "Other Notable Roles",
 "tech": false,
 "tier": 1,
-"title": "Client Transaction Services Summer Analyst - New York - NAELFY27",
+"title": "Healthcare Analytics Summer Intern - Start Date: May 24, 2027",
 "uids": [
-"workday:accenture.wd103.myworkdayjobs.com/accenture/accenturecareers|/job/New-York-One-Manhattan-West-Corp/Client-Transaction-Services-Summer-Analyst---New-York---NAELFY27_R00371373"
+"workday:cigna.wd5.myworkdayjobs.com/cigna/cignacareers|/job/Morris-Plains-NJ/Healthcare-Analytics-Summer-Intern---Start-Date--May-24--2027_26009857"
 ],
-"url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/New-York-One-Manhattan-West-Corp/Client-Transaction-Services-Summer-Analyst---New-York---NAELFY27_R00371373"
-},
-{
-"category": "consulting",
-"company": "Accenture",
-"fp": "accenture|client transaction services summer analyst san francisco naelfy27",
-"grad": "Class of 2027\u20132028",
-"label": "Strategy & Consulting",
-"locations": [],
-"posted": null,
-"queued": 1794508038,
-"season": "Summer",
-"section": "Business, Strategy & Consulting",
-"tech": false,
-"tier": 1,
-"title": "Client Transaction Services Summer Analyst - San Francisco - NAELFY27",
-"uids": [
-"workday:accenture.wd103.myworkdayjobs.com/accenture/accenturecareers|/job/San-Francisco-415-Mission-Street-Corp/Client-Transaction-Services-Summer-Analyst---San-Francisco---NAELFY27_R00371377"
-],
-"url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/San-Francisco-415-Mission-Street-Corp/Client-Transaction-Services-Summer-Analyst---San-Francisco---NAELFY27_R00371377"
-},
-{
-"category": "consulting",
-"company": "Accenture",
-"fp": "accenture|client transaction services summer analyst dallas naelfy27",
-"grad": "Class of 2027\u20132028",
-"label": "Strategy & Consulting",
-"locations": [],
-"posted": null,
-"queued": 1794508038,
-"season": "Summer",
-"section": "Business, Strategy & Consulting",
-"tech": false,
-"tier": 1,
-"title": "Client Transaction Services Summer Analyst - Dallas - NAELFY27",
-"uids": [
-"workday:accenture.wd103.myworkdayjobs.com/accenture/accenturecareers|/job/Dallas-5205-N-OConnor-Las-Colinas-Corp/Client-Transaction-Services-Summer-Analyst---Dallas---NAELFY27_R00357966"
-],
-"url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/Dallas-5205-N-OConnor-Las-Colinas-Corp/Client-Transaction-Services-Summer-Analyst---Dallas---NAELFY27_R00357966"
+"url": "https://cigna.wd5.myworkdayjobs.com/cignacareers/job/Morris-Plains-NJ/Healthcare-Analytics-Summer-Intern---Start-Date--May-24--2027_26009857"
 },
 {
 "category": "finance",
-"company": "PricewaterhouseCoopers (PwC)",
-"fp": "pricewaterhousecoopers|washington dc tax intern summer 2027",
-"grad": "Open to juniors",
+"company": "AbbVie",
+"fp": "abbvie|intern financiero",
+"grad": "",
 "label": "Finance",
 "locations": [
-"DC-Washington"
+"Madrid, MD, ES"
 ],
-"posted": null,
-"queued": 1794508038,
-"season": "Summer 2027",
+"posted": 1794580090.318,
+"queued": 1794592369,
+"season": "",
 "section": "Other Notable Roles",
 "tech": false,
 "tier": 1,
-"title": "Washington DC - Tax - Intern - Summer 2027",
+"title": "Intern Financiero",
 "uids": [
-"workday:pwc.wd3.myworkdayjobs.com/pwc/us_entry_level_careers|/job/DC-Washington/Washington-DC---Tax---Intern---Summer-2027_756508WD"
+"smartrecruiters:abbvie|3743990016840076"
 ],
-"url": "https://pwc.wd3.myworkdayjobs.com/US_Entry_Level_Careers/job/DC-Washington/Washington-DC---Tax---Intern---Summer-2027_756508WD"
-},
-{
-"category": "marketing",
-"company": "Adobe",
-"fp": "adobe|2027 intern communications",
-"grad": "Class of 2027\u20132028",
-"label": "Marketing",
-"locations": [
-"2 Locations"
-],
-"posted": null,
-"queued": 1794508038,
-"season": "",
-"section": "Other Notable Roles",
-"tech": true,
-"tier": 1,
-"title": "2027 Intern - Communications",
-"uids": [
-"workday:adobe.wd5.myworkdayjobs.com/adobe/external_experienced|/job/San-Francisco/XMLNAME-2027-Intern---Communications_R173413"
-],
-"url": "https://adobe.wd5.myworkdayjobs.com/external_experienced/job/San-Francisco/XMLNAME-2027-Intern---Communications_R173413"
+"url": "https://jobs.smartrecruiters.com/AbbVie/3743990016840076"
 },
 {
 "category": "business",
-"company": "GE Aerospace",
-"fp": "geaerospace|supply chain operations intern us summer 2027",
+"company": "PNC Financial Services",
+"fp": "pncfinancialservices|corporate institutional banking undergraduate intern business credit",
 "grad": "",
 "label": "Business",
 "locations": [
-"23 Locations"
+"3 Locations"
 ],
 "posted": null,
-"queued": 1794508038,
+"queued": 1794592369,
+"season": "Summer",
+"section": "Business, Strategy & Consulting",
+"tech": false,
+"tier": 2,
+"title": "Corporate & Institutional Banking Undergraduate Intern \u2013 Business Credit",
+"uids": [
+"workday:pnc.wd5.myworkdayjobs.com/pnc/external|/job/IL---Chicago/Corporate---Institutional-Banking-Undergraduate-Intern---Business-Credit_R230898-1"
+],
+"url": "https://pnc.wd5.myworkdayjobs.com/External/job/IL---Chicago/Corporate---Institutional-Banking-Undergraduate-Intern---Business-Credit_R230898-1"
+},
+{
+"category": "business",
+"company": "Fifth Third Bank",
+"fp": "fifththirdbank|summer 2027 commercial middle market internship costa mesa",
+"grad": "Class of 2028",
+"label": "Business",
+"locations": [
+"Newport Beach, CA"
+],
+"posted": null,
+"queued": 1794592369,
 "season": "Summer 2027",
 "section": "Business, Strategy & Consulting",
 "tech": false,
-"tier": 1,
-"title": "Supply Chain Operations Intern \u2013 US \u2013 Summer 2027",
+"tier": 2,
+"title": "Summer 2027 Commercial Middle Market Internship - Costa Mesa",
 "uids": [
-"workday:geaerospace.wd5.myworkdayjobs.com/geaerospace/ge_externalsite|/job/Evendale/Supply-Chain-Operations-Intern---US---Summer-2027_R5029660-1"
+"workday:fifththird.wd5.myworkdayjobs.com/fifththird/53careers|/job/Newport-Beach-CA/Summer-2027-Commercial-Middle-Market-Internship---Costa-Mesa_R72039"
 ],
-"url": "https://geaerospace.wd5.myworkdayjobs.com/ge_externalsite/job/Evendale/Supply-Chain-Operations-Intern---US---Summer-2027_R5029660-1"
+"url": "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Newport-Beach-CA/Summer-2027-Commercial-Middle-Market-Internship---Costa-Mesa_R72039"
 },
 {
 "category": "finance",
-"company": "State Farm",
-"fp": "statefarm|property and casualty underwriting intern knowledge management",
+"company": "CME Group",
+"fp": "cmegroup|it asset management intern summer 2027",
 "grad": "",
 "label": "Finance",
 "locations": [
-"Richardson, TX; Bloomington, IL"
+"Chicago - 20 S. Wacker"
 ],
-"posted": 1794493080,
-"queued": 1794508038,
+"posted": null,
+"queued": 1794592369,
 "season": "Summer 2027",
 "section": "Other Notable Roles",
 "tech": false,
-"tier": 1,
-"title": "Property and Casualty Underwriting Intern - Knowledge Management",
-"uids": [
-"simplify|b9075c04-a0bf-4ac8-973b-60aa1d7c730e"
-],
-"url": "https://jobs.statefarm.com/jobs/46442?icims=1&lang=en-us"
-},
-{
-"category": "product",
-"company": "Kraft Heinz",
-"fp": "kraftheinz|product design intern",
-"grad": "",
-"label": "Product",
-"locations": [
-"Nijmegen"
-],
-"posted": null,
-"queued": 1794508038,
-"season": "",
-"section": "Other Notable Roles",
-"tech": false,
 "tier": 2,
-"title": "Product design intern",
+"title": "IT Asset Management Intern - Summer 2027",
 "uids": [
-"workday:heinz.wd1.myworkdayjobs.com/heinz/kraftheinz_careers|/job/Nijmegen/Product-design-intern_R-108404"
+"workday:cmegroup.wd1.myworkdayjobs.com/cmegroup/cme_careers|/job/Chicago---20-S-Wacker/IT-Asset-Management-Intern---Summer-2027_34985-1"
 ],
-"url": "https://heinz.wd1.myworkdayjobs.com/KraftHeinz_Careers/job/Nijmegen/Product-design-intern_R-108404"
+"url": "https://cmegroup.wd1.myworkdayjobs.com/cme_careers/job/Chicago---20-S-Wacker/IT-Asset-Management-Intern---Summer-2027_34985-1"
 },
 {
-"category": "finance",
-"company": "M&T Bank",
-"fp": "mtbank|2027 corporate summer internship program banking services wilmington vault",
-"grad": "",
-"label": "Finance",
+"category": "data",
+"company": "Vertex Pharmaceuticals",
+"fp": "vertexpharmaceuticals|summer intern 2027 osd process data analytics",
+"grad": "Class of 2027",
+"label": "Data & Analytics",
 "locations": [
-"Wilmington, DE"
+"Boston, MA"
 ],
 "posted": null,
-"queued": 1794508038,
+"queued": 1794592369,
 "season": "Summer",
 "section": "Other Notable Roles",
 "tech": false,
 "tier": 2,
-"title": "2027 Corporate Summer Internship Program- Banking Services: Wilmington Vault",
+"title": "Summer Intern 2027, OSD Process Data Analytics",
 "uids": [
-"workday:mtb.wd5.myworkdayjobs.com/mtb/campus|/job/Wilmington-DE/XMLNAME-2027-Corporate-Summer-Internship-Program--Banking-Services--Wilmington-Vault_R91804"
+"workday:vrtx.wd501.myworkdayjobs.com/vrtx/vertex_intern|/job/Boston-MA/Summer-Intern-2027--OSD-Process-Data-Analytics_REQ-31312-2",
+"workday:vrtx.wd501.myworkdayjobs.com/vrtx/vertex_careers|/job/Boston-MA/Summer-Intern-2027--OSD-Process-Data-Analytics_REQ-31312"
 ],
-"url": "https://mtb.wd5.myworkdayjobs.com/Campus/job/Wilmington-DE/XMLNAME-2027-Corporate-Summer-Internship-Program--Banking-Services--Wilmington-Vault_R91804"
-},
-{
-"category": "consulting",
-"company": "Omnicom Group",
-"fp": "omnicomgroup|credera management consulting intern",
-"grad": "",
-"label": "Strategy & Consulting",
-"locations": [
-"6 Locations"
-],
-"posted": null,
-"queued": 1794508038,
-"season": "",
-"section": "Business, Strategy & Consulting",
-"tech": false,
-"tier": 2,
-"title": "Credera Management Consulting Intern",
-"uids": [
-"workday:interpublic.wd5.myworkdayjobs.com/interpublic/omc|/job/Addison-Texas-United-States-of-America/Management-Consulting-Intern_R14135"
-],
-"url": "https://interpublic.wd5.myworkdayjobs.com/omc/job/Addison-Texas-United-States-of-America/Management-Consulting-Intern_R14135"
-},
-{
-"category": "business",
-"company": "Philips",
-"fp": "philips|intern project management plymouth mn summer 2027",
-"grad": "",
-"label": "Business",
-"locations": [
-"Plymouth, Minnesota, United States"
-],
-"posted": null,
-"queued": 1794508038,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": false,
-"tier": 2,
-"title": "Intern \u2013 Project Management \u2013 Plymouth, MN \u2013 Summer 2027",
-"uids": [
-"workday:philips.wd3.myworkdayjobs.com/philips/jobs-and-careers|/job/Plymouth-Minnesota-United-States/Intern---Project-Management---Plymouth--MN---Summer-2027_593002"
-],
-"url": "https://philips.wd3.myworkdayjobs.com/jobs-and-careers/job/Plymouth-Minnesota-United-States/Intern---Project-Management---Plymouth--MN---Summer-2027_593002"
-},
-{
-"category": "product",
-"company": "T-Mobile",
-"fp": "tmobile|summer 2027 data product internship",
-"grad": "",
-"label": "Product",
-"locations": [
-"Bellevue, Washington"
-],
-"posted": null,
-"queued": 1794508038,
-"season": "Summer 2027",
-"section": "Other Notable Roles",
-"tech": true,
-"tier": 2,
-"title": "Summer 2027 Data Product Internship",
-"uids": [
-"workday:tmobile.wd1.myworkdayjobs.com/tmobile/external|/job/Bellevue-Washington/Summer-2027-Data-Product-Internship_REQ381212"
-],
-"url": "https://tmobile.wd1.myworkdayjobs.com/external/job/Bellevue-Washington/Summer-2027-Data-Product-Internship_REQ381212"
-},
-{
-"category": "marketing",
-"company": "The New York Times",
-"fp": "newyorktimes|b2b subscriptions marketing intern",
-"grad": "Open to juniors and seniors",
-"label": "Marketing",
-"locations": [
-"New York, NY"
-],
-"posted": 1794500164.0,
-"queued": 1794508038,
-"season": "Summer",
-"section": "Other Notable Roles",
-"tech": true,
-"tier": 2,
-"title": "B2B Subscriptions, Marketing Intern",
-"uids": [
-"greenhouse:thenewyorktimes|4753228005"
-],
-"url": "https://job-boards.greenhouse.io/thenewyorktimes/jobs/4753228005"
-},
-{
-"category": "business",
-"company": "Citizens Financial Group",
-"fp": "citizensfinancialgroup|2027 commercial summer intern houston tx",
-"grad": "Class of 2027\u20132028",
-"label": "Business",
-"locations": [
-"United States"
-],
-"posted": 1794441600.0,
-"queued": 1794508038,
-"season": "Summer",
-"section": "Business, Strategy & Consulting",
-"tech": false,
-"tier": 2,
-"title": "2027 Commercial Summer Intern - Houston, TX",
-"uids": [
-"oracle:hcgn.fa.us2.oraclecloud.com/cx_1|49213"
-],
-"url": "https://hcgn.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/49213"
-},
-{
-"category": "finance",
-"company": "Hudson River Trading",
-"fp": "hudsonrivertrading|algorithm development intern quant research",
-"grad": "",
-"label": "Finance",
-"locations": [
-"NYC"
-],
-"posted": 1783981845,
-"queued": 1794508038,
-"season": "Summer 2027",
-"section": "Other Notable Roles",
-"tech": true,
-"tier": 2,
-"title": "Algorithm Development Intern - Quant Research",
-"uids": [
-"simplify|e37131d1-d111-4bf1-8493-2e54ad4ced68"
-],
-"url": "https://www.hudsonrivertrading.com/careers/job/?gh_jid=7964062"
-},
-{
-"category": "business",
-"company": "GE Aerospace",
-"fp": "geaerospace|test and manufacturing operations intern bohemia ny summer 2027",
-"grad": "",
-"label": "Business",
-"locations": [
-"Bohemia"
-],
-"posted": null,
-"queued": 1794532359,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": false,
-"tier": 1,
-"title": "Test and Manufacturing Operations Intern - Bohemia, NY - Summer 2027",
-"uids": [
-"workday:geaerospace.wd5.myworkdayjobs.com/geaerospace/ge_externalsite|/job/Bohemia/Test-and-Manufacturing-Operations-Intern---Bohemia--NY---Summer-2027_R5042960-1"
-],
-"url": "https://geaerospace.wd5.myworkdayjobs.com/ge_externalsite/job/Bohemia/Test-and-Manufacturing-Operations-Intern---Bohemia--NY---Summer-2027_R5042960-1"
-},
-{
-"category": "business",
-"company": "Crowdstrike",
-"fp": "crowdstrike|sales excellence elite intern summer 2027",
-"grad": "Class of 2027\u20132028",
-"label": "Business",
-"locations": [
-"USA - Austin, TX"
-],
-"posted": null,
-"queued": 1794532359,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Sales Excellence Elite Intern (Summer 2027)",
-"uids": [
-"workday:crowdstrike.wd5.myworkdayjobs.com/crowdstrike/crowdstrikecareers|/job/USA---Austin-TX/Sales-Excellence-Elite-Intern--Summer-2027-_R30134"
-],
-"url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Sales-Excellence-Elite-Intern--Summer-2027-_R30134"
-},
-{
-"category": "finance",
-"company": "S&P Global",
-"fp": "spglobal|summer intern managed services tax outsourcing",
-"grad": "Class of 2027\u20132028",
-"label": "Finance",
-"locations": [
-"Massachusetts, US"
-],
-"posted": null,
-"queued": 1794532359,
-"season": "Summer",
-"section": "Other Notable Roles",
-"tech": false,
-"tier": 2,
-"title": "Summer Intern, Managed Services - Tax Outsourcing",
-"uids": [
-"workday:spgi.wd5.myworkdayjobs.com/spgi/spgi_careers|/job/Massachusetts-US/Managed-Services---Tax-Outsourcing_332648"
-],
-"url": "https://spgi.wd5.myworkdayjobs.com/SPGI_Careers/job/Massachusetts-US/Managed-Services---Tax-Outsourcing_332648"
-},
-{
-"category": "business",
-"company": "Motorola",
-"fp": "motorola|operations 2027 summer internship",
-"grad": "Class of 2026 or later",
-"label": "Business",
-"locations": [
-"Chicago, IL"
-],
-"posted": null,
-"queued": 1794532359,
-"season": "Summer 2027",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Operations - 2027 Summer Internship",
-"uids": [
-"workday:motorolasolutions.wd5.myworkdayjobs.com/motorolasolutions/careers|/job/Chicago-IL/Operations---2027-Summer-Internship_R67655"
-],
-"url": "https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Chicago-IL/Operations---2027-Summer-Internship_R67655"
-},
-{
-"category": "business",
-"company": "Hewlett Packard Enterprise",
-"fp": "hewlettpackardenterprise|technology alliances business development intern",
-"grad": "",
-"label": "Business",
-"locations": [
-"Sunnyvale, California, United States of America"
-],
-"posted": null,
-"queued": 1794532359,
-"season": "",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Technology Alliances Business Development Intern",
-"uids": [
-"workday:hpe.wd5.myworkdayjobs.com/hpe/jobsathpe|/job/Sunnyvale-California-United-States-of-America/Technology-Alliances-Business-Development-Intern_1214991"
-],
-"url": "https://hpe.wd5.myworkdayjobs.com/jobsathpe/job/Sunnyvale-California-United-States-of-America/Technology-Alliances-Business-Development-Intern_1214991"
-},
-{
-"category": "consulting",
-"company": "Hewlett Packard Enterprise",
-"fp": "hewlettpackardenterprise|process operations transformation intern",
-"grad": "",
-"label": "Strategy & Consulting",
-"locations": [
-"2 Locations"
-],
-"posted": null,
-"queued": 1794532359,
-"season": "",
-"section": "Business, Strategy & Consulting",
-"tech": true,
-"tier": 2,
-"title": "Process & Operations Transformation Intern",
-"uids": [
-"workday:hpe.wd5.myworkdayjobs.com/hpe/jobsathpe|/job/Spring-Texas-United-States-of-America/Process---Operations-Transformation-Intern_1218731"
-],
-"url": "https://hpe.wd5.myworkdayjobs.com/jobsathpe/job/Spring-Texas-United-States-of-America/Process---Operations-Transformation-Intern_1218731"
-},
-{
-"category": "product",
-"company": "ServiceNow",
-"fp": "servicenow|product security intern",
-"grad": "Class of 2027 or later",
-"label": "Product",
-"locations": [
-"San Diego, CALIFORNIA, US"
-],
-"posted": 1794519198.134,
-"queued": 1794532359,
-"season": "",
-"section": "Other Notable Roles",
-"tech": true,
-"tier": 2,
-"title": "Product Security Intern",
-"uids": [
-"smartrecruiters:servicenow|744000161385779"
-],
-"url": "https://jobs.smartrecruiters.com/ServiceNow/744000161385779"
-},
-{
-"category": "product",
-"company": "T-Mobile",
-"fp": "tmobile|data product intern",
-"grad": "",
-"label": "Product",
-"locations": [
-"Bellevue, WA"
-],
-"posted": 1794441600,
-"queued": 1794532359,
-"season": "Summer 2027",
-"section": "Other Notable Roles",
-"tech": true,
-"tier": 2,
-"title": "Data Product Intern",
-"uids": [
-"simplify|c61c3197-26ec-4fec-a5f5-e604bd6d0899"
-],
-"url": "https://tmobile.wd1.myworkdayjobs.com/External/job/Bellevue-Washington/Summer-2027-Data-Product-Internship_REQ381212"
-},
-{
-"category": "business",
-"company": "Marriott International",
-"fp": "marriottinternational|food beverage co operations 6 month university intern",
-"grad": "",
-"label": "Business",
-"locations": [
-"Scottsdale, AZ, United States"
-],
-"posted": 1794441600.0,
-"queued": 1794532359,
-"season": "",
-"section": "Business, Strategy & Consulting",
-"tech": false,
-"tier": 2,
-"title": "Food & Beverage Co-Operations (6-Month University Intern)",
-"uids": [
-"oracle:ejwl.fa.us2.oraclecloud.com/cx|26148188"
-],
-"url": "https://ejwl.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/26148188"
-},
-{
-"category": "business",
-"company": "Sherwin-Williams",
-"fp": "sherwinwilliams|2027 management and sales intern chicago metro north suburbs",
-"grad": "Open to juniors and seniors",
-"label": "Business",
-"locations": [
-"Schaumburg, IL, United States"
-],
-"posted": 1794528000.0,
-"queued": 1794562889,
-"season": "Summer",
-"section": "Business, Strategy & Consulting",
-"tech": false,
-"tier": 2,
-"title": "2027 Management and Sales Intern (Chicago Metro - North Suburbs)",
-"uids": [
-"oracle:ejhp.fa.us6.oraclecloud.com/cx_2|2621827"
-],
-"url": "https://ejhp.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/2621827"
+"url": "https://vrtx.wd501.myworkdayjobs.com/vertex_intern/job/Boston-MA/Summer-Intern-2027--OSD-Process-Data-Analytics_REQ-31312-2"
 }
 ],
 "version": 1
