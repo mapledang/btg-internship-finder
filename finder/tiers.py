@@ -25,21 +25,22 @@ def norm(s: str) -> str:
 @functools.lru_cache(maxsize=1)
 def _lists():
     if not os.path.exists(PATH):
-        return set(), set(), set(), set(), set()
+        return set(), set(), set(), set(), set(), set()
     with open(PATH) as f:
         d = yaml.safe_load(f) or {}
     get = lambda k: {norm(x) for x in (d.get(k) or []) if x}  # noqa: E731
-    return get("tier1"), get("tier2"), get("tech"), get("not_tech"), get("consulting_firms")
+    return get("tier1"), get("tier2"), get("tech"), get("not_tech"), get("consulting_firms"), get("elite")
 
 
 def tier(company: str) -> int:
-    t1, t2, _, _, _ = _lists()
+    """0 = elite (most prestigious), 1 = Fortune 100 / big tech, 2 = other large, 3 = everyone else."""
+    t1, t2, _, _, _, elite = _lists()
     n = norm(company)
-    return 1 if n in t1 else 2 if n in t2 else 3
+    return 0 if n in elite else 1 if n in t1 else 2 if n in t2 else 3
 
 
 def is_tech_company(job: Job) -> bool:
-    _, _, tech, not_tech, _ = _lists()
+    _, _, tech, not_tech, _, _ = _lists()
     n = norm(job.company)
     if n in tech:
         return True

@@ -81,13 +81,17 @@ include_off_season: false
 # ---------------------------------------------------------------------------
 # Daily digest: new roles are collected all day (scans run every 2 hours) and posted
 # once a day as a single Slack message with up to `per_section` roles per section.
-# Biggest companies (Fortune 100 / big tech) and newest roles are picked first. Roles that don't make the
-# cut stay queued for the next day, for up to `keep_days`.
+# Most prestigious companies (the `elite` list in data/company_tiers.yaml) are picked first,
+# then Fortune 100 / big tech, then other large companies; newest first within each. Roles
+# that don't make the cut stay queued for the next day, for up to `keep_days`.
 digest:
   time: "09:00"                    # first scan at/after this time posts the digest
   timezone: America/Los_Angeles
   per_section: 5                   # default when a section has no `limit`
-  keep_days: 7
+  keep_days: 5
+  # Skip roles whose posting date is older than this many days (roles with no posting
+  # date are kept, since they were only just found). Remove the line to allow any age.
+  max_posting_age_days: 14
   # Company size: only Tier 1 (Fortune 100, big tech, MBB, Big 4) and Tier 2 (other large,
   # well-known companies) by default; see data/company_tiers.yaml. Set max_company_tier: 3
   # or fill_with_smaller_companies: true to also include smaller companies (listed after big ones).

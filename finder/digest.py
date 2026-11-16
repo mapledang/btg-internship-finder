@@ -1,6 +1,7 @@
 """Daily digest: new roles are queued by section; once a day the top N per section are posted."""
 from __future__ import annotations
 
+import re
 import time
 from datetime import datetime, timedelta
 
@@ -66,6 +67,18 @@ def today(cfg) -> str:
     return _now_local(cfg).date().isoformat()
 
 
+def too_old(posted, cfg, now=None) -> bool:
+    """True if the posting date is known and older than digest.max_posting_age_days."""
+    days = (cfg.get("digest") or {}).get("max_posting_age_days")
+    return bool(days and posted and posted < (now or time.time()) - float(days) * 86400)
+
+
+def past_year(title: str, now=None) -> bool:
+    """True if the title names years and all of them are in the past (e.g. "2023 Summer Analyst")."""
+    years = [int(y) for y in re.findall(r"\b(20\d\d)\b", title or "")]
+    return bool(years) and max(years) < datetime.fromtimestamp(now or time.time()).year
+
+
 def big_enough(company: str, cfg) -> bool:
     """Tier 1-2 companies always; smaller ones only if fill_with_smaller_companies is on."""
     d = cfg.get("digest") or {}
@@ -75,15 +88,17 @@ def big_enough(company: str, cfg) -> bool:
 def pick(queue, cfg, per_section=None):
     """Return ({section: [entries]}, entries left in the queue).
 
-    Each section takes up to its `limit` roles: tech companies first where the section has
-    prefer_tech, then biggest companies, then newest.
+    Each section takes up to its `limit` roles: most prestigious company tier first (elite,
+    then tier 1, then tier 2), tech companies first within a tier where the section has
+    prefer_tech, then newest. Postings older than max_posting_age_days are dropped.
     """
     from .slack import plain
     d = cfg.get("digest") or {}
     default_n = per_section or int(d.get("per_section", 5))
     secs = {plain(s["name"]): s for s in sections(cfg)}
     keep_after = time.time() - float(d.get("keep_days", 7)) * 86400
-    fresh = [e for e in queue if e.get("queued", 0) >= keep_after]
+    fresh = [e for e in queue if e.get("queued", 0) >= keep_after and not too_old(e.get("posted"), cfg)
+             and not past_year(e.get("title"))]
     for e in fresh:
         e["tier"] = tier(e["company"])          # tiers file may have been edited since queuing
         e["section"] = plain(e["section"])
@@ -101,7 +116,7 @@ def pick(queue, cfg, per_section=None):
     for name, lst in picked.items():
         sec = secs[name]
         n = per_section or int(sec.get("limit", default_n))
-        lst.sort(key=lambda e: ((not e.get("tech", True)) if sec.get("prefer_tech") else 0, e["tier"],
+        lst.sort(key=lambda e: (e["tier"], (not e.get("tech", True)) if sec.get("prefer_tech") else 0,
                                 -(e.get("posted") or e.get("queued") or 0)))
         out[name], extra = lst[:n], lst[n:]
         rest += extra

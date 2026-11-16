@@ -178,6 +178,17 @@ scan.fetch_simplify = fake_simplify
 DUE = {"v": False}
 digest.due = lambda state, cfg: DUE["v"]
 
+# posting-age cap: fixtures have fixed dates, so check it directly and then turn it off
+_now, _cap = 1_800_000_000, {"digest": {"max_posting_age_days": 14}}
+assert digest.too_old(_now - 15 * 86400, _cap, _now)
+assert not digest.too_old(_now - 13 * 86400, _cap, _now)
+assert not digest.too_old(None, _cap, _now), "roles without a posting date are kept"
+assert not digest.too_old(_now - 99 * 86400, {}, _now), "no cap when unset"
+assert digest.past_year("2023 Firmwide Marketing Summer Analyst", _now)
+assert not digest.past_year("2026-2027 Development Program", _now - 300 * 86400)
+assert not digest.past_year("Strategy Intern", _now)
+digest.too_old = lambda posted, cfg, now=None: False
+
 
 def run(r, *extra):
     WORLD["round"] = r

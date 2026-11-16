@@ -187,7 +187,7 @@ def main():
 
     # ---- find new internships
     new = {}            # fingerprint -> item
-    seeded = matched = small = 0
+    seeded = matched = small = stale = 0
     for k, jobs in results:
         ready = state.board_ready(k)
         for j in jobs:
@@ -205,6 +205,10 @@ def main():
                 state.mark(j.uid, fp)       # smaller company (see digest.max_company_tier)
                 small += 1
                 continue
+            if digest.too_old(j.posted, cfg) or digest.past_year(j.title):
+                state.mark(j.uid, fp)       # posted too long ago (see digest.max_posting_age_days)
+                stale += 1
+                continue
             if fp in new:                   # same role at several locations / in several sources
                 it = new[fp]
                 it["uids"].append(j.uid)
@@ -217,7 +221,7 @@ def main():
                        "locations": [j.location] if j.location else []}
         state.board_ok(k)
 
-    # biggest companies first, then newest
+    # most prestigious companies first, then newest
     items = sorted(new.values(), key=lambda it: (tier(it["job"].company), -(it["job"].posted or time.time())))
     cap = int(cfg.get("max_posts_per_run", 120))
     to_check, waiting = items[:cap], items[cap:]
@@ -252,6 +256,7 @@ def main():
         + (", ".join(f"{n} {r}" for r, n in rejected.most_common()) if rejected else "none"),
         f"- Recorded silently (first scan of a board, or duplicate): {seeded}",
         f"- Skipped as smaller companies (not Tier 1-2): {small}",
+        f"- Skipped as posted too long ago: {stale}",
         f"- Daily digest: {digest_line}",
         "- Waiting in queue: " + (", ".join(f"{s}: {n}" for s, n in in_queue.items()) or "empty"),
     ]

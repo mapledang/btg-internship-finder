@@ -60,7 +60,7 @@ def digest_message(picked: dict, section_names: list, title: str, note: str = ""
         {"type": "header", "text": {"type": "plain_text", "text": f"Internship Roundup  |  {title}"}},
         {"type": "context", "elements": [{"type": "mrkdwn", "text":
             f"{total} new undergraduate summer internship{'s' if total != 1 else ''} in the US at large "
-            "companies, newest first within each company tier."}]},
+            "companies, most prestigious first, then newest."}]},
     ]
     if note:
         blocks.append({"type": "context", "elements": [{"type": "mrkdwn", "text": note}]})

@@ -1,6 +1,8 @@
 # Company tiers and tech labels. Edit freely; names are matched loosely
 # (case, punctuation, "Inc"/"The"/"Company" don't matter, but spelling does).
 #
+# elite: the most prestigious names (top tech, MBB, elite banks / PE / hedge funds, iconic
+#   brands). Posted ahead of everyone else. Overrides tier1 / tier2.
 # tier1: Fortune 100, big tech, MBB, Big 4. Scanned first, posted first, marked ⭐ in Slack.
 # tier2: other large / well-known companies. Scanned and posted next.
 # Everyone else is tier 3.
@@ -10,6 +12,68 @@
 # here still count as tech if they hire through Greenhouse, Lever or Ashby (almost always
 # startups) or have "AI", "Software", "Labs", "Robotics"... in their name. To mark one of
 # those as NOT tech, add it under not_tech.
+
+elite:
+  # Top tech
+  - Google
+  - Alphabet
+  - Apple
+  - Amazon
+  - Amazon Web Services (AWS)
+  - Microsoft
+  - Meta
+  - NVIDIA
+  - Netflix
+  - Tesla
+  - OpenAI
+  - Anthropic
+  - SpaceX
+  - Stripe
+  - Airbnb
+  - Uber
+  - LinkedIn
+  - Salesforce
+  - Adobe
+  - Palantir
+  - Databricks
+  - Bloomberg
+  - TikTok
+  - ByteDance
+  # MBB
+  - McKinsey & Company
+  - Boston Consulting Group
+  - BCG
+  - Bain & Company
+  # Elite banks & boutiques
+  - Goldman Sachs
+  - Morgan Stanley
+  - JP Morgan Chase
+  - JPMorgan Chase
+  - Evercore
+  - Lazard
+  - Centerview Partners
+  - PJT Partners
+  - Moelis & Company
+  # Private equity, asset management & hedge funds
+  - Blackstone
+  - KKR
+  - Apollo Global
+  - Apollo Global Management
+  - Carlyle Group
+  - BlackRock
+  - Citadel
+  - Citadel Securities
+  - Jane Street
+  - Two Sigma
+  - D. E. Shaw
+  - Hudson River Trading
+  - Bridgewater Associates
+  # Iconic brands
+  - The Walt Disney Company
+  - Nike
+  - The Coca-Cola Company
+  - Procter & Gamble
+  - Procter & Gamble (P&G)
 
 tier1:
   # Big tech
